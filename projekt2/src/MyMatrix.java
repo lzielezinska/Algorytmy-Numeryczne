@@ -21,7 +21,7 @@ public class MyMatrix <T extends Number> {
 
 
 
-    public static void fillMatrix(MyMatrix matrix){
+   /* public static void fillMatrix(MyMatrix matrix){
 
         for(int i = 0; i<matrix.rows; i++){
             for(int j = 0; j<matrix.columns; j++){
@@ -33,7 +33,7 @@ public class MyMatrix <T extends Number> {
             }
 
         }
-    }
+    }*/
 
     public static void printMatrix(MyMatrix matrix){
         for(int i = 0; i < matrix.rows; i++){
@@ -139,18 +139,5 @@ public class MyMatrix <T extends Number> {
         }
         return matrix;
     }
-
-
-
-
-
-
-
-
-public static void main(String[] args){
- MyMatrix macierz = new MyMatrix(5,5, Double.class);
- fillMatrix(macierz);
- printMatrix(macierz);
-}
 
 }
