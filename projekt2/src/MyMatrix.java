@@ -21,6 +21,30 @@ public class MyMatrix <T extends Number> {
 
 
 
+    public static void fillMatrix(MyMatrix matrix){
+
+        for(int i = 0; i<matrix.rows; i++){
+            for(int j = 0; j<matrix.columns; j++){
+
+                int a = ((-1)*(int)Math.pow(2,16));
+                int b = (int)Math.pow(2,16)-1;
+                int r = (int)(Math.random() * (b-a)+a);
+                matrix.matrix[i][j] = (T)r/Math.pow(2,16);
+            }
+
+        }
+    }
+
+    public static void printMatrix(MyMatrix matrix){
+        for(int i = 0; i < matrix.rows; i++){
+            for(int j = 0; j <matrix.columns; j++) System.out.print("| " + matrix.matrix[i][j] + " ");
+            System.out.println("|");
+        }
+    }
+
+
+
+
     public MyMatrix addTwoRows(MyMatrix row1, MyMatrix row2){
 
         if(!(row1.rows == row2.rows && row1.columns == 1 && row2.columns==1)){
@@ -70,6 +94,33 @@ public class MyMatrix <T extends Number> {
     }
 
 
+    public MyMatrix devideRowByValue(MyMatrix<T> row, MyMatrix<T> value) {
+
+        for (int i = 0; i < row.rows; i++) {
+            if(row.type.equals(float.class) && value.type.equals(float.class)){
+                Float dividend = row.matrix[i][0].floatValue();
+                Float divisor = value.matrix[0][0].floatValue();
+                Float quotion = dividend / divisor;
+
+                row.matrix[i][0]=(T)quotion;
+
+            }else if(row.type.equals(double.class) && value.type.equals(double.class)){
+                Double dividend = row.matrix[i][0].doubleValue();
+                Double divisor = value.matrix[0][0].doubleValue();
+                Double quotion = dividend / divisor;
+
+                row.matrix[i][1]=(T)quotion;
+
+
+            }
+        }
+
+        return row;
+    }
+
+
+
+
 
     public MyMatrix[] swapRows(MyMatrix[] matrix,int firstRow, int secondRow){
         MyMatrix temp = matrix[firstRow];
@@ -97,8 +148,9 @@ public class MyMatrix <T extends Number> {
 
 
 public static void main(String[] args){
-
-        System.out.println("hello world");
+ MyMatrix macierz = new MyMatrix(5,5, Double.class);
+ fillMatrix(macierz);
+ printMatrix(macierz);
 }
 
 }
