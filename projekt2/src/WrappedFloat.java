@@ -35,7 +35,7 @@ public class WrappedFloat extends ANumber<WrappedFloat> {
 
     public static WrappedFloat generateRandomNumber() {
         WrappedFloat result;
-        result = new WrappedFloat((float)(Randomizer.generateRandomShort()/65536));
+        result = new WrappedFloat(((float)Randomizer.generateRandomShort()/65536f));
         return result;
     }
 }

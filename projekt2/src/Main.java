@@ -1,6 +1,9 @@
 import java.math.BigInteger;
 
 public class Main {
+    private static final String MYTYPE = "MYTYPE";
+    private static final String WRAPPEDFLOAT = "WRAPPEDFLOAT";
+    private static final String WRAPPEDDOUBLE = "WRAPPEDDOUBLE";
     public static void main(String[] args){
         //Debug section
         System.out.println("hello");
@@ -14,5 +17,9 @@ public class Main {
         System.out.println(debugSub.toString());
         System.out.println(debugMul.toString());
         System.out.println(debugDiv.toString());
+
+        MyMatrix matrix = new MyMatrix(3,3,MYTYPE);
+        matrix.fillMatrix();
+        matrix.printMatrix();
     }
 }

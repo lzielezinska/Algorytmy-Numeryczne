@@ -6,124 +6,75 @@
  * Algorytmy Numeryczne
  * Projekt 2
  */
-public class MyMatrix <T extends Number> {
+public class MyMatrix {
     private int rows;
     private int columns;
-    private Class<T> type;
-    private T matrix[][];
+    private String type;
+    private ANumber matrix[][];
 
-    public MyMatrix(int rows, int columns, Class<T> type){
+    public MyMatrix(int rows, int columns, String type) {
         this.rows = rows;
         this.columns = columns;
-        this.matrix = (T[][])new Number[rows][columns];
+        this.matrix = new ANumber[rows][columns];
         this.type = type;
     }
 
 
+    private MyMatrix(ANumber[][] vector) {
+        this.rows = vector.length;
+        this.columns = vector[0].length;
+        this.matrix = vector;
+    }
 
-   /* public static void fillMatrix(MyMatrix matrix){
 
-        for(int i = 0; i<matrix.rows; i++){
-            for(int j = 0; j<matrix.columns; j++){
-
-                int a = ((-1)*(int)Math.pow(2,16));
-                int b = (int)Math.pow(2,16)-1;
-                int r = (int)(Math.random() * (b-a)+a);
-                matrix.matrix[i][j] = (T)r/Math.pow(2,16);
+    public void fillMatrix() {
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.columns; j++) {
+                try{
+                    this.matrix[i][j] = TypeFacbic.CreateNumber(this.type);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
             }
-
         }
-    }*/
+    }
 
-    public static void printMatrix(MyMatrix matrix){
-        for(int i = 0; i < matrix.rows; i++){
-            for(int j = 0; j <matrix.columns; j++) System.out.print("| " + matrix.matrix[i][j] + " ");
+    public  void printMatrix() {
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.columns; j++) System.out.print("| " + this.matrix[i][j].toString() + " ");
             System.out.println("|");
         }
     }
 
+    public ANumber[] addTwoRows(ANumber m1[], ANumber m2[]) {
 
-
-
-    public MyMatrix addTwoRows(MyMatrix row1, MyMatrix row2){
-
-        if(!(row1.rows == row2.rows && row1.columns == 1 && row2.columns==1)){
-            System.out.println("You can't add this two rows, because of incorrect size of the matrix");
-        }else{
-            for (int i = 0; i < row1.rows; i++) {
-                if(row1.type.equals(float.class) && row2.type.equals(float.class)) {
-                    Float element1 = row1.matrix[i][0].floatValue();
-                    Float element2 = row2.matrix[i][0].floatValue();
-                    Float sum = element1 + element2;
-
-                    row2.matrix[i][0]=sum;
-                }else if(row1.type.equals(double.class) && row2.type.equals(double.class)){
-                    Double element1 = row1.matrix[i][0].doubleValue();
-                    Double element2= row2.matrix[i][0].doubleValue();
-                    Double sum = element1 + element2;
-
-                    row2.matrix[i][0]=(T)sum;
-                }
-            }
-        }
-    return row2;
-    }
-
-    public MyMatrix multiplayRowByValue(MyMatrix<T> row, MyMatrix<T> value) {
-
-        for (int i = 0; i < row.rows; i++) {
-            if(row.type.equals(float.class) && value.type.equals(float.class)){
-                Float factor1 = row.matrix[i][0].floatValue();
-                Float factor2 = value.matrix[0][0].floatValue();
-                Float product = factor1 * factor2;
-
-                row.matrix[i][0]=(T)product;
-
-            }else if(row.type.equals(double.class) && value.type.equals(double.class)){
-                Double factor1 = row.matrix[i][0].doubleValue();
-                Double factor2 = value.matrix[0][0].doubleValue();
-                Double product = factor1 * factor2;
-
-                row.matrix[i][1]=(T)product;
-
-
-            }
+        ANumber sum[] = new ANumber[m1.length];
+        for (int i = 0; i < m1.length; i++) {
+            sum[i] = (ANumber) m1[i].add(m2[i]);
         }
 
-        return row;
+        return sum;
     }
 
-
-    public MyMatrix devideRowByValue(MyMatrix<T> row, MyMatrix<T> value) {
-
-        for (int i = 0; i < row.rows; i++) {
-            if(row.type.equals(float.class) && value.type.equals(float.class)){
-                Float dividend = row.matrix[i][0].floatValue();
-                Float divisor = value.matrix[0][0].floatValue();
-                Float quotion = dividend / divisor;
-
-                row.matrix[i][0]=(T)quotion;
-
-            }else if(row.type.equals(double.class) && value.type.equals(double.class)){
-                Double dividend = row.matrix[i][0].doubleValue();
-                Double divisor = value.matrix[0][0].doubleValue();
-                Double quotion = dividend / divisor;
-
-                row.matrix[i][1]=(T)quotion;
-
-
-            }
+    public ANumber[] multiplayRowByValue(ANumber[] row, ANumber value) {
+        ANumber factor[] = new ANumber[row.length];
+        for (int i = 0; i < row.length; i++) {
+            row[i] = (ANumber) row[i].mul(value);
         }
-
-        return row;
+        return factor;
     }
 
+    public ANumber[] devideRowByValue(ANumber[] row, ANumber value) {
+        ANumber quotion[] = new ANumber[row.length];
+        for (int i = 0; i < row.length; i++) {
+            row[i] = (ANumber) row[i].div(value);
+        }
+        return quotion;
 
+    }
 
-
-
-    public MyMatrix[] swapRows(MyMatrix[] matrix,int firstRow, int secondRow){
-        MyMatrix temp = matrix[firstRow];
+    public ANumber[] swapRows(ANumber[] matrix, int firstRow, int secondRow) {
+        ANumber temp = matrix[firstRow];
         matrix[firstRow] = matrix[secondRow];
         matrix[secondRow] = temp;
 
@@ -131,9 +82,9 @@ public class MyMatrix <T extends Number> {
     }
 
 
-    public MyMatrix[][] swapColumns(MyMatrix[][] matrix, int firstColumn, int secondColumn, int size){
-        for(int i = 0; i<size; i++){
-            MyMatrix tmp = matrix[i][firstColumn];
+    public ANumber[][] swapColumns(ANumber[][] matrix, int firstColumn, int secondColumn, int size) {
+        for (int i = 0; i < size; i++) {
+            ANumber tmp = matrix[i][firstColumn];
             matrix[i][firstColumn] = matrix[i][secondColumn];
             matrix[i][secondColumn] = tmp;
         }
