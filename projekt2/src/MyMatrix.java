@@ -21,7 +21,7 @@ public class MyMatrix <T extends Number> {
 
 
 
-    public static void fillMatrix(MyMatrix matrix){
+   /* public static void fillMatrix(MyMatrix matrix){
 
         for(int i = 0; i<matrix.rows; i++){
             for(int j = 0; j<matrix.columns; j++){
@@ -29,11 +29,11 @@ public class MyMatrix <T extends Number> {
                 int a = ((-1)*(int)Math.pow(2,16));
                 int b = (int)Math.pow(2,16)-1;
                 int r = (int)(Math.random() * (b-a)+a);
-                matrix.matrix[i][j] = r/Math.pow(2,16);
+                matrix.matrix[i][j] = (T)r/Math.pow(2,16);
             }
 
         }
-    }
+    }*/
 
     public static void printMatrix(MyMatrix matrix){
         for(int i = 0; i < matrix.rows; i++){
@@ -118,21 +118,7 @@ public class MyMatrix <T extends Number> {
         return row;
     }
 
-    public static void Gauss(MyMatrix matrix, MyMatrix vector ){
-        if(matrix.rows == vector.rows && vector.columns == 1){
-            if(matrix.type.equals(float.class) && vector.type.equals(float.class)){
-                if((float)matrix.matrix[0][0] != 0){
-                    for(int j = 0; j<matrix.columns; j++ ){
-                        for(int i = 0; i<matrix.rows; i++){
-                            (float)matrix.matrix[i] = (float)matrix.matrix[i]/ (float)matrix.matrix[i][j];
-                        }
 
-                    }
-                }
-            }
-
-        }
-    }
 
 
 
@@ -153,18 +139,5 @@ public class MyMatrix <T extends Number> {
         }
         return matrix;
     }
-
-
-
-
-
-
-
-
-public static void main(String[] args){
- MyMatrix macierz = new MyMatrix(5,5, Double.class);
- fillMatrix(macierz);
- printMatrix(macierz);
-}
 
 }
