@@ -15,7 +15,7 @@ public class Main {
         System.out.println(debugMul.toString());
         System.out.println(debugDiv.toString());
         for (int i = 0; i < 1000; i++){
-           // System.out.println(Randomizer.generateRandomShort());
+            System.out.println(MyType.generateRandomNumber());
         }
 
     }

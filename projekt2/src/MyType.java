@@ -14,8 +14,8 @@ public class MyType extends ANumber<MyType> {
         this.licz = licz;
         this.mian = mian;
     }
-    @Override
-    public MyType generateRandomNumber() {
+
+    public static MyType generateRandomNumber() {
         MyType result;
         result = new MyType(Randomizer.generateRandomShort(),65536);
         return result;
