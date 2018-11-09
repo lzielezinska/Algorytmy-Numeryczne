@@ -6,22 +6,32 @@
  * Algorytmy Numeryczne
  * Projekt 2
  */
-public class MyMatrix <T extends Number> {
+public class MyMatrix  {
     private int rows;
     private int columns;
-    private Class<T> type;
-    private T matrix[][];
+    private Class<ANumber> type;
+    private ANumber matrix[][];
 
-    public MyMatrix(int rows, int columns, Class<T> type){
+
+    public MyMatrix(int rows, int columns, Class<ANumber> type){
         this.rows = rows;
         this.columns = columns;
-        this.matrix = (T[][])new Number[rows][columns];
+        this.matrix = (ANumber[][]) new ANumber[rows][columns];
         this.type = type;
     }
 
 
 
-   /* public static void fillMatrix(MyMatrix matrix){
+    private MyMatrix(ANumber[][] vector) {
+        this.rows = vector.length;
+        this.columns = vector[0].length;
+
+        this.matrix=vector;
+    }
+
+
+
+   /public static void fillMatrix(MyMatrix matrix){
 
         for(int i = 0; i<matrix.rows; i++){
             for(int j = 0; j<matrix.columns; j++){
@@ -33,7 +43,7 @@ public class MyMatrix <T extends Number> {
             }
 
         }
-    }*/
+    }
 
     public static void printMatrix(MyMatrix matrix){
         for(int i = 0; i < matrix.rows; i++){
@@ -42,88 +52,36 @@ public class MyMatrix <T extends Number> {
         }
     }
 
+    public ANumber[] addTwoRows(ANumber m1[], ANumber m2[]) {
 
-
-
-    public MyMatrix addTwoRows(MyMatrix row1, MyMatrix row2){
-
-        if(!(row1.rows == row2.rows && row1.columns == 1 && row2.columns==1)){
-            System.out.println("You can't add this two rows, because of incorrect size of the matrix");
-        }else{
-            for (int i = 0; i < row1.rows; i++) {
-                if(row1.type.equals(float.class) && row2.type.equals(float.class)) {
-                    Float element1 = row1.matrix[i][0].floatValue();
-                    Float element2 = row2.matrix[i][0].floatValue();
-                    Float sum = element1 + element2;
-
-                    row2.matrix[i][0]=sum;
-                }else if(row1.type.equals(double.class) && row2.type.equals(double.class)){
-                    Double element1 = row1.matrix[i][0].doubleValue();
-                    Double element2= row2.matrix[i][0].doubleValue();
-                    Double sum = element1 + element2;
-
-                    row2.matrix[i][0]=(T)sum;
-                }
+            ANumber sum[] = new ANumber[m1.length];
+            for(int i=0; i<m1.length; i++){
+                sum[i] = (ANumber) m1[i].add(m2[i]);
             }
-        }
-    return row2;
+
+    return sum;
     }
 
-    public MyMatrix multiplayRowByValue(MyMatrix<T> row, MyMatrix<T> value) {
-
-        for (int i = 0; i < row.rows; i++) {
-            if(row.type.equals(float.class) && value.type.equals(float.class)){
-                Float factor1 = row.matrix[i][0].floatValue();
-                Float factor2 = value.matrix[0][0].floatValue();
-                Float product = factor1 * factor2;
-
-                row.matrix[i][0]=(T)product;
-
-            }else if(row.type.equals(double.class) && value.type.equals(double.class)){
-                Double factor1 = row.matrix[i][0].doubleValue();
-                Double factor2 = value.matrix[0][0].doubleValue();
-                Double product = factor1 * factor2;
-
-                row.matrix[i][1]=(T)product;
-
-
-            }
+    public ANumber[] multiplayRowByValue(ANumber[] row, ANumber value){
+        ANumber factor[] = new ANumber[row.length];
+        for(int i=0; i<row.length; i++){
+            row[i] = (ANumber) row[i].mul(value);
         }
+        return factor;
+    }
 
-        return row;
+    public ANumber[] devideRowByValue(ANumber[] row, ANumber value){
+        ANumber quotion[] = new ANumber[row.length];
+        for(int i=0; i<row.length; i++){
+            row[i] = (ANumber) row[i].div(value);
+        }
+        return quotion;
+
     }
 
 
-    public MyMatrix devideRowByValue(MyMatrix<T> row, MyMatrix<T> value) {
-
-        for (int i = 0; i < row.rows; i++) {
-            if(row.type.equals(float.class) && value.type.equals(float.class)){
-                Float dividend = row.matrix[i][0].floatValue();
-                Float divisor = value.matrix[0][0].floatValue();
-                Float quotion = dividend / divisor;
-
-                row.matrix[i][0]=(T)quotion;
-
-            }else if(row.type.equals(double.class) && value.type.equals(double.class)){
-                Double dividend = row.matrix[i][0].doubleValue();
-                Double divisor = value.matrix[0][0].doubleValue();
-                Double quotion = dividend / divisor;
-
-                row.matrix[i][1]=(T)quotion;
-
-
-            }
-        }
-
-        return row;
-    }
-
-
-
-
-
-    public MyMatrix[] swapRows(MyMatrix[] matrix,int firstRow, int secondRow){
-        MyMatrix temp = matrix[firstRow];
+    public ANumber[] swapRows(ANumber[] matrix,int firstRow, int secondRow){
+        ANumber temp = matrix[firstRow];
         matrix[firstRow] = matrix[secondRow];
         matrix[secondRow] = temp;
 
@@ -131,9 +89,9 @@ public class MyMatrix <T extends Number> {
     }
 
 
-    public MyMatrix[][] swapColumns(MyMatrix[][] matrix, int firstColumn, int secondColumn, int size){
+    public ANumber[][] swapColumns(ANumber[][] matrix, int firstColumn, int secondColumn, int size){
         for(int i = 0; i<size; i++){
-            MyMatrix tmp = matrix[i][firstColumn];
+            ANumber tmp = matrix[i][firstColumn];
             matrix[i][firstColumn] = matrix[i][secondColumn];
             matrix[i][secondColumn] = tmp;
         }
