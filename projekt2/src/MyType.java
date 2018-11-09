@@ -4,11 +4,21 @@ import java.math.BigInteger;
  * Created by Lucyna & Kacper on 05.11.18.
  */
 public class MyType extends ANumber<MyType> {
+    public static MyType ZERO = new MyType(0,0);
     private BigInteger licz;
     private BigInteger mian;
+    public MyType(Integer licz, Integer mian){
+        this(new BigInteger(licz.toString()), new BigInteger(mian.toString()));
+    }
     public MyType(BigInteger licz, BigInteger mian){
         this.licz = licz;
         this.mian = mian;
+    }
+    @Override
+    public MyType generateRandomNumber() {
+        MyType result;
+        result = new MyType(Randomizer.generateRandomShort(),65536);
+        return result;
     }
     @Override
     public MyType add(MyType num) {
@@ -61,4 +71,6 @@ public class MyType extends ANumber<MyType> {
         String result = this.licz + "/" + this.mian;
         return result;
     }
+
+
 }
