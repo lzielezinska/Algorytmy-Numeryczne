@@ -31,4 +31,10 @@ public class WrappedDouble extends ANumber<WrappedDouble> {
     public String toString() {
         return Double.toString(this.value);
     }
+
+    public static WrappedDouble generateRandomNumber() {
+        WrappedDouble result;
+        result = new WrappedDouble((double)(Randomizer.generateRandomShort()/65536));
+        return result;
+    }
 }

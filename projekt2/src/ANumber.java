@@ -1,5 +1,6 @@
 
 public abstract class ANumber<T> {
+    protected T ZERO;
     protected T value;
     public abstract T add(T t);
     public abstract T sub(T t);

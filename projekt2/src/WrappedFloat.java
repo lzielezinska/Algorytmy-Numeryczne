@@ -32,4 +32,10 @@ public class WrappedFloat extends ANumber<WrappedFloat> {
     public String toString() {
         return Float.toString(this.value);
     }
+
+    public static WrappedFloat generateRandomNumber() {
+        WrappedFloat result;
+        result = new WrappedFloat((float)(Randomizer.generateRandomShort()/65536));
+        return result;
+    }
 }
