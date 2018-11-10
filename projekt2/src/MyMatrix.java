@@ -1,7 +1,4 @@
 import java.lang.reflect.Array;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
 
 /**
  * Created by Lucyna on 02.11.18.
@@ -15,14 +12,33 @@ public class MyMatrix<T extends ANumber<T>> {
     private int columns;
     private Class type;
     private T[][] matrix;
+    private T[] vector;
 
     public MyMatrix(int rows, int columns, Class type) {
         this.rows = rows;
         this.columns = columns;
         this.matrix = (T[][]) Array.newInstance(type,rows,columns);
         this.type = type;
+        this.vector = (T[]) Array.newInstance(type, rows);
     }
 
+    public void setDebugVaules(){
+        this.rows = 4;
+        this.columns = 4;
+        this.matrix = (T[][]) Array.newInstance(type,rows,columns);
+    }
+
+    public ANumber[] gauss(){
+        ANumber[] resultVector = (T[]) Array.newInstance(type, rows);
+        //TODO Here make gauss method body.
+        return resultVector;
+    }
+
+    public ANumber[] mulMatrixVector(ANumber[] vector){
+        ANumber[] resultVector = (T[]) Array.newInstance(type, vector.length);
+        //TODO Here add multiplying Matrix * Vector method body.
+        return resultVector;
+    }
 
     public void fillMatrix() {
         for (int i = 0; i < this.rows; i++) {

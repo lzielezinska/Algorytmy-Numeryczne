@@ -5,8 +5,5 @@ public class Main {
         //Debug section
         System.out.println("Lucyna Zielezińska & Kacper Dondziak");
        // Tests.testAllTypes();
-
-
     }
-
 }
