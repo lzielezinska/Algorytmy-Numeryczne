@@ -1,6 +1,6 @@
 class TypeException extends Exception{
 }
-public class TypeFacbic {
+public class TypeFabric {
     public static ANumber CreateNumber(Class type) throws Exception{
         ANumber createdNumber = null;
         if(type.equals(MyType.class)){

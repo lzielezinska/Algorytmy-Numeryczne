@@ -21,6 +21,19 @@ public class MyType extends ANumber<MyType> {
         result = new MyType(Randomizer.generateRandomShort(),65536);
         return result;
     }
+    private void simplyfy(){
+        BigInteger a = this.licz;
+        BigInteger b = this.mian;
+        while(!a.abs().equals(b.abs())){
+            if(a.doubleValue() > b.doubleValue()){
+                a = a.subtract(b);
+            } else {
+                b = b.subtract(a);
+            }
+        }
+        this.licz = this.licz.divide(a);
+        this.mian = this.mian.divide(a);
+    }
     @Override
     public MyType add(MyType num) {
         MyType result;
@@ -32,6 +45,7 @@ public class MyType extends ANumber<MyType> {
             BigInteger newLicz2 = num.licz.multiply(this.mian);
             result = new MyType(newLicz1.add(newLicz2), newMian);
         }
+        result.simplyfy();
         return result;
     }
 
@@ -46,6 +60,7 @@ public class MyType extends ANumber<MyType> {
             BigInteger newLicz2 = num.licz.multiply(this.mian);
             result = new MyType(newLicz1.subtract(newLicz2), newMian);
         }
+        result.simplyfy();
         return result;
     }
 
@@ -55,6 +70,7 @@ public class MyType extends ANumber<MyType> {
         BigInteger newMian = this.mian.multiply(num.mian);
         BigInteger newLicz = this.licz.multiply(num.licz);
         result = new MyType(newLicz, newMian);
+        result.simplyfy();
         return result;
     }
 
@@ -64,6 +80,7 @@ public class MyType extends ANumber<MyType> {
         BigInteger newMian = this.mian.multiply(num.licz);
         BigInteger newLicz = this.licz.multiply(num.mian);
         result = new MyType(newLicz, newMian);
+        result.simplyfy();
         return result;
     }
 

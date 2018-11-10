@@ -28,7 +28,7 @@ public class MyMatrix<T extends ANumber<T>> {
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
                 try{
-                    this.matrix[i][j] = (T)TypeFacbic.CreateNumber(this.type);
+                    this.matrix[i][j] = (T)TypeFabric.CreateNumber(this.type);
                 } catch (Exception e){
                     e.printStackTrace();
                 }
