@@ -4,7 +4,8 @@ import java.math.BigInteger;
  * Created by Lucyna & Kacper on 05.11.18.
  */
 public class MyType extends ANumber<MyType> {
-    public static MyType ZERO = new MyType(0,0);
+    public static MyType ZERO = new MyType(0,1);
+    public static MyType ONE = new MyType(1,1);
     private BigInteger licz;
     private BigInteger mian;
     public MyType(Integer licz, Integer mian){
@@ -68,9 +69,23 @@ public class MyType extends ANumber<MyType> {
 
     @Override
     public String toString() {
-        String result = this.licz + "/" + this.mian;
-        return result;
+        Double result = this.licz.doubleValue() / this.mian.doubleValue();
+        return result.toString();
     }
 
+    @Override
+    public Double doubleValue() {
+        return this.licz.doubleValue() / this.mian.doubleValue();
+    }
+    @Override
+    public void setToZERO() {
+        this.licz = new BigInteger("0");
+        this.mian = new BigInteger("1");
+    }
+    @Override
+    public void setToONE() {
+        this.licz = new BigInteger("1");
+        this.mian = new BigInteger("1");
+    }
 
 }

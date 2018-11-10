@@ -7,4 +7,7 @@ public abstract class ANumber<T> {
     public abstract T mul(T t);
     public abstract T div(T t);
     public abstract String toString();
+    public abstract Double doubleValue();
+    public abstract void setToZERO();
+    public abstract void setToONE();
 }
