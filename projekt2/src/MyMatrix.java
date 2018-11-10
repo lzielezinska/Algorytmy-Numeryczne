@@ -33,7 +33,16 @@ public class MyMatrix<T extends ANumber<T>> {
         //TODO Here make gauss method body.
         return resultVector;
     }
-
+    public ANumber[] partChoiceGauss(){
+        ANumber[] resultVector = (T[]) Array.newInstance(type, rows);
+        //TODO Here make part choice gauss method body.
+        return resultVector;
+    }public ANumber[] fulChoiceGauss(){
+        ANumber[] resultVector = (T[]) Array.newInstance(type, rows);
+        //TODO Here make full choice gauss method body.
+        return resultVector;
+    }
+    
     public ANumber[] mulMatrixVector(ANumber[] vector){
         ANumber[] resultVector = (T[]) Array.newInstance(type, vector.length);
         //TODO Here add multiplying Matrix * Vector method body.
