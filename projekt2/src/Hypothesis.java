@@ -1,3 +1,6 @@
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+
 public class Hypothesis {
     /**
      * Dla dowolnego ustalonego rozmiaru macierzy czas dzialania metody Gaussa w ko-
@@ -24,12 +27,45 @@ public class Hypothesis {
     }
 
     /**
-     * Jak zalezy dokaadnos¢ obliczen (baad) od rozmiaru macierzy dla dwóch wybranych
+     * Jak zalezy dokladnosc obliczen (blad) od rozmiaru macierzy dla dwóch wybranych
      * przez Ciebie wariantów metody Gaussa gdy obliczenia prowadzone sa na typie
      * podwójnej precyzji (TD)?
      */
     public static void Q1(){
+        int sizes[] = {100, 200, 300, 400, 500, 600, 700, 800, 900, 1000};
+        ANumber resultOfGauss[];
+        ANumber resultOfPartGauss[];
+        double normOfGauss;
+        double normOfPartGauss;
+        XYSeries gauss = new XYSeries("Gauss");
+        XYSeries partGauss = new XYSeries("Part Gauss");
 
+
+        for(int i : sizes){
+            Randomizer.resetRandomizer();
+            MyMatrix matrix = new MyMatrix<WrappedFloat>(i,i,WrappedDouble.class);
+            matrix.fillMatrix();
+            resultOfGauss = matrix.gauss();
+            normOfGauss = VectorHandler.getNormInf(resultOfGauss);
+
+            Randomizer.resetRandomizer();
+            matrix = new MyMatrix<WrappedFloat>(i,i,WrappedDouble.class);
+            matrix.fillMatrix();
+            resultOfPartGauss = matrix.partChoiceGauss();
+            normOfPartGauss = VectorHandler.getNormInf(resultOfPartGauss);
+
+            gauss.add(i,normOfGauss);
+            partGauss.add(i,normOfPartGauss);
+        }
+        XYSeriesCollection xySeriesCollection = new XYSeriesCollection(gauss);
+        xySeriesCollection.addSeries(partGauss);
+        ChartUtilis.printChart(
+                xySeriesCollection,
+                "Q1",
+                "Q1: Blad od rozmiatu macierzy (TD)",
+                "Rozmiar Macierzy",
+                "Blad (Norma nieskonczonosc)"
+        );
     }
 
     /**
@@ -41,7 +77,7 @@ public class Hypothesis {
     }
 
     /**
-     * Podaj czasy rozwiazania ukaadu równa« uzyskane dla macierzy o rozmiarze 500
+     * Podaj czasy rozwiazania ukladu równan uzyskane dla macierzy o rozmiarze 500
      * dla 9 testowanych wariantów.
      */
     public static void E1(){

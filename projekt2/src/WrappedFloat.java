@@ -41,6 +41,11 @@ public class WrappedFloat extends ANumber<WrappedFloat> {
     }
 
     @Override
+    public double abs() {
+        return Math.abs(this.doubleValue());
+    }
+
+    @Override
     public void setToZERO() {
         this.value = 0f;
     }

@@ -19,6 +19,8 @@ public abstract class ANumber<T> implements Comparable<ANumber> {
 
     public abstract void setToONE();
 
+    public abstract double abs();
+
     public int compareTo(ANumber o) {
         if (this.doubleValue() > o.doubleValue())
             return -1;
