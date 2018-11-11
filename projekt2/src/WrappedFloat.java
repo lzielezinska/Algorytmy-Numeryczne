@@ -1,5 +1,7 @@
 public class WrappedFloat extends ANumber<WrappedFloat> {
     private float value;
+    public static WrappedFloat ZERO = new WrappedFloat(0f);
+    public static WrappedFloat ONE = new WrappedFloat(1.0f);
     public WrappedFloat(float value){
         this.value = value;
     }
@@ -33,9 +35,23 @@ public class WrappedFloat extends ANumber<WrappedFloat> {
         return Float.toString(this.value);
     }
 
+    @Override
+    public Double doubleValue() {
+        return (double)value;
+    }
+
+    @Override
+    public void setToZERO() {
+        this.value = 0f;
+    }
+    @Override
+    public void setToONE() {
+        this.value = 1f;
+    }
+
     public static WrappedFloat generateRandomNumber() {
         WrappedFloat result;
-        result = new WrappedFloat((float)(Randomizer.generateRandomShort()/65536));
+        result = new WrappedFloat(((float)Randomizer.generateRandomShort()/65536f));
         return result;
     }
 }

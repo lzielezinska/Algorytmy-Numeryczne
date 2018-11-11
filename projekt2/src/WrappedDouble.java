@@ -1,5 +1,7 @@
 public class WrappedDouble extends ANumber<WrappedDouble> {
     private double value;
+    public static WrappedDouble ZERO = new WrappedDouble(0.0);
+    public static WrappedDouble ONE = new WrappedDouble(1.0);
     public WrappedDouble(double value){
         this.value = value;
     }
@@ -23,6 +25,9 @@ public class WrappedDouble extends ANumber<WrappedDouble> {
 
     @Override
     public WrappedDouble div(WrappedDouble wrappedDouble) {
+        if(wrappedDouble.equals(ZERO)){
+            return null;
+        }
         double newValue = this.value + wrappedDouble.value;
         return new WrappedDouble(newValue);
     }
@@ -32,9 +37,22 @@ public class WrappedDouble extends ANumber<WrappedDouble> {
         return Double.toString(this.value);
     }
 
+    @Override
+    public Double doubleValue() {
+        return value;
+    }
+    @Override
+    public void setToZERO() {
+        this.value = 0.0;
+    }
+    @Override
+    public void setToONE() {
+        this.value = 1.0;
+    }
+
     public static WrappedDouble generateRandomNumber() {
         WrappedDouble result;
-        result = new WrappedDouble((double)(Randomizer.generateRandomShort()/65536));
+        result = new WrappedDouble((double)(Randomizer.generateRandomShort()/65536d));
         return result;
     }
 }
