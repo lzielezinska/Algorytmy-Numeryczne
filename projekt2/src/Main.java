@@ -1,10 +1,10 @@
-import java.math.BigInteger;
+
+import static java.lang.System.*;
 
 public class Main {
     public static void main(String[] args){
-        //Debug section
-        System.out.println("Lucyna Zielezińska & Kacper Dondziak");
+        out.println("Lucyna Zielezińska & Kacper Dondziak");
        // Tests.testAllTypes();
-
+        Hypothesis.E1();
     }
 }
