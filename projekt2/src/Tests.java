@@ -11,6 +11,29 @@ public class Tests {
         System.out.println("Test Double");
         testDouble();
     }
+    public static void debugSwapRows(){
+        MyMatrix matrix = new MyMatrix<MyType>(3,3,MyType.class);
+        matrix.fillMatrix();
+        matrix.printMatrix();
+        matrix.swapRows(0,1);
+        System.out.println("*******");
+        matrix.printMatrix();
+    }
+    public static void debugSwapColumns(){
+        MyMatrix matrix = new MyMatrix<MyType>(3,3,MyType.class);
+        matrix.fillMatrix();
+        matrix.printMatrix();
+        matrix.swapColumns(0,1);
+        System.out.println("*******");
+        matrix.printMatrix();
+    }
+    public static void debugVectorNorm(){
+        ANumber[] te = new MyType[3];
+        te[0] = new MyType(2,3);
+        te[1] = new MyType(4,3);
+        te[2] = new MyType(1,3);
+        System.out.println(VectorHandler.getNormInf(te));
+    }
     public static void debugFloatMAtrix(){
         MyMatrix matrix = new MyMatrix<WrappedFloat>(3,3,WrappedFloat.class);
     }
@@ -34,7 +57,6 @@ public class Tests {
     }
     public static void testMyType(){
         Randomizer.resetRandomizer();
-
         //Test macierzy
         MyMatrix matrix = new MyMatrix<MyType>(3,3,MyType.class);
         matrix.fillMatrix();

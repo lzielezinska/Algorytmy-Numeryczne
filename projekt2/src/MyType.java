@@ -3,7 +3,7 @@ import java.math.BigInteger;
 /**
  * Created by Lucyna & Kacper on 05.11.18.
  */
-public class MyType extends ANumber<MyType> {
+public class MyType extends ANumber<MyType>{
     public static MyType ZERO = new MyType(0,1);
     public static MyType ONE = new MyType(1,1);
     private BigInteger licz;

@@ -42,7 +42,7 @@ public class MyMatrix<T extends ANumber<T>> {
         //TODO Here make full choice gauss method body.
         return resultVector;
     }
-    
+
     public ANumber[] mulMatrixVector(ANumber[] vector){
         ANumber[] resultVector = (T[]) Array.newInstance(type, vector.length);
         //TODO Here add multiplying Matrix * Vector method body.
@@ -81,7 +81,7 @@ public class MyMatrix<T extends ANumber<T>> {
     public ANumber[] multiplayRowByValue(ANumber[] row, ANumber value) {
         ANumber factor[] = new ANumber[row.length];
         for (int i = 0; i < row.length; i++) {
-            row[i] = (ANumber) row[i].mul(value);
+            factor[i] = (ANumber) row[i].mul(value);
         }
         return factor;
     }
@@ -89,28 +89,24 @@ public class MyMatrix<T extends ANumber<T>> {
     public ANumber[] devideRowByValue(ANumber[] row, ANumber value) {
         ANumber quotion[] = new ANumber[row.length];
         for (int i = 0; i < row.length; i++) {
-            row[i] = (ANumber) row[i].div(value);
+            quotion[i] = (ANumber) row[i].div(value);
         }
         return quotion;
 
     }
 
-    public ANumber[] swapRows(ANumber[] matrix, int firstRow, int secondRow) {
-        ANumber temp = matrix[firstRow];
+    public void swapRows(int firstRow, int secondRow) {
+        T temp[] = matrix[firstRow];
         matrix[firstRow] = matrix[secondRow];
         matrix[secondRow] = temp;
-
-        return matrix;
     }
 
-
-    public ANumber[][] swapColumns(ANumber[][] matrix, int firstColumn, int secondColumn, int size) {
-        for (int i = 0; i < size; i++) {
-            ANumber tmp = matrix[i][firstColumn];
+    public void swapColumns(int firstColumn, int secondColumn) {
+        for (int i = 0; i < rows; i++) {
+            T tmp = matrix[i][firstColumn];
             matrix[i][firstColumn] = matrix[i][secondColumn];
             matrix[i][secondColumn] = tmp;
         }
-        return matrix;
     }
 
 }
