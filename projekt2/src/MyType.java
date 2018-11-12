@@ -99,6 +99,12 @@ public class MyType extends ANumber<MyType>{
     public Double doubleValue() {
         return this.licz.doubleValue() / this.mian.doubleValue();
     }
+
+    @Override
+    public double abs() {
+        return Math.abs(this.doubleValue());
+    }
+
     @Override
     public void setToZERO() {
         this.licz = new BigInteger("0");

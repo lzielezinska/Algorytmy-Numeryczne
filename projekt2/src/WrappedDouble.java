@@ -56,6 +56,11 @@ public class WrappedDouble extends ANumber<WrappedDouble> {
         this.value = 1.0;
     }
 
+    @Override
+    public double abs() {
+        return Math.abs(this.doubleValue());
+    }
+
     public static WrappedDouble generateRandomNumber() {
         WrappedDouble result;
         result = new WrappedDouble((double)(Randomizer.generateRandomShort()/65536d));
