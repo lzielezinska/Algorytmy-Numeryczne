@@ -11,6 +11,8 @@ public abstract class ANumber<T> implements Comparable<ANumber> {
 
     public abstract T div(T t);
 
+    public abstract T sign(T t);
+
     public abstract String toString();
 
     public abstract Double doubleValue();

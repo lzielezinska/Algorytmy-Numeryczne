@@ -85,6 +85,11 @@ public class MyType extends ANumber<MyType>{
     }
 
     @Override
+    public MyType sign(MyType myType) {
+        return null;
+    }
+
+    @Override
     public String toString() {
         Double result = this.licz.doubleValue() / this.mian.doubleValue();
         return result.toString();

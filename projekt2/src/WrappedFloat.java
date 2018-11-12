@@ -31,6 +31,12 @@ public class WrappedFloat extends ANumber<WrappedFloat> {
     }
 
     @Override
+    public WrappedFloat sign(WrappedFloat wrappedFloat) {
+        float newValue = wrappedFloat.value * (-1);
+        return new WrappedFloat(newValue);
+    }
+
+    @Override
     public String toString() {
         return Float.toString(this.value);
     }

@@ -33,6 +33,12 @@ public class WrappedDouble extends ANumber<WrappedDouble> {
     }
 
     @Override
+    public WrappedDouble sign(WrappedDouble wrappedDouble) {
+        double newValue = (-1) * wrappedDouble.value;
+        return new WrappedDouble(newValue);
+    }
+
+    @Override
     public String toString() {
         return Double.toString(this.value);
     }
