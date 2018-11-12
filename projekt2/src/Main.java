@@ -5,9 +5,9 @@ public class Main {
         out.println("Lucyna Zielezińska & Kacper Dondziak");
        // Tests.testAllTypes();
       //  Hypothesis.E1();
-        MyMatrix<MyType> debug = new MyMatrix<MyType>(3,3,MyType.class);
+        MyMatrix<MyType> debug = new MyMatrix<MyType>(5,5,WrappedDouble.class);
         debug.fillMatrixAndVector();
-        debug.printMatrix();
+       // debug.printMatrix();
         debug.gauss();
         System.out.println("*********");
         debug.printMatrix();

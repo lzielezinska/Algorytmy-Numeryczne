@@ -23,18 +23,17 @@ public class MyType extends ANumber<MyType>{
         result = new MyType(Randomizer.generateRandomShort(),65536);
         return result;
     }
-    private void simplyfy(){
-        /*BigInteger a = this.licz;
-        BigInteger b = this.mian;
-        while(!a.abs().equals(b.abs())){
-            if(a.doubleValue() > b.doubleValue()){
-                a = a.subtract(b);
-            } else {
-                b = b.subtract(a);
-            }
+    public void simplyfy(){
+        BigInteger a = this.licz.abs();
+        BigInteger b = this.mian.abs();
+        BigInteger c;
+        while(b.intValue() != 0){
+            c = a.mod(b);
+            a = b;
+            b = c;
         }
         this.licz = this.licz.divide(a);
-        this.mian = this.mian.divide(a);*/
+        this.mian = this.mian.divide(a);
     }
     @Override
     public MyType add(MyType num) {
@@ -45,7 +44,12 @@ public class MyType extends ANumber<MyType>{
             BigInteger newMian = this.mian.multiply(num.mian);
             BigInteger newLicz1 = this.licz.multiply(num.mian);
             BigInteger newLicz2 = num.licz.multiply(this.mian);
-            result = new MyType(newLicz1.add(newLicz2), newMian);
+            BigInteger newLicz3 = newLicz1.add(newLicz2);
+            if(newLicz3.signum() == -1 && newMian.signum() == -1){
+                newLicz3.negate();
+                newMian.negate();
+            }
+            result = new MyType(newLicz3, newMian);
         }
         result.simplyfy();
         return result;
@@ -123,5 +127,7 @@ public class MyType extends ANumber<MyType>{
         this.licz = new BigInteger("1");
         this.mian = new BigInteger("1");
     }
-
+    public String fractValue(){
+        return this.licz + "/" + this.mian;
+    }
 }

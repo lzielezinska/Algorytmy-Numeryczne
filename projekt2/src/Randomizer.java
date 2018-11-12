@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class Randomizer {
-    public static final int SEED = 123465;
+    public static final int SEED = 123415;
     private static Random randomGenerator = new Random(SEED);
     private Randomizer(){
     }
