@@ -85,8 +85,10 @@ public class MyType extends ANumber<MyType>{
     }
 
     @Override
-    public MyType sign(MyType myType) {
-        return null;
+    public MyType changeSign() {
+        BigInteger minusOne = new BigInteger("-1");
+        MyType result = new MyType(this.licz.multiply(minusOne), this.mian);
+        return result;
     }
 
     @Override

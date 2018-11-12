@@ -13,7 +13,7 @@ public class Tests {
     }
     public static void debugSwapRows(){
         MyMatrix matrix = new MyMatrix<MyType>(3,3,MyType.class);
-        matrix.fillMatrix();
+        matrix.fillMatrixAndVector();
         matrix.printMatrix();
         matrix.swapRows(0,1);
         System.out.println("*******");
@@ -21,7 +21,7 @@ public class Tests {
     }
     public static void debugSwapColumns(){
         MyMatrix matrix = new MyMatrix<MyType>(3,3,MyType.class);
-        matrix.fillMatrix();
+        matrix.fillMatrixAndVector();
         matrix.printMatrix();
         matrix.swapColumns(0,1);
         System.out.println("*******");
@@ -46,20 +46,20 @@ public class Tests {
     public static void testFloat(){
         Randomizer.resetRandomizer();
         MyMatrix matrix = new MyMatrix<WrappedFloat>(3,3,WrappedFloat.class);
-        matrix.fillMatrix();
+        matrix.fillMatrixAndVector();
         matrix.printMatrix();
     }
     public static void testDouble(){
         Randomizer.resetRandomizer();
         MyMatrix matrix = new MyMatrix<WrappedFloat>(3,3,WrappedDouble.class);
-        matrix.fillMatrix();
+        matrix.fillMatrixAndVector();
         matrix.printMatrix();
     }
     public static void testMyType(){
         Randomizer.resetRandomizer();
         //Test macierzy
         MyMatrix matrix = new MyMatrix<MyType>(3,3,MyType.class);
-        matrix.fillMatrix();
+        matrix.fillMatrixAndVector();
         matrix.printMatrix();
     }
     public static void testMyTypeOperations(){

@@ -5,5 +5,7 @@ public class Main {
         out.println("Lucyna Zielezińska & Kacper Dondziak");
        // Tests.testAllTypes();
         Hypothesis.E1();
+        MyType m = new MyType(1,2);
+        System.out.println(m.changeSign().toString());
     }
 }

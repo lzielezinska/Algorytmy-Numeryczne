@@ -1,7 +1,7 @@
 
 public abstract class ANumber<T> implements Comparable<ANumber> {
-    protected T ZERO;
-    protected T value;
+    public static ANumber ZERO;
+    public static ANumber value;
 
     public abstract T add(T t);
 
@@ -11,7 +11,7 @@ public abstract class ANumber<T> implements Comparable<ANumber> {
 
     public abstract T div(T t);
 
-    public abstract T sign(T t);
+    public abstract T changeSign();
 
     public abstract String toString();
 

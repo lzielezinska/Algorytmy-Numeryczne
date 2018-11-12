@@ -1,3 +1,4 @@
+import java.lang.reflect.AnnotatedArrayType;
 import java.lang.reflect.Array;
 
 /**
@@ -31,8 +32,6 @@ public class MyMatrix<T extends ANumber<T>> {
     public ANumber[] gauss(){
         ANumber[] resultVector = (T[]) Array.newInstance(type, rows);
         for(int i=0;i<vector.length;i++) resultVector[i] = vector[i];
-        //TODO Here make gauss method body.
-
         for (int i = 0; i < rows-1; i++) {
             for (int j = i; j < columns-1; j++) {
                 resultVector = get0(i,j, resultVector);
@@ -74,17 +73,18 @@ public class MyMatrix<T extends ANumber<T>> {
         //TODO Here add multiplying Matrix * Vector method body.
 
         for (int i = 0; i < rows; i++) {
-            ANumber sum, product;
+            ANumber sum = (T)ANumber.ZERO;
+            ANumber product = (T)ANumber.ZERO;
             for (int j = 0; j < rows; j++) {
                 product =(ANumber)matrix[i][j].mul((T)vector[j]);
-                sum = sum.add(product);
+                sum = (ANumber) sum.add(product);
             }
             resultVector[i] = sum;
         }
         return resultVector;
     }
 
-    public void fillMatrix() {
+    public void fillMatrixAndVector() {
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
                 try{
@@ -92,6 +92,13 @@ public class MyMatrix<T extends ANumber<T>> {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
+            }
+        }
+        for(int i = 0;i < this.vector.length; i++){
+            try{
+                this.vector[i] = (T)TypeFabric.CreateNumber(this.type);
+            } catch (Exception e){
+                e.printStackTrace();
             }
         }
     }
@@ -155,8 +162,7 @@ public class MyMatrix<T extends ANumber<T>> {
 
 
     public ANumber[] get0(int xPos, int yPos, ANumber resultVector[]){
-
-        T temp[] = new T[this.columns]; //Pomocnicza tablica
+        T temp[] = (T[]) Array.newInstance(type, this.columns); //Pomocnicza tablica
         T help; //pomocnicza zmienna
         for(int i = 0; i < (this.columns); i++){    //Dzielę w celu uzyskania jednyki, przypisują podzieloną wartość do pomocniczej tablicy
             matrix[xPos][i] =  matrix[xPos][i].div(matrix[xPos][yPos]);
@@ -167,11 +173,11 @@ public class MyMatrix<T extends ANumber<T>> {
         temp = (T[]) multiplayRowByValue(temp, matrix[xPos-1][yPos]); //Mnoże pomocnicza macierz przez pierwszą liczę w redukowanym wierszu
 
         //Zmieniam znak
-        for (int i = 0; i < (this.rows); i++) temp[i] = (T) (temp[i].sign(temp[i]));
-        help = help.sign(help);
+        for (int i = 0; i < (this.rows); i++) temp[i] = (T) (temp[i].changeSign());
+        help = help.changeSign();
         vector[xPos-1] = vector[xPos].add(help);
         matrix[xPos-1] = (T[])addTwoRows(temp, matrix[xPos-1]);      //Dodaje pomocnicza macierz do macierzy redukawanej
-    return resultVector;
+        return resultVector;
 
     }
 

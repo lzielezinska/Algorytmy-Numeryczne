@@ -31,8 +31,8 @@ public class WrappedFloat extends ANumber<WrappedFloat> {
     }
 
     @Override
-    public WrappedFloat sign(WrappedFloat wrappedFloat) {
-        float newValue = wrappedFloat.value * (-1);
+    public WrappedFloat changeSign() {
+        float newValue = this.value * (-1);
         return new WrappedFloat(newValue);
     }
 
