@@ -5,6 +5,12 @@ public class WrappedDouble extends ANumber<WrappedDouble> {
     public WrappedDouble(double value){
         this.value = value;
     }
+
+    @Override
+    public WrappedDouble returnZero() {
+        return new WrappedDouble(0.0);
+    }
+
     @Override
     public WrappedDouble add(WrappedDouble wrappedDouble) {
         double newValue = this.value + wrappedDouble.value;

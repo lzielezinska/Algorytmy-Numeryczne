@@ -4,8 +4,12 @@ public class Main {
     public static void main(String[] args){
         out.println("Lucyna Zielezińska & Kacper Dondziak");
        // Tests.testAllTypes();
-        Hypothesis.E1();
-        MyType m = new MyType(1,2);
-        System.out.println(m.changeSign().toString());
+      //  Hypothesis.E1();
+        MyMatrix<MyType> debug = new MyMatrix<MyType>(3,3,MyType.class);
+        debug.fillMatrixAndVector();
+        debug.printMatrix();
+        debug.gauss();
+        System.out.println("*********");
+        debug.printMatrix();
     }
 }

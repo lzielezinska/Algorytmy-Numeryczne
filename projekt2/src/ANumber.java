@@ -1,7 +1,6 @@
 
 public abstract class ANumber<T> implements Comparable<ANumber> {
-    public static ANumber ZERO;
-    public static ANumber value;
+    public abstract T returnZero();
 
     public abstract T add(T t);
 

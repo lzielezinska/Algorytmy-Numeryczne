@@ -7,6 +7,11 @@ public class WrappedFloat extends ANumber<WrappedFloat> {
     }
 
     @Override
+    public WrappedFloat returnZero() {
+        return new WrappedFloat(0f);
+    }
+
+    @Override
     public WrappedFloat add(WrappedFloat wrappedFloat) {
         float newValue = this.value + wrappedFloat.value;
         return new WrappedFloat(newValue);

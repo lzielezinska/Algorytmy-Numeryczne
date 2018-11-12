@@ -4,8 +4,6 @@ import java.math.BigInteger;
  * Created by Lucyna & Kacper on 05.11.18.
  */
 public class MyType extends ANumber<MyType>{
-    public static MyType ZERO = new MyType(0,1);
-    public static MyType ONE = new MyType(1,1);
     private BigInteger licz;
     private BigInteger mian;
     public MyType(Integer licz, Integer mian){
@@ -15,6 +13,10 @@ public class MyType extends ANumber<MyType>{
         this.licz = licz;
         this.mian = mian;
     }
+    @Override
+    public MyType returnZero(){
+        return new MyType(0,1);
+    }
 
     public static MyType generateRandomNumber() {
         MyType result;
@@ -22,7 +24,7 @@ public class MyType extends ANumber<MyType>{
         return result;
     }
     private void simplyfy(){
-        BigInteger a = this.licz;
+        /*BigInteger a = this.licz;
         BigInteger b = this.mian;
         while(!a.abs().equals(b.abs())){
             if(a.doubleValue() > b.doubleValue()){
@@ -32,7 +34,7 @@ public class MyType extends ANumber<MyType>{
             }
         }
         this.licz = this.licz.divide(a);
-        this.mian = this.mian.divide(a);
+        this.mian = this.mian.divide(a);*/
     }
     @Override
     public MyType add(MyType num) {
@@ -99,6 +101,10 @@ public class MyType extends ANumber<MyType>{
 
     @Override
     public Double doubleValue() {
+        double result = this.licz.doubleValue() / this.mian.doubleValue();
+        if(Double.isNaN(result)){
+            System.out.println(this.licz.doubleValue() + " " + this.mian.doubleValue());
+        }
         return this.licz.doubleValue() / this.mian.doubleValue();
     }
 

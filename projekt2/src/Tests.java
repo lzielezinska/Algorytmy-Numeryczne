@@ -69,7 +69,7 @@ public class Tests {
         MyType debugAdd = debugNum1.add(debugNum2);
         MyType debugSub = debugNum1.sub(debugNum2);
         MyType debugMul = debugNum1.mul(debugNum2);
-        MyType debugDiv = debugNum1.div(debugNum2);
+        MyType debugDiv = debugNum1.div(debugNum1);
         System.out.println(debugAdd.toString());
         System.out.println(debugSub.toString());
         System.out.println(debugMul.toString());
