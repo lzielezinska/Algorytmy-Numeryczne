@@ -43,6 +43,35 @@ public class Tests {
     public static void debugMyTypeMAtrix(){
         MyMatrix matrix = new MyMatrix<MyType>(3,3,MyType.class);
     }
+    public static void myTypeGauss(){
+        MyType ma[][] = new MyType[4][4];
+        ma[0][0] = new MyType(786432, 655360);
+        ma[0][1] = new MyType(1703936, 655360);
+        ma[0][2] = new MyType(-65536, 655360);
+        ma[0][3] = new MyType(98304, 65536);
+        ma[1][0] = new MyType(294912, 65536);
+        ma[1][1] = new MyType(6422528, 655360);
+        ma[1][2] = new MyType(-262144, 655360);
+        ma[1][3] = new MyType(3735552, 655360);
+        ma[2][0] = new MyType(65536, 655360);
+        ma[2][1] = new MyType(-65536, 655360);
+        ma[2][2] = new MyType(-196608, 655360);
+        ma[2][3] = new MyType(-229376, 65536);
+        ma[3][0] = new MyType(294912, 65536);
+        ma[3][1] = new MyType(-3407872, 655360);
+        ma[3][2] = new MyType(2752512, 655360);
+        ma[3][3] = new MyType(-2228224, 655360);
+        MyType vec[]= new MyType[4];
+        vec[0] = new MyType(8617984, 655360);
+        vec[1] = new MyType(326631424, 6553600);
+        vec[2] = new MyType(-92274688, 6553600);
+        vec[3] = new MyType(-304807936, 6553600);
+        MyMatrix<MyType> matrix1 = new MyMatrix<MyType>(ma,vec, 4,4,MyType.class);
+        matrix1.printMatrix();
+        System.out.println("******");
+        matrix1.gauss();
+        matrix1.printMatrix();
+    }
     public static void testgauss(){
         WrappedDouble ma[][] = new WrappedDouble[4][4];
         ma[0][0] = new WrappedDouble(1.2);

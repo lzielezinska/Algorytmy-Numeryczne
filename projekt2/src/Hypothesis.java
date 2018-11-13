@@ -4,7 +4,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 public class Hypothesis {
     /**
      * Dla dowolnego ustalonego rozmiaru macierzy czas dzialania metody Gaussa w ko-
-     * lejnych wersjach (1, 2, 3) ro±nie.
+     * lejnych wersjach (1, 2, 3) rosnie.
      */
     public static void H1(){
 

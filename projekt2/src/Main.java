@@ -12,13 +12,13 @@ public class Main {
         System.out.println("*********");
         debug.printMatrix();
         System.out.println("*********");*/
-       Tests.testgauss();
+       /*Tests.testgauss();
         System.out.println("*********");
        Tests.testPartGauss();
-        System.out.println("*********");
-       Tests.testFullGauss();
-       Hypothesis.Q1();
-
+        System.out.println("*********");*/
+      /* Tests.testFullGauss();
+       Hypothesis.Q1();*/
+    Tests.myTypeGauss();
 
 
 

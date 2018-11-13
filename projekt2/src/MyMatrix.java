@@ -101,7 +101,7 @@ public class MyMatrix<T extends ANumber<T>> {
                 System.out.format("| % .4f ",this.matrix[i][j].doubleValue());
                 //System.out.print("| " + this.matrix[i][j].toString());
             }
-            System.out.format("| % .6f", this.vector[i].doubleValue());
+            System.out.format("|| % .6f", this.vector[i].doubleValue());
             System.out.println("");
         }
     }
