@@ -7,9 +7,22 @@ public class Main {
       //  Hypothesis.E1();
         MyMatrix<MyType> debug = new MyMatrix<MyType>(5,5,WrappedDouble.class);
         debug.fillMatrixAndVector();
-       // debug.printMatrix();
+        debug.printMatrix();
         debug.gauss();
         System.out.println("*********");
         debug.printMatrix();
+
+
+
+        MyType m1 = new MyType(0, 0);
+
+
+
+
+
+
+
+        //System.out.println(m1.fractValue() + " " + m1.toString());
+
     }
 }

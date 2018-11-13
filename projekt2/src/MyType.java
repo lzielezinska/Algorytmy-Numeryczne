@@ -32,14 +32,16 @@ public class MyType extends ANumber<MyType>{
             a = b;
             b = c;
         }
-        this.licz = this.licz.divide(a);
-        this.mian = this.mian.divide(a);
+        if(!a.equals(new BigInteger("0"))){
+            this.licz = this.licz.divide(a);
+            this.mian = this.mian.divide(a);
+        }
     }
     @Override
     public MyType add(MyType num) {
         MyType result;
         if(this.mian.equals(num.mian)){
-            result = new MyType(this.licz.add(num.mian), this.mian);
+            result = new MyType(this.licz.add(num.licz), this.mian);
         } else {
             BigInteger newMian = this.mian.multiply(num.mian);
             BigInteger newLicz1 = this.licz.multiply(num.mian);
@@ -52,6 +54,10 @@ public class MyType extends ANumber<MyType>{
             result = new MyType(newLicz3, newMian);
         }
         result.simplyfy();
+        if(this.mian.intValue() == 0 || this.licz.intValue() == 0){
+            this.licz = new BigInteger("0");
+            this.mian = new BigInteger("1");
+        }
         return result;
     }
 
@@ -59,7 +65,7 @@ public class MyType extends ANumber<MyType>{
     public MyType sub(MyType num) {
         MyType result;
         if(this.mian.equals(num.mian)){
-            result = new MyType(this.licz.subtract(num.mian), this.mian);
+            result = new MyType(this.licz.subtract(num.licz), this.mian);
         } else {
             BigInteger newMian = this.mian.multiply(num.mian);
             BigInteger newLicz1 = this.licz.multiply(num.mian);
@@ -67,6 +73,10 @@ public class MyType extends ANumber<MyType>{
             result = new MyType(newLicz1.subtract(newLicz2), newMian);
         }
         result.simplyfy();
+        if(this.mian.intValue() == 0 || this.licz.intValue() == 0){
+            this.licz = new BigInteger("0");
+            this.mian = new BigInteger("1");
+        }
         return result;
     }
 
@@ -77,6 +87,10 @@ public class MyType extends ANumber<MyType>{
         BigInteger newLicz = this.licz.multiply(num.licz);
         result = new MyType(newLicz, newMian);
         result.simplyfy();
+        if(this.mian.intValue() == 0 || this.licz.intValue() == 0){
+            this.licz = new BigInteger("0");
+            this.mian = new BigInteger("1");
+        }
         return result;
     }
 
@@ -87,6 +101,10 @@ public class MyType extends ANumber<MyType>{
         BigInteger newLicz = this.licz.multiply(num.mian);
         result = new MyType(newLicz, newMian);
         result.simplyfy();
+        if(this.mian.intValue() == 0 || this.licz.intValue() == 0){
+            this.licz = new BigInteger("0");
+            this.mian = new BigInteger("1");
+        }
         return result;
     }
 
@@ -99,8 +117,10 @@ public class MyType extends ANumber<MyType>{
 
     @Override
     public String toString() {
-        Double result = this.licz.doubleValue() / this.mian.doubleValue();
-        return result.toString();
+        /*Double result = this.licz.doubleValue() / this.mian.doubleValue();
+        return result.toString();*/
+        String result = this.licz.toString() + "/" + this.mian.toString();
+        return result;
     }
 
     @Override
