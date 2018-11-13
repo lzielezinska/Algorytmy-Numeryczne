@@ -26,6 +26,10 @@ public class MyMatrix<T extends ANumber<T>> {
         } catch (Exception e){
         }
     }
+    public MyMatrix(T[][] mat, int rows, int columns, Class type){
+        this(rows,columns,type);
+        this.matrix = mat;
+    }
 
     public void setDebugVaules(){
         this.rows = 4;
