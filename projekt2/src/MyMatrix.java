@@ -179,13 +179,10 @@ public class MyMatrix<T extends ANumber<T>> {
         for (int i = 0; i < rows; i++) {
             resultVector = get0Debug(i,i, resultVector);
         }
-        /*resultVector = get0Debug(0,0, resultVector);
-        System.out.println("*************");
+        System.out.println("**********");
         this.printMatrix();
-        resultVector = get0Debug(1,1, resultVector);
-        System.out.println("*************");
-        this.printMatrix();
-        resultVector = get0Debug(2,2, resultVector);*/
+        this.reduceMatrix();
+        System.out.println("**********");
         return resultVector;
     }
     public ANumber[] get0Debug(int xPos, int yPos, ANumber resultVector[]){
@@ -214,6 +211,14 @@ public class MyMatrix<T extends ANumber<T>> {
 
         //Dodaje pomocnicza macierz do macierzy redukawanej
         return result;
+    }
+
+    private void reduceMatrix(){
+        for (int i = this.rows - 2; i >= 0; i--){
+            for (int y = i; y >= 0; y--){
+                matrix[y][i + 1] = matrix[y][i + 1].sub(matrix[i + 1][i + 1].mul(matrix[y][i + 1]));
+            }
+        }
     }
 
     private void changeSingOfVector(T[] vec){
