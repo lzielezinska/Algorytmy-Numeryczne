@@ -179,75 +179,54 @@ public class MyMatrix<T extends ANumber<T>> {
         for (int i = 0; i < rows; i++) {
             resultVector = get0Debug(i,i, resultVector);
         }
-<<<<<<< HEAD
-        /*resultVector = get0Debug(0,0, resultVector);
-        System.out.println("*************");
-        this.printMatrix();
-        resultVector = get0Debug(1,1, resultVector);
-        System.out.println("*************");
-        this.printMatrix();
-        resultVector = get0Debug(2,2, resultVector);*/
-=======
         System.out.println("**********");
         this.printMatrix();
         this.reduceMatrix();
         System.out.println("**********");
->>>>>>> 4cf314c114f32394b454e9f8c62c071f46eb5b6f
         return resultVector;
     }
-    public ANumber[] get0Debug(int xPos, int yPos, ANumber resultVector[]){
+    public ANumber[] get0Debug(int xPos, int yPos, T resultVector[]){
         ANumber[] result = null;
         T temp[] = (T[]) Array.newInstance(type, this.columns); //Pomocnicza tablica
         T mulTemp[] = (T[]) Array.newInstance(type, this.columns); //Pomocnicza tablica
         T savedValueOfCurrentOperation = matrix[xPos][yPos];
-        T help; //pomocnicza zmienna
+        T help;
+
         for(int i = 0; i < xPos; i++) {
             temp[i] = staticObject.returnZero();
         }
         for(int i = xPos; i < (this.columns); i++){    //Dzielę w celu uzyskania jednyki, przypisują podzieloną wartość do pomocniczej tablicy
             matrix[xPos][i] =  matrix[xPos][i].div(savedValueOfCurrentOperation);
             temp[i] = matrix[xPos][i];
+            resultVector[i] = resultVector[i].div(savedValueOfCurrentOperation);
+            help =  resultVector[i];
         }
 
-<<<<<<< HEAD
 
         for(int y = xPos; y < this.rows -1; y++){
             mulTemp = (T[]) multiplayRowByValue(temp, matrix[y + 1][yPos]);
             changeSingOfVector(mulTemp);
+            help = help.mul(resultVector[y+1]);
 //            for(int i = 0; i < mulTemp.length; i++){
 //                System.out.println(mulTemp[i]);
 //            }
             matrix[y + 1] = (T[])addTwoRows(mulTemp, matrix[y + 1]);
+            resultVector[y+1] = help;
         }
 
         //Dodaje pomocnicza macierz do macierzy redukawanej
         return result;
     }
 
-=======
-
-        for(int y = xPos; y < this.rows -1; y++){
-            mulTemp = (T[]) multiplayRowByValue(temp, matrix[y + 1][yPos]);
-            changeSingOfVector(mulTemp);
-//            for(int i = 0; i < mulTemp.length; i++){
-//                System.out.println(mulTemp[i]);
-//            }
-            matrix[y + 1] = (T[])addTwoRows(mulTemp, matrix[y + 1]);
-        }
-
-        //Dodaje pomocnicza macierz do macierzy redukawanej
-        return result;
-    }
-
-    private void reduceMatrix(){
+    private void reduceMatrix(T resultVector[]){
         for (int i = this.rows - 2; i >= 0; i--){
             for (int y = i; y >= 0; y--){
                 matrix[y][i + 1] = matrix[y][i + 1].sub(matrix[i + 1][i + 1].mul(matrix[y][i + 1]));
+                resultVector[i+1] =
             }
         }
     }
 
->>>>>>> 4cf314c114f32394b454e9f8c62c071f46eb5b6f
     private void changeSingOfVector(T[] vec){
         for (int i = 0; i < (this.rows); i++){
             vec[i] = (T) (vec[i].changeSign());
