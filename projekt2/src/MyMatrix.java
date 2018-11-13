@@ -44,31 +44,20 @@ public class MyMatrix<T extends ANumber<T>> {
 
 
     public ANumber[] partChoiceGauss(){
-        ANumber[] resultVector = (T[]) Array.newInstance(type, rows);
-        for(int i=0;i<vector.length;i++) resultVector[i] = vector[i];
-
-        //TODO Here make part choice gauss method body.
-        for (int i = 0; i < rows-1; i++) {
-            resultVector = findBiggestValueInRow(i,resultVector);
-            for (int j = i; j < columns-1; j++) {
-                get0(i, j, resultVector);
-            }
+        for (int i = 0; i < rows; i++) {
+            findBiggestValueInRow(i);
+            get0Debug(i,i);
         }
-        return resultVector;
+        this.reduceMatrix();
+        return this.vector;
     }
     public ANumber[] fulChoiceGauss(){
-        ANumber[] resultVector = (T[]) Array.newInstance(type, rows);
-        for(int i=0;i<vector.length;i++) resultVector[i] = vector[i];
-
-        //TODO Here make full choice gauss method body.
-        for (int i = 0; i < rows-1; i++) {
-            findBiggestElementInSubmatrix(i, resultVector);
-            for (int j = i; j < columns-1; j++) {
-                get0(i, j, resultVector);
-            }
+        for (int i = 0; i < rows; i++) {
+            findBiggestElementInSubmatrix(i);
+            get0Debug(i,i);
         }
-
-        return resultVector;
+        this.reduceMatrix();
+        return this.vector;
     }
 
     public ANumber[] mulMatrixVector(ANumber[] vector){
@@ -112,7 +101,7 @@ public class MyMatrix<T extends ANumber<T>> {
                 System.out.format("| % .4f ",this.matrix[i][j].doubleValue());
                 //System.out.print("| " + this.matrix[i][j].toString());
             }
-            System.out.format("| % .4f", this.vector[i].doubleValue());
+            System.out.format("| % .6f", this.vector[i].doubleValue());
             System.out.println("");
         }
     }
@@ -149,9 +138,13 @@ public class MyMatrix<T extends ANumber<T>> {
     }
 
     public void swapRows(int firstRow, int secondRow) {
-        T temp[] = matrix[firstRow];
+        T tempRow[] = matrix[firstRow];
         matrix[firstRow] = matrix[secondRow];
-        matrix[secondRow] = temp;
+        matrix[secondRow] = tempRow;
+
+        T tempElement = vector[firstRow];
+        vector[firstRow] = vector[secondRow];
+        vector[secondRow] = tempElement;
     }
 
     public void swapColumns(int firstColumn, int secondColumn) {
@@ -159,41 +152,15 @@ public class MyMatrix<T extends ANumber<T>> {
             T tmp = matrix[i][firstColumn];
             matrix[i][firstColumn] = matrix[i][secondColumn];
             matrix[i][secondColumn] = tmp;
-
         }
     }
 
-
-    public ANumber[] get0(int xPos, int yPos, ANumber resultVector[]){
-        T temp[] = (T[]) Array.newInstance(type, this.columns); //Pomocnicza tablica
-        T help; //pomocnicza zmienna
-        for(int i = 0; i < (this.columns); i++){    //Dzielę w celu uzyskania jednyki, przypisują podzieloną wartość do pomocniczej tablicy
-            matrix[xPos][i] =  matrix[xPos][i].div(matrix[xPos][yPos]);
-            temp[i] = matrix[xPos][i];
-        }
-        help = vector[xPos].div(matrix[xPos][yPos]);
-        help =help.mul(matrix[xPos-1][yPos]);
-        temp = (T[]) multiplayRowByValue(temp, matrix[xPos-1][yPos]); //Mnoże pomocnicza macierz przez pierwszą liczę w redukowanym wierszu
-
-        //Zmieniam znak
-        for (int i = 0; i < (this.rows); i++) temp[i] = (T) (temp[i].changeSign());
-        help = help.changeSign();
-        vector[xPos-1] = vector[xPos].add(help);
-        matrix[xPos-1] = (T[])addTwoRows(temp, matrix[xPos-1]);      //Dodaje pomocnicza macierz do macierzy redukawanej
-        return resultVector;
-    }
     public ANumber[] gauss(){
-        T[] resultVector = (T[]) Array.newInstance(type, rows);
-        for(int i=0;i<vector.length;i++) resultVector[i] = vector[i];
         for (int i = 0; i < rows; i++) {
             get0Debug(i,i);
         }
-       // get0Debug(0,0);
-        System.out.println("**********");
-        this.printMatrix();
         this.reduceMatrix();
-        System.out.println("**********");
-        return resultVector;
+        return this.vector;
     }
     public void get0Debug(int xPos, int yPos){
         ANumber[] result = null;
@@ -240,22 +207,23 @@ public class MyMatrix<T extends ANumber<T>> {
         }
     }
 
-    public ANumber[] findBiggestValueInRow(int xPos, ANumber resultVector[]){
+    public ANumber[] findBiggestValueInRow(int xPos){
 
         int maxRow = xPos;
-        for(int i = 0; i< rows; i++){
+        for(int i = xPos; i< rows; i++){
             if(matrix[maxRow][xPos].compareTo(matrix[i][xPos])==1) maxRow = i;
         }
         swapRows(xPos, maxRow);
-        return swap(xPos, maxRow,resultVector);
+        swap(xPos,maxRow,this.vector);
+        return swap(xPos, maxRow,this.vector);
     }
 
-    public void findBiggestElementInSubmatrix(int xPos,  ANumber resultVector[]){
+    public void findBiggestElementInSubmatrix(int xPos){
 
         int maxRow = xPos;
         int maxColumn = xPos;
-        for(int i = 0; i< rows; i++){
-            for(int j = 0; j<columns;j++) {
+        for(int i = xPos; i< rows; i++){
+            for(int j = xPos; j<columns;j++) {
                 if (matrix[maxRow][maxColumn].compareTo(matrix[i][j]) == 1){
                     maxRow = i;
                     maxColumn = j;
@@ -264,7 +232,6 @@ public class MyMatrix<T extends ANumber<T>> {
         }
         swapRows(xPos, maxRow);
         swapColumns(xPos,maxColumn);
-
     }
 
 }

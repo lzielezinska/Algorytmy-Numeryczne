@@ -32,7 +32,7 @@ public class Hypothesis {
      * podwójnej precyzji (TD)?
      */
     public static void Q1(){
-        int sizes[] = {100, 200, 300, 400, 500, 600, 700, 800, 900, 1000};
+        int sizes[] = {100, 200, 300, 400};
         ANumber resultOfGauss[];
         ANumber resultOfPartGauss[];
         double normOfGauss;
@@ -81,9 +81,9 @@ public class Hypothesis {
      * dla 9 testowanych wariantów.
      */
     public static void E1(){
-        testTypeE1(WrappedFloat.class);
+        //testTypeE1(WrappedFloat.class);
         testTypeE1(WrappedDouble.class);
-        testTypeE1(MyType.class);
+       // testTypeE1(MyType.class);
     }
     public static void testTypeE1(Class type){
         long timestampBefore;
@@ -104,7 +104,7 @@ public class Hypothesis {
         System.out.println("Method: Normal Gauss " +"Type: " + type + " time: " + deltaSeconds + "s");
 
         //Part gauss
-        Randomizer.resetRandomizer();
+        /*Randomizer.resetRandomizer();
         matrix = new MyMatrix<WrappedFloat>(500,500,type);
         matrix.fillMatrixAndVector();
         timestampBefore = System.currentTimeMillis();
@@ -123,7 +123,7 @@ public class Hypothesis {
         timestampAfter = System.currentTimeMillis();
         deltaTime = timestampAfter - timestampBefore;
         deltaSeconds = (double)deltaTime / 1000d;
-        System.out.println("Method: Full choice Gauss " +"Type: " + type + " time: " + deltaSeconds + "s");
+        System.out.println("Method: Full choice Gauss " +"Type: " + type + " time: " + deltaSeconds + "s");*/
     }
 
 }
