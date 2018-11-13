@@ -15,12 +15,14 @@ public class MyMatrix<T extends ANumber<T>> {
     private T[][] matrix;
     private T[] vector;
     private T staticObject;
+    private T[] savedVector;
     public MyMatrix(int rows, int columns, Class type) {
         this.rows = rows;
         this.columns = columns;
         this.matrix = (T[][]) Array.newInstance(type,rows,columns);
         this.type = type;
         this.vector = (T[]) Array.newInstance(type, rows);
+        this.savedVector = vector.clone();
         try{
             this.staticObject = (T) TypeFabric.CreateNumber(type);
         } catch (Exception e){
@@ -108,7 +110,8 @@ public class MyMatrix<T extends ANumber<T>> {
                 System.out.format("| % .3f ",this.matrix[i][j].doubleValue());
                 //System.out.print("| " + this.matrix[i][j].toString());
             }
-            System.out.println("|");
+            System.out.format("| % .3f", this.vector[i].doubleValue());
+            System.out.println("");
         }
     }
 
@@ -178,10 +181,10 @@ public class MyMatrix<T extends ANumber<T>> {
         return resultVector;
     }
     public ANumber[] gauss(){
-        ANumber[] resultVector = (T[]) Array.newInstance(type, rows);
+        T[] resultVector = (T[]) Array.newInstance(type, rows);
         for(int i=0;i<vector.length;i++) resultVector[i] = vector[i];
         for (int i = 0; i < rows; i++) {
-            resultVector = get0Debug(i,i, resultVector);
+            get0Debug(i,i);
         }
         System.out.println("**********");
         this.printMatrix();
@@ -189,12 +192,13 @@ public class MyMatrix<T extends ANumber<T>> {
         System.out.println("**********");
         return resultVector;
     }
-    public ANumber[] get0Debug(int xPos, int yPos, T resultVector[]){
+    public void get0Debug(int xPos, int yPos){
         ANumber[] result = null;
         T temp[] = (T[]) Array.newInstance(type, this.columns); //Pomocnicza tablica
         T mulTemp[] = (T[]) Array.newInstance(type, this.columns); //Pomocnicza tablica
         T savedValueOfCurrentOperation = matrix[xPos][yPos];
         T help;
+        T mulHelp;
 
         for(int i = 0; i < xPos; i++) {
             temp[i] = staticObject.returnZero();
@@ -202,31 +206,27 @@ public class MyMatrix<T extends ANumber<T>> {
         for(int i = xPos; i < (this.columns); i++){    //Dzielę w celu uzyskania jednyki, przypisują podzieloną wartość do pomocniczej tablicy
             matrix[xPos][i] =  matrix[xPos][i].div(savedValueOfCurrentOperation);
             temp[i] = matrix[xPos][i];
-            resultVector[i] = resultVector[i].div(savedValueOfCurrentOperation);
-            help =  resultVector[i];
         }
-
+        this.vector[xPos] = this.vector[xPos].div(savedValueOfCurrentOperation);
+        help =  this.vector[xPos];
 
         for(int y = xPos; y < this.rows -1; y++){
             mulTemp = (T[]) multiplayRowByValue(temp, matrix[y + 1][yPos]);
+            mulHelp = help.mul(matrix[y+1][yPos]);
+            help = help.changeSign();
             changeSingOfVector(mulTemp);
-            help = help.mul(resultVector[y+1]);
-//            for(int i = 0; i < mulTemp.length; i++){
-//                System.out.println(mulTemp[i]);
-//            }
             matrix[y + 1] = (T[])addTwoRows(mulTemp, matrix[y + 1]);
-            resultVector[y+1] = help;
+            this.vector[y+1] = this.vector[y+1].add(help);
         }
 
         //Dodaje pomocnicza macierz do macierzy redukawanej
-        return result;
     }
 
-    private void reduceMatrix(T resultVector[]){
+    private void reduceMatrix(){
         for (int i = this.rows - 2; i >= 0; i--){
             for (int y = i; y >= 0; y--){
                 matrix[y][i + 1] = matrix[y][i + 1].sub(matrix[i + 1][i + 1].mul(matrix[y][i + 1]));
-                resultVector[i+1] =
+                this.vector[i+1] =this.vector[i+1].sub(this.vector[i+1].mul(matrix[y][i + 1]));
             }
         }
     }
