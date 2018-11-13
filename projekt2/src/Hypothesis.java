@@ -44,13 +44,13 @@ public class Hypothesis {
         for(int i : sizes){
             Randomizer.resetRandomizer();
             MyMatrix matrix = new MyMatrix<WrappedFloat>(i,i,WrappedDouble.class);
-            matrix.fillMatrix();
+            matrix.fillMatrixAndVector();
             resultOfGauss = matrix.gauss();
             normOfGauss = VectorHandler.getNormInf(resultOfGauss);
 
             Randomizer.resetRandomizer();
             matrix = new MyMatrix<WrappedFloat>(i,i,WrappedDouble.class);
-            matrix.fillMatrix();
+            matrix.fillMatrixAndVector();
             resultOfPartGauss = matrix.partChoiceGauss();
             normOfPartGauss = VectorHandler.getNormInf(resultOfPartGauss);
 
@@ -95,7 +95,7 @@ public class Hypothesis {
         //gauss
         Randomizer.resetRandomizer();
         MyMatrix matrix = new MyMatrix<WrappedFloat>(500,500,type);
-        matrix.fillMatrix();
+        matrix.fillMatrixAndVector();
         timestampBefore = System.currentTimeMillis();
         matrix.gauss();
         timestampAfter = System.currentTimeMillis();
@@ -106,7 +106,7 @@ public class Hypothesis {
         //Part gauss
         Randomizer.resetRandomizer();
         matrix = new MyMatrix<WrappedFloat>(500,500,type);
-        matrix.fillMatrix();
+        matrix.fillMatrixAndVector();
         timestampBefore = System.currentTimeMillis();
         matrix.partChoiceGauss();
         timestampAfter = System.currentTimeMillis();
@@ -117,7 +117,7 @@ public class Hypothesis {
         //Full gaus
         Randomizer.resetRandomizer();
         matrix = new MyMatrix<WrappedFloat>(500,500,type);
-        matrix.fillMatrix();
+        matrix.fillMatrixAndVector();
         timestampBefore = System.currentTimeMillis();
         matrix.fulChoiceGauss();
         timestampAfter = System.currentTimeMillis();

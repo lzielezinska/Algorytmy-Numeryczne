@@ -5,6 +5,12 @@ public class WrappedDouble extends ANumber<WrappedDouble> {
     public WrappedDouble(double value){
         this.value = value;
     }
+
+    @Override
+    public WrappedDouble returnZero() {
+        return new WrappedDouble(0.0);
+    }
+
     @Override
     public WrappedDouble add(WrappedDouble wrappedDouble) {
         double newValue = this.value + wrappedDouble.value;
@@ -13,13 +19,13 @@ public class WrappedDouble extends ANumber<WrappedDouble> {
 
     @Override
     public WrappedDouble sub(WrappedDouble wrappedDouble) {
-        double newValue = this.value + wrappedDouble.value;
+        double newValue = this.value - wrappedDouble.value;
         return new WrappedDouble(newValue);
     }
 
     @Override
     public WrappedDouble mul(WrappedDouble wrappedDouble) {
-        double newValue = this.value + wrappedDouble.value;
+        double newValue = this.value * wrappedDouble.value;
         return new WrappedDouble(newValue);
     }
 
@@ -28,13 +34,13 @@ public class WrappedDouble extends ANumber<WrappedDouble> {
         if(wrappedDouble.equals(ZERO)){
             return null;
         }
-        double newValue = this.value + wrappedDouble.value;
+        double newValue = this.value / wrappedDouble.value;
         return new WrappedDouble(newValue);
     }
 
     @Override
-    public WrappedDouble sign(WrappedDouble wrappedDouble) {
-        double newValue = (-1) * wrappedDouble.value;
+    public WrappedDouble changeSign() {
+        double newValue = (-1) * this.value;
         return new WrappedDouble(newValue);
     }
 

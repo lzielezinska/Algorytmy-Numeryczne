@@ -4,9 +4,25 @@ public class Main {
     public static void main(String[] args){
         out.println("Lucyna Zielezińska & Kacper Dondziak");
        // Tests.testAllTypes();
-        Hypothesis.E1();
-        MyMatrix matrix = new MyMatrix(5,5,WrappedDouble.class);
-        matrix.fillMatrix();
-        matrix.printMatrix();
+      //  Hypothesis.E1();
+        MyMatrix<MyType> debug = new MyMatrix<MyType>(5,5,WrappedDouble.class);
+        debug.fillMatrixAndVector();
+        debug.printMatrix();
+        debug.gauss();
+        System.out.println("*********");
+        debug.printMatrix();
+
+
+
+        MyType m1 = new MyType(0, 0);
+
+
+
+
+
+
+
+        //System.out.println(m1.fractValue() + " " + m1.toString());
+
     }
 }
