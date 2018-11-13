@@ -109,10 +109,10 @@ public class MyMatrix<T extends ANumber<T>> {
     public  void printMatrix() {
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
-                System.out.format("| % .3f ",this.matrix[i][j].doubleValue());
+                System.out.format("| % .4f ",this.matrix[i][j].doubleValue());
                 //System.out.print("| " + this.matrix[i][j].toString());
             }
-            System.out.format("| % .3f", this.vector[i].doubleValue());
+            System.out.format("| % .4f", this.vector[i].doubleValue());
             System.out.println("");
         }
     }
@@ -188,6 +188,7 @@ public class MyMatrix<T extends ANumber<T>> {
         for (int i = 0; i < rows; i++) {
             get0Debug(i,i);
         }
+       // get0Debug(0,0);
         System.out.println("**********");
         this.printMatrix();
         this.reduceMatrix();
@@ -215,10 +216,10 @@ public class MyMatrix<T extends ANumber<T>> {
         for(int y = xPos; y < this.rows -1; y++){
             mulTemp = (T[]) multiplayRowByValue(temp, matrix[y + 1][yPos]);
             mulHelp = help.mul(matrix[y+1][yPos]);
-            help = help.changeSign();
+            mulHelp = mulHelp.changeSign();
             changeSingOfVector(mulTemp);
             matrix[y + 1] = (T[])addTwoRows(mulTemp, matrix[y + 1]);
-            this.vector[y+1] = this.vector[y+1].add(help);
+            this.vector[y+1] = this.vector[y+1].add(mulHelp);
         }
 
         //Dodaje pomocnicza macierz do macierzy redukawanej
@@ -227,8 +228,8 @@ public class MyMatrix<T extends ANumber<T>> {
     private void reduceMatrix(){
         for (int i = this.rows - 2; i >= 0; i--){
             for (int y = i; y >= 0; y--){
+                this.vector[y] =this.vector[y].sub(this.vector[i+1].mul(matrix[y][i + 1]));
                 matrix[y][i + 1] = matrix[y][i + 1].sub(matrix[i + 1][i + 1].mul(matrix[y][i + 1]));
-                this.vector[i+1] =this.vector[i+1].sub(this.vector[i+1].mul(matrix[y][i + 1]));
             }
         }
     }
