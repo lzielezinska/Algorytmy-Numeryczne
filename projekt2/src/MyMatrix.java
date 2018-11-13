@@ -179,6 +179,7 @@ public class MyMatrix<T extends ANumber<T>> {
         for (int i = 0; i < rows; i++) {
             resultVector = get0Debug(i,i, resultVector);
         }
+<<<<<<< HEAD
         /*resultVector = get0Debug(0,0, resultVector);
         System.out.println("*************");
         this.printMatrix();
@@ -186,6 +187,12 @@ public class MyMatrix<T extends ANumber<T>> {
         System.out.println("*************");
         this.printMatrix();
         resultVector = get0Debug(2,2, resultVector);*/
+=======
+        System.out.println("**********");
+        this.printMatrix();
+        this.reduceMatrix();
+        System.out.println("**********");
+>>>>>>> 4cf314c114f32394b454e9f8c62c071f46eb5b6f
         return resultVector;
     }
     public ANumber[] get0Debug(int xPos, int yPos, ANumber resultVector[]){
@@ -202,6 +209,7 @@ public class MyMatrix<T extends ANumber<T>> {
             temp[i] = matrix[xPos][i];
         }
 
+<<<<<<< HEAD
 
         for(int y = xPos; y < this.rows -1; y++){
             mulTemp = (T[]) multiplayRowByValue(temp, matrix[y + 1][yPos]);
@@ -216,6 +224,30 @@ public class MyMatrix<T extends ANumber<T>> {
         return result;
     }
 
+=======
+
+        for(int y = xPos; y < this.rows -1; y++){
+            mulTemp = (T[]) multiplayRowByValue(temp, matrix[y + 1][yPos]);
+            changeSingOfVector(mulTemp);
+//            for(int i = 0; i < mulTemp.length; i++){
+//                System.out.println(mulTemp[i]);
+//            }
+            matrix[y + 1] = (T[])addTwoRows(mulTemp, matrix[y + 1]);
+        }
+
+        //Dodaje pomocnicza macierz do macierzy redukawanej
+        return result;
+    }
+
+    private void reduceMatrix(){
+        for (int i = this.rows - 2; i >= 0; i--){
+            for (int y = i; y >= 0; y--){
+                matrix[y][i + 1] = matrix[y][i + 1].sub(matrix[i + 1][i + 1].mul(matrix[y][i + 1]));
+            }
+        }
+    }
+
+>>>>>>> 4cf314c114f32394b454e9f8c62c071f46eb5b6f
     private void changeSingOfVector(T[] vec){
         for (int i = 0; i < (this.rows); i++){
             vec[i] = (T) (vec[i].changeSign());
