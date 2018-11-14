@@ -190,8 +190,8 @@ public class MyMatrix<T extends ANumber<T>> {
         }
         System.out.println("**********");
         this.printMatrix();
-        this.reduceMatrix();
         System.out.println("**********");
+
         return resultVector;
     }
     public void get0Debug(int xPos, int yPos){
@@ -220,18 +220,29 @@ public class MyMatrix<T extends ANumber<T>> {
             matrix[y + 1] = (T[])addTwoRows(mulTemp, matrix[y + 1]);
             this.vector[y+1] = this.vector[y+1].add(help);
         }
+        if(xPos>0){
+            for(int i = 1; i <= xPos; i++) {
+                mulTemp = (T[]) multiplayRowByValue(temp, matrix[i - 1][yPos]);
+                mulHelp = help.mul(matrix[i-1][yPos]);
+                help = help.changeSign();
 
-        //Dodaje pomocnicza macierz do macierzy redukawanej
-    }
+                changeSingOfVector(mulTemp);
+                matrix[i - 1] = (T[]) addTwoRows(mulTemp, matrix[i - 1]);
+                this.vector[i-1] = this.vector[i-1].add(help);
 
-    private void reduceMatrix(){
-        for (int i = this.rows - 2; i >= 0; i--){
-            for (int y = i; y >= 0; y--){
-                matrix[y][i + 1] = matrix[y][i + 1].sub(matrix[i + 1][i + 1].mul(matrix[y][i + 1]));
-                this.vector[i+1] =this.vector[i+1].sub(this.vector[i+1].mul(matrix[y][i + 1]));
             }
         }
+
     }
+
+//    private void reduceMatrix(){
+//        for (int i = this.rows - 2; i >= 0; i--){
+//            for (int y = i; y >= 0; y--){
+//                matrix[y][i + 1] = matrix[y][i + 1].sub(matrix[i + 1][i + 1].mul(matrix[y][i + 1]));
+//                this.vector[i+1] =this.vector[i+1].sub(this.vector[i+1].mul(matrix[y][i + 1]));
+//            }
+//        }
+//    }
 
     private void changeSingOfVector(T[] vec){
         for (int i = 0; i < (this.rows); i++){

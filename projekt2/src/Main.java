@@ -33,7 +33,13 @@ public class Main {
         ma[3][1] = new WrappedDouble(-5.2);
         ma[3][2] = new WrappedDouble(4.2);
         ma[3][3] = new WrappedDouble(-3.4);
-        MyMatrix<WrappedDouble> matrix1 = new MyMatrix<WrappedDouble>(ma, 4,4,WrappedDouble.class);
+        WrappedDouble vec[]= new WrappedDouble[4];
+        vec[0] = new WrappedDouble(13.15);
+        vec[1] = new WrappedDouble(49.84);
+        vec[2] = new WrappedDouble(-14.08);
+        vec[3] = new WrappedDouble(-46.51);
+
+        MyMatrix<WrappedDouble> matrix1 = new MyMatrix<WrappedDouble>(ma,vec, 4,4,WrappedDouble.class);
         matrix1.printMatrix();
         System.out.println("******");
         matrix1.gauss();
