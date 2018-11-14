@@ -13,7 +13,7 @@ public class Main {
         debug.gauss();
         timestampAfter = System.currentTimeMillis();
         System.out.println((timestampAfter - timestampBefore)/1000d + "s");*/
-
+        Tests.debugVectorNorm();
        /*Tests.testgauss();
         System.out.println("*********");
        Tests.testPartGauss();
@@ -21,7 +21,7 @@ public class Main {
       /* Tests.testFullGauss();
        Hypothesis.Q1();*/
     //Tests.testFullGauss();
-        Hypothesis.E1();
+       // Hypothesis.E1();
 
 
     }

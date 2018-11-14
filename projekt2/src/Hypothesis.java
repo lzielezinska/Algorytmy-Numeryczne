@@ -45,7 +45,7 @@ public class Hypothesis {
      * podwójnej precyzji (TD)?
      */
     public static void Q1(){
-        int sizes[] = {30, 60, 90, 120, 150};
+        int sizes[] = {20, 40, 60, 80, 100};
         ANumber resultOfGauss[];
         ANumber resultOfPartGauss[];
         double normOfGauss;
@@ -59,13 +59,13 @@ public class Hypothesis {
             MyMatrix matrix = new MyMatrix<WrappedFloat>(i,i,WrappedDouble.class);
             matrix.fillMatrixAndVector();
             resultOfGauss = matrix.gauss();
-            normOfGauss = VectorHandler.getNormInf(resultOfGauss);
+            normOfGauss = matrix.getNormInf(resultOfGauss, matrix.getSavedVector());
 
             Randomizer.resetRandomizer();
             matrix = new MyMatrix<WrappedFloat>(i,i,WrappedDouble.class);
             matrix.fillMatrixAndVector();
             resultOfPartGauss = matrix.partChoiceGauss();
-            normOfPartGauss = VectorHandler.getNormInf(resultOfPartGauss);
+            normOfPartGauss = matrix.getNormInf(resultOfPartGauss, matrix.getSavedVector());
 
             gauss.add(i,normOfGauss);
             partGauss.add(i,normOfPartGauss);

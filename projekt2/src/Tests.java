@@ -29,10 +29,24 @@ public class Tests {
     }
     public static void debugVectorNorm(){
         ANumber[] te = new MyType[3];
-        te[0] = new MyType(2,3);
-        te[1] = new MyType(4,3);
-        te[2] = new MyType(1,3);
-        System.out.println(VectorHandler.getNormInf(te));
+        te[0] = new MyType(1,3);
+        te[1] = new MyType(0,3);
+        te[2] = new MyType(11,2);
+        ANumber[] ee = new MyType[3];
+        ee[0] = new MyType(5,3);
+        ee[1] = new MyType(4,6);
+        ee[2] = new MyType(1,3);
+        MyMatrix m = new MyMatrix<WrappedDouble>(1,1,WrappedDouble.class);
+        System.out.println(m.getNormInf(te,ee));
+        te = new WrappedDouble[3];
+        te[0] = new WrappedDouble(5);
+        te[1] = new WrappedDouble(56);
+        te[2] = new WrappedDouble(1);
+        ee = new WrappedDouble[3];
+        ee[0] = new WrappedDouble(4);
+        ee[1] = new WrappedDouble(2);
+        ee[2] = new WrappedDouble(5);
+        System.out.println(m.getNormInf(te,ee));
     }
     public static void debugFloatMAtrix(){
         MyMatrix matrix = new MyMatrix<WrappedFloat>(3,3,WrappedFloat.class);

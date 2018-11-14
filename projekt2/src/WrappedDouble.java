@@ -63,13 +63,24 @@ public class WrappedDouble extends ANumber<WrappedDouble> {
     }
 
     @Override
-    public double abs() {
-        return Math.abs(this.doubleValue());
+    public WrappedDouble abs() {
+        return new WrappedDouble(Math.abs(this.doubleValue()));
     }
+
 
     public static WrappedDouble generateRandomNumber() {
         WrappedDouble result;
         result = new WrappedDouble((double)(Randomizer.generateRandomShort()/65536d));
         return result;
+    }
+
+    @Override
+    public int compareTo(WrappedDouble o) {
+        if(this.doubleValue() < o.doubleValue())
+            return -1;
+        else if(this.doubleValue() > o.doubleValue())
+            return 1;
+        else
+            return 0;
     }
 }

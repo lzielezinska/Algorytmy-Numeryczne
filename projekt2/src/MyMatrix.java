@@ -40,7 +40,9 @@ public class MyMatrix<T extends ANumber<T>> {
         this.columns = 4;
         this.matrix = (T[][]) Array.newInstance(type,rows,columns);
     }
-
+    public ANumber[] getSavedVector(){
+        return this.savedVector;
+    }
 
 
     public ANumber[] partChoiceGauss(){
@@ -239,5 +241,16 @@ public class MyMatrix<T extends ANumber<T>> {
         swapRows(xPos, maxRow);
         swapColumns(xPos,maxColumn);
     }
-
+    public  double getNormInf(T[] res, T[] vec){
+        T result = (T) res[0].sub(vec[0]).abs();
+        T diff;
+        for(int i = 0; i < vec.length; i++){
+            diff = (T) res[i].sub(vec[i]).abs();
+            System.out.println(res[i] +" "+ vec[i]+" "+ diff);
+            if(result.abs().compareTo(diff.abs()) == -1){
+                result = diff.abs();
+            }
+        }
+        return result.doubleValue();
+    }
 }

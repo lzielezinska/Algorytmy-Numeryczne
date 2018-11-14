@@ -1,5 +1,5 @@
 
-public abstract class ANumber<T> implements Comparable<ANumber> {
+public abstract class ANumber<T> implements Comparable<T> {
     public abstract T returnZero();
 
     public abstract T add(T t);
@@ -20,14 +20,8 @@ public abstract class ANumber<T> implements Comparable<ANumber> {
 
     public abstract void setToONE();
 
-    public abstract double abs();
+    public abstract T abs();
 
-    public int compareTo(ANumber o) {
-        if (this.doubleValue() > o.doubleValue())
-            return -1;
-        else if (this.doubleValue() < o.doubleValue())
-            return 1;
-        else
-            return 0;
-    }
+    public abstract int compareTo(T o);
+
 }

@@ -1,4 +1,4 @@
-public class WrappedFloat extends ANumber<WrappedFloat> {
+public class WrappedFloat extends ANumber<WrappedFloat>{
     private float value;
     public static WrappedFloat ZERO = new WrappedFloat(0f);
     public static WrappedFloat ONE = new WrappedFloat(1.0f);
@@ -52,8 +52,8 @@ public class WrappedFloat extends ANumber<WrappedFloat> {
     }
 
     @Override
-    public double abs() {
-        return Math.abs(this.doubleValue());
+    public WrappedFloat abs() {
+        return new WrappedFloat((float)Math.abs(this.doubleValue()));
     }
 
     @Override
@@ -69,5 +69,15 @@ public class WrappedFloat extends ANumber<WrappedFloat> {
         WrappedFloat result;
         result = new WrappedFloat(((float)Randomizer.generateRandomShort()/65536f));
         return result;
+    }
+
+    @Override
+    public int compareTo(WrappedFloat o) {
+        if(this.doubleValue() < o.doubleValue())
+            return -1;
+        else if(this.doubleValue() > o.doubleValue())
+            return 1;
+        else
+            return 0;
     }
 }
