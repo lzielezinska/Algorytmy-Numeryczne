@@ -156,7 +156,15 @@ public class MyMatrix<T extends ANumber<T>> {
     }
 
     public ANumber[] gauss(){
+        double percents = 0.1;
+        double progress = 0.0;
+
         for (int i = 0; i < rows; i++) {
+            progress = (double)i/rows;
+            if(progress > percents){
+                System.out.print("*");
+                percents += 0.1;
+            }
             get0Debug(i,i);
         }
         this.reduceMatrix();
@@ -207,15 +215,13 @@ public class MyMatrix<T extends ANumber<T>> {
         }
     }
 
-    public ANumber[] findBiggestValueInRow(int xPos){
+    public void findBiggestValueInRow(int xPos){
 
         int maxRow = xPos;
         for(int i = xPos; i< rows; i++){
             if(matrix[maxRow][xPos].compareTo(matrix[i][xPos])==1) maxRow = i;
         }
         swapRows(xPos, maxRow);
-        swap(xPos,maxRow,this.vector);
-        return swap(xPos, maxRow,this.vector);
     }
 
     public void findBiggestElementInSubmatrix(int xPos){

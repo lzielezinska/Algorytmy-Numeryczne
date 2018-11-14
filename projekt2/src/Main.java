@@ -5,22 +5,23 @@ public class Main {
         out.println("Lucyna Zielezińska & Kacper Dondziak");
        // Tests.testAllTypes();
         //Hypothesis.E1();
-       /* MyMatrix<MyType> debug = new MyMatrix<MyType>(11,11,WrappedDouble.class);
+        /*MyMatrix<MyType> debug = new MyMatrix<MyType>(150,150,MyType.class);
         debug.fillMatrixAndVector();
-        debug.printMatrix();
-        debug.fulChoiceGauss();
-        System.out.println("*********");
-        debug.printMatrix();
-        System.out.println("*********");*/
+        //debug.printMatrix();
+        long timestampBefore,timestampAfter;
+        timestampBefore = System.currentTimeMillis();
+        debug.gauss();
+        timestampAfter = System.currentTimeMillis();
+        System.out.println((timestampAfter - timestampBefore)/1000d + "s");*/
+
        /*Tests.testgauss();
         System.out.println("*********");
        Tests.testPartGauss();
         System.out.println("*********");*/
       /* Tests.testFullGauss();
        Hypothesis.Q1();*/
-    Tests.myTypeGauss();
-
-
+    //Tests.testFullGauss();
+        Hypothesis.E1();
 
 
     }

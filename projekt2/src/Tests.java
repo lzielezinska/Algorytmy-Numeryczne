@@ -71,6 +71,7 @@ public class Tests {
         System.out.println("******");
         matrix1.gauss();
         matrix1.printMatrix();
+
     }
     public static void testgauss(){
         WrappedDouble ma[][] = new WrappedDouble[4][4];
