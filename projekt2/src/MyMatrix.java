@@ -1,4 +1,3 @@
-import java.lang.reflect.AnnotatedArrayType;
 import java.lang.reflect.Array;
 
 /**
@@ -8,6 +7,11 @@ import java.lang.reflect.Array;
  * Algorytmy Numeryczne
  * Projekt 2
  */
+
+
+
+/****************************************************DEFINICJA KLASY***********************************************/
+
 public class MyMatrix<T extends ANumber<T>> {
     private int rows;
     private int columns;
@@ -16,6 +20,7 @@ public class MyMatrix<T extends ANumber<T>> {
     private T[] vector;
     private T staticObject;
     private T[] savedVector;
+
     public MyMatrix(int rows, int columns, Class type) {
         this.rows = rows;
         this.columns = columns;
@@ -35,47 +40,12 @@ public class MyMatrix<T extends ANumber<T>> {
         this.savedVector = vec;
     }
 
-    public void setDebugVaules(){
-        this.rows = 4;
-        this.columns = 4;
-        this.matrix = (T[][]) Array.newInstance(type,rows,columns);
-    }
-
-
-
-    public ANumber[] partChoiceGauss(){
-        for (int i = 0; i < rows; i++) {
-            findBiggestValueInRow(i);
-            get0Debug(i,i);
-        }
-        this.reduceMatrix();
-        return this.vector;
-    }
-    public ANumber[] fulChoiceGauss(){
-        for (int i = 0; i < rows; i++) {
-            findBiggestElementInSubmatrix(i);
-            get0Debug(i,i);
-        }
-        this.reduceMatrix();
-        return this.vector;
-    }
-
-    public ANumber[] mulMatrixVector(ANumber[] vector){
-        ANumber[] resultVector = (T[]) Array.newInstance(type, vector.length);
-        //TODO Here add multiplying Matrix * Vector method body.
-
-        for (int i = 0; i < rows; i++) {
-            ANumber sum = (T)staticObject.returnZero();
-            ANumber product = (T)staticObject.returnZero();
-            for (int j = 0; j < rows; j++) {
-                product =(ANumber)matrix[i][j].mul((T)vector[j]);
-                sum = (ANumber) sum.add(product);
-            }
-            resultVector[i] = sum;
-        }
-        return resultVector;
-    }
-
+//    public void setDebugVaules(){
+//        this.rows = 4;
+//        this.columns = 4;
+//        this.matrix = (T[][]) Array.newInstance(type,rows,columns);
+//    }
+    /***************************************************WYPEŁNANIE MACIERZY *********************************************************/
     public void fillMatrixAndVector() {
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
@@ -106,63 +76,35 @@ public class MyMatrix<T extends ANumber<T>> {
         }
     }
 
-    public T[] addTwoRows(ANumber m1[], ANumber m2[]) {
-        T sum[] = (T[]) Array.newInstance(this.type, m1.length);
-        for (int i = 0; i < m1.length; i++) {
-            sum[i] = (T) m1[i].add(m2[i]);
-        }
-        return sum;
-    }
-
-    public T[] multiplayRowByValue(ANumber[] row, ANumber value) {
-        T factor[] = (T[]) Array.newInstance(this.type, row.length);
-        for (int i = 0; i < row.length; i++) {
-            factor[i] = (T) row[i].mul(value);
-        }
-        return factor;
-    }
-
-    public ANumber[] devideRowByValue(ANumber[] row, ANumber value) {
-        ANumber quotion[] = new ANumber[row.length];
-        for (int i = 0; i < row.length; i++) {
-            quotion[i] = (ANumber) row[i].div(value);
-        }
-        return quotion;
-    }
-
-    public ANumber[] swap(int firstRow, int secondRow, ANumber resultVector[]) {
-        ANumber temp = resultVector[firstRow];
-        resultVector[firstRow] = resultVector[secondRow];
-        resultVector[secondRow] = temp;
-        return resultVector;
-    }
-
-    public void swapRows(int firstRow, int secondRow) {
-        T tempRow[] = matrix[firstRow];
-        matrix[firstRow] = matrix[secondRow];
-        matrix[secondRow] = tempRow;
-
-        T tempElement = vector[firstRow];
-        vector[firstRow] = vector[secondRow];
-        vector[secondRow] = tempElement;
-    }
-
-    public void swapColumns(int firstColumn, int secondColumn) {
-        for (int i = 0; i < rows; i++) {
-            T tmp = matrix[i][firstColumn];
-            matrix[i][firstColumn] = matrix[i][secondColumn];
-            matrix[i][secondColumn] = tmp;
-        }
-    }
+/********************************************REDUKCJA MACIERZY ZA POMOCĄ METODY GAUSSA-JORDANA***************************************/
 
     public ANumber[] gauss(){
         for (int i = 0; i < rows; i++) {
-            get0Debug(i,i);
+            get0(i,i);
         }
         this.reduceMatrix();
         return this.vector;
     }
-    public void get0Debug(int xPos, int yPos){
+
+    public ANumber[] partChoiceGauss(){
+        for (int i = 0; i < rows; i++) {
+            findBiggestValueInRow(i);
+            get0(i,i);
+        }
+        this.reduceMatrix();
+        return this.vector;
+    }
+    public ANumber[] fulChoiceGauss(){
+        for (int i = 0; i < rows; i++) {
+            findBiggestElementInSubmatrix(i);
+            get0(i,i);
+        }
+        this.reduceMatrix();
+        return this.vector;
+    }
+    /************************************************DOPROWADZANIE MACIERZY DO POSTACI JEDNOSTKOWEJ**************************************/
+
+    public void get0(int xPos, int yPos){
         ANumber[] result = null;
         T temp[] = (T[]) Array.newInstance(type, this.columns); //Pomocnicza tablica
         T mulTemp[] = (T[]) Array.newInstance(type, this.columns); //Pomocnicza tablica
@@ -189,7 +131,6 @@ public class MyMatrix<T extends ANumber<T>> {
             this.vector[y+1] = this.vector[y+1].add(mulHelp);
         }
 
-        //Dodaje pomocnicza macierz do macierzy redukawanej
     }
 
     private void reduceMatrix(){
@@ -201,11 +142,84 @@ public class MyMatrix<T extends ANumber<T>> {
         }
     }
 
+/*********************************************************DZIAŁANIA NA MACIERZACH**************************************************/
+
+    public ANumber[] mulMatrixVector(ANumber[] vector){
+        ANumber[] resultVector = (T[]) Array.newInstance(type, vector.length);
+        //TODO Here add multiplying Matrix * Vector method body.
+
+        for (int i = 0; i < rows; i++) {
+            ANumber sum = (T)staticObject.returnZero();
+            ANumber product = (T)staticObject.returnZero();
+            for (int j = 0; j < rows; j++) {
+                product =(ANumber)matrix[i][j].mul((T)vector[j]);
+                sum = (ANumber) sum.add(product);
+            }
+            resultVector[i] = sum;
+        }
+        return resultVector;
+    }
+
+
+    public T[] addTwoRows(ANumber m1[], ANumber m2[]) {
+        T sum[] = (T[]) Array.newInstance(this.type, m1.length);
+        for (int i = 0; i < m1.length; i++) {
+            sum[i] = (T) m1[i].add(m2[i]);
+        }
+        return sum;
+    }
+
+    public T[] multiplayRowByValue(ANumber[] row, ANumber value) {
+        T factor[] = (T[]) Array.newInstance(this.type, row.length);
+        for (int i = 0; i < row.length; i++) {
+            factor[i] = (T) row[i].mul(value);
+        }
+        return factor;
+    }
+
+    public ANumber[] devideRowByValue(ANumber[] row, ANumber value) {
+        ANumber quotion[] = new ANumber[row.length];
+        for (int i = 0; i < row.length; i++) {
+            quotion[i] = (ANumber) row[i].div(value);
+        }
+        return quotion;
+    }
+
     private void changeSingOfVector(T[] vec){
         for (int i = 0; i < (this.rows); i++){
             vec[i] = (T) (vec[i].changeSign());
         }
     }
+
+    /*************************************************FUNKCJE SWAP**************************************************************/
+
+    public ANumber[] swap(int firstRow, int secondRow, ANumber resultVector[]) {
+        ANumber temp = resultVector[firstRow];
+        resultVector[firstRow] = resultVector[secondRow];
+        resultVector[secondRow] = temp;
+        return resultVector;
+    }
+
+    public void swapRows(int firstRow, int secondRow) {
+        T tempRow[] = matrix[firstRow];
+        matrix[firstRow] = matrix[secondRow];
+        matrix[secondRow] = tempRow;
+
+        T tempElement = vector[firstRow];
+        vector[firstRow] = vector[secondRow];
+        vector[secondRow] = tempElement;
+    }
+
+    public void swapColumns(int firstColumn, int secondColumn) {
+        for (int i = 0; i < rows; i++) {
+            T tmp = matrix[i][firstColumn];
+            matrix[i][firstColumn] = matrix[i][secondColumn];
+            matrix[i][secondColumn] = tmp;
+        }
+    }
+
+
+/*****************************************POMOCNICZE METODY DO CZĘŚCIOWEGO I PEŁNEGO WYBORU*************************************************/
 
     public ANumber[] findBiggestValueInRow(int xPos){
 
