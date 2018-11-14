@@ -162,6 +162,30 @@ public class Tests {
         matrix1.fulChoiceGauss();
         matrix1.printMatrix();
     }
+
+    public static void testMulVector(){
+        WrappedDouble ma[][] = new WrappedDouble[3][3];
+        ma[0][0] = new WrappedDouble(1.0);
+        ma[0][1] = new WrappedDouble(1.0);
+        ma[0][2] = new WrappedDouble(1.0);
+        ma[1][0] = new WrappedDouble(1.0);
+        ma[1][1] = new WrappedDouble(1.0);
+        ma[1][2] = new WrappedDouble(1.0);
+        ma[2][0] = new WrappedDouble(1.0);
+        ma[2][1] = new WrappedDouble(1.0);
+        ma[2][2] = new WrappedDouble(1.0);
+
+        WrappedDouble vec[]= new WrappedDouble[3];
+        vec[0] = new WrappedDouble(1.0);
+        vec[1] = new WrappedDouble(1.0);
+        vec[2] = new WrappedDouble(1.0);
+
+        MyMatrix<WrappedDouble> matrix1 = new MyMatrix<WrappedDouble>(ma,vec, 3,3,WrappedDouble.class);
+        matrix1.printMatrix();
+        System.out.println("******");
+        matrix1.mulMatrixVector();
+    }
+
     public static void testFloat(){
         Randomizer.resetRandomizer();
         MyMatrix matrix = new MyMatrix<WrappedFloat>(3,3,WrappedFloat.class);

@@ -18,7 +18,9 @@ public class Main {
         System.out.println("*********");*/
       /* Tests.testFullGauss();
        Hypothesis.Q1();*/
-    Tests.myTypeGauss();
+    //Tests.myTypeGauss();
+
+        Tests.testMulVector();
 
 
 

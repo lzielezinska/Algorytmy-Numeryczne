@@ -144,18 +144,21 @@ public class MyMatrix<T extends ANumber<T>> {
 
 /*********************************************************DZIAŁANIA NA MACIERZACH**************************************************/
 
-    public ANumber[] mulMatrixVector(ANumber[] vector){
-        ANumber[] resultVector = (T[]) Array.newInstance(type, vector.length);
-        //TODO Here add multiplying Matrix * Vector method body.
+    public T[] mulMatrixVector(){
+        T[] resultVector = (T[]) Array.newInstance(type, vector.length);
 
         for (int i = 0; i < rows; i++) {
-            ANumber sum = (T)staticObject.returnZero();
-            ANumber product = (T)staticObject.returnZero();
+            T sum = (T)staticObject.returnZero();
+            T product = (T)staticObject.returnZero();
             for (int j = 0; j < rows; j++) {
-                product =(ANumber)matrix[i][j].mul((T)vector[j]);
-                sum = (ANumber) sum.add(product);
+                product =(T) matrix[i][j].mul((T)vector[j]);
+                sum = (T) sum.add(product);
             }
             resultVector[i] = sum;
+        }
+        //sprawdzenie
+        for(int i=0; i< resultVector.length; i++){
+            System.out.print("| "+resultVector[i]+" |");
         }
         return resultVector;
     }
