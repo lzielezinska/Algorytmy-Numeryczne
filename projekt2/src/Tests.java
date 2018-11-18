@@ -29,10 +29,24 @@ public class Tests {
     }
     public static void debugVectorNorm(){
         ANumber[] te = new MyType[3];
-        te[0] = new MyType(2,3);
-        te[1] = new MyType(4,3);
-        te[2] = new MyType(1,3);
-        System.out.println(VectorHandler.getNormInf(te));
+        te[0] = new MyType(1,3);
+        te[1] = new MyType(0,3);
+        te[2] = new MyType(11,2);
+        ANumber[] ee = new MyType[3];
+        ee[0] = new MyType(5,3);
+        ee[1] = new MyType(4,6);
+        ee[2] = new MyType(1,3);
+        MyMatrix m = new MyMatrix<WrappedDouble>(1,1,WrappedDouble.class);
+        System.out.println(m.getNormInf(te,ee));
+        te = new WrappedDouble[3];
+        te[0] = new WrappedDouble(5);
+        te[1] = new WrappedDouble(56);
+        te[2] = new WrappedDouble(1);
+        ee = new WrappedDouble[3];
+        ee[0] = new WrappedDouble(4);
+        ee[1] = new WrappedDouble(2);
+        ee[2] = new WrappedDouble(5);
+        System.out.println(m.getNormInf(te,ee));
     }
     public static void debugFloatMAtrix(){
         MyMatrix matrix = new MyMatrix<WrappedFloat>(3,3,WrappedFloat.class);
@@ -71,6 +85,7 @@ public class Tests {
         System.out.println("******");
         matrix1.gauss();
         matrix1.printMatrix();
+
     }
     public static void testgauss(){
         WrappedDouble ma[][] = new WrappedDouble[4][4];
@@ -162,30 +177,6 @@ public class Tests {
         matrix1.fulChoiceGauss();
         matrix1.printMatrix();
     }
-
-    public static void testMulVector(){
-        WrappedDouble ma[][] = new WrappedDouble[3][3];
-        ma[0][0] = new WrappedDouble(1.0);
-        ma[0][1] = new WrappedDouble(1.0);
-        ma[0][2] = new WrappedDouble(1.0);
-        ma[1][0] = new WrappedDouble(1.0);
-        ma[1][1] = new WrappedDouble(1.0);
-        ma[1][2] = new WrappedDouble(1.0);
-        ma[2][0] = new WrappedDouble(1.0);
-        ma[2][1] = new WrappedDouble(1.0);
-        ma[2][2] = new WrappedDouble(1.0);
-
-        WrappedDouble vec[]= new WrappedDouble[3];
-        vec[0] = new WrappedDouble(1.0);
-        vec[1] = new WrappedDouble(1.0);
-        vec[2] = new WrappedDouble(1.0);
-
-        MyMatrix<WrappedDouble> matrix1 = new MyMatrix<WrappedDouble>(ma,vec, 3,3,WrappedDouble.class);
-        matrix1.printMatrix();
-        System.out.println("******");
-        matrix1.mulMatrixVector();
-    }
-
     public static void testFloat(){
         Randomizer.resetRandomizer();
         MyMatrix matrix = new MyMatrix<WrappedFloat>(3,3,WrappedFloat.class);

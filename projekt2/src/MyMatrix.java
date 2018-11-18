@@ -40,11 +40,17 @@ public class MyMatrix<T extends ANumber<T>> {
         this.savedVector = vec;
     }
 
-//    public void setDebugVaules(){
-//        this.rows = 4;
-//        this.columns = 4;
-//        this.matrix = (T[][]) Array.newInstance(type,rows,columns);
-//    }
+    public void setDebugVaules(){
+        this.rows = 4;
+        this.columns = 4;
+        this.matrix = (T[][]) Array.newInstance(type,rows,columns);
+    }
+
+    public ANumber[] getSavedVector(){
+        return this.savedVector;
+    }
+
+
     /***************************************************WYPEŁNANIE MACIERZY *********************************************************/
     public void fillMatrixAndVector() {
         for (int i = 0; i < this.rows; i++) {
@@ -76,7 +82,7 @@ public class MyMatrix<T extends ANumber<T>> {
         }
     }
 
-/********************************************REDUKCJA MACIERZY ZA POMOCĄ METODY GAUSSA-JORDANA***************************************/
+    /********************************************REDUKCJA MACIERZY ZA POMOCĄ METODY GAUSSA-JORDANA***************************************/
 
     public ANumber[] gauss(){
         for (int i = 0; i < rows; i++) {
@@ -142,7 +148,7 @@ public class MyMatrix<T extends ANumber<T>> {
         }
     }
 
-/*********************************************************DZIAŁANIA NA MACIERZACH**************************************************/
+    /*********************************************************DZIAŁANIA NA MACIERZACH**************************************************/
 
     public T[] mulMatrixVector(){
         T[] resultVector = (T[]) Array.newInstance(type, vector.length);
@@ -222,7 +228,7 @@ public class MyMatrix<T extends ANumber<T>> {
     }
 
 
-/*****************************************POMOCNICZE METODY DO CZĘŚCIOWEGO I PEŁNEGO WYBORU*************************************************/
+    /*****************************************POMOCNICZE METODY DO CZĘŚCIOWEGO I PEŁNEGO WYBORU*************************************************/
 
     public ANumber[] findBiggestValueInRow(int xPos){
 
@@ -231,7 +237,7 @@ public class MyMatrix<T extends ANumber<T>> {
             if(matrix[maxRow][xPos].compareTo(matrix[i][xPos])==1) maxRow = i;
         }
         swapRows(xPos, maxRow);
-        swap(xPos,maxRow,this.vector);
+        //(xPos,maxRow,this.vector);
         return swap(xPos, maxRow,this.vector);
     }
 
@@ -249,7 +255,21 @@ public class MyMatrix<T extends ANumber<T>> {
         }
         swapRows(xPos, maxRow);
         swapColumns(xPos,maxColumn);
+    }/********************************************METODY DO HIPOTEZ**************************************/
+
+    public  double getNormInf(T[] res, T[] vec){
+        T result = (T) res[0].sub(vec[0]).abs();
+        T diff;
+        for(int i = 0; i < vec.length; i++){
+            diff = (T) res[i].sub(vec[i]).abs();
+            System.out.println(res[i] +" "+ vec[i]+" "+ diff);
+            if(result.abs().compareTo(diff.abs()) == -1){
+                result = diff.abs();
+            }
+        }
+        return result.doubleValue();
     }
+
 
 }
 

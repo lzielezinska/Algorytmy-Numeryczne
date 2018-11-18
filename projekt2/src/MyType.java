@@ -3,7 +3,7 @@ import java.math.BigInteger;
 /**
  * Created by Lucyna & Kacper on 05.11.18.
  */
-public class MyType extends ANumber<MyType>{
+public class MyType extends ANumber<MyType> implements Comparable<MyType>{
     private BigInteger licz;
     private BigInteger mian;
     public MyType(Integer licz, Integer mian){
@@ -134,8 +134,8 @@ public class MyType extends ANumber<MyType>{
     }
 
     @Override
-    public double abs() {
-        return Math.abs(this.doubleValue());
+    public MyType abs() {
+        return new MyType(this.licz.abs(),this.mian.abs());
     }
 
     @Override
@@ -147,6 +147,10 @@ public class MyType extends ANumber<MyType>{
     public void setToONE() {
         this.licz = new BigInteger("1");
         this.mian = new BigInteger("1");
+    }
+    @Override
+    public int compareTo(MyType o) {
+        return this.licz.multiply(o.mian).compareTo(o.licz.multiply(this.mian));
     }
     public String fractValue(){
         return this.licz + "/" + this.mian;
