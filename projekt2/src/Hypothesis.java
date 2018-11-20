@@ -245,10 +245,11 @@ public class Hypothesis {
             timestampAfter = System.currentTimeMillis();
             timesGaussMyType[i] = timestampBefore - timestampAfter;
 
-            size+=50;
             gaussDouble.add(timesGaussDouble[i], size);
             gaussFloat.add(timesGaussFloat[i], size);
             gaussMyType.add(timesGaussMyType[i], size);
+
+            size+=50;
 
         }
         XYSeriesCollection xySeriesCollection = new XYSeriesCollection(gaussDouble);

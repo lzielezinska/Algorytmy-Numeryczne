@@ -203,13 +203,6 @@ public class MyMatrix<T extends ANumber<T>> {
 
     /*************************************************FUNKCJE SWAP**************************************************************/
 
-    public ANumber[] swap(int firstRow, int secondRow, ANumber resultVector[]) {
-        ANumber temp = resultVector[firstRow];
-        resultVector[firstRow] = resultVector[secondRow];
-        resultVector[secondRow] = temp;
-        return resultVector;
-    }
-
     public void swapRows(int firstRow, int secondRow) {
         T tempRow[] = matrix[firstRow];
         matrix[firstRow] = matrix[secondRow];
@@ -231,15 +224,13 @@ public class MyMatrix<T extends ANumber<T>> {
 
     /*****************************************POMOCNICZE METODY DO CZĘŚCIOWEGO I PEŁNEGO WYBORU*************************************************/
 
-    public ANumber[] findBiggestValueInRow(int xPos){
+    public void findBiggestValueInRow(int xPos){
 
         int maxRow = xPos;
         for(int i = xPos; i< rows; i++){
             if(matrix[maxRow][xPos].compareTo(matrix[i][xPos])==1) maxRow = i;
         }
         swapRows(xPos, maxRow);
-        //(xPos,maxRow,this.vector);
-        return swap(xPos, maxRow,this.vector);
     }
 
     public void findBiggestElementInSubmatrix(int xPos){
