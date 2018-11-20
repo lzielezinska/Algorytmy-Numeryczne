@@ -110,20 +110,20 @@ public class Hypothesis {
 
         for(int i = 0; i<20; i++){
             Randomizer.resetRandomizer();
-            MyMatrix matrix = new MyMatrix<WrappedFloat>(size,size,WrappedDouble.class);
+            MyMatrix matrix = new MyMatrix<WrappedDouble>(size,size,WrappedDouble.class);
             matrix.fillMatrixAndVector();
             resultOfGauss = matrix.gauss();
             normOfGauss[i] = matrix.getNormInf(resultOfGauss, matrix.getSavedVector());
 
             Randomizer.resetRandomizer();
-            matrix = new MyMatrix<WrappedFloat>(size,size,WrappedDouble.class);
+            matrix = new MyMatrix<WrappedDouble>(size,size,WrappedDouble.class);
             matrix.fillMatrixAndVector();
             resultOfPartGauss = matrix.partChoiceGauss();
             normOfPartGauss[i] = matrix.getNormInf(resultOfPartGauss, matrix.getSavedVector());
 
 
             Randomizer.resetRandomizer();
-            matrix = new MyMatrix<WrappedFloat>(size,size,WrappedDouble.class);
+            matrix = new MyMatrix<WrappedDouble>(size,size,WrappedDouble.class);
             matrix.fillMatrixAndVector();
             resultOfFullGauss = matrix.fulChoiceGauss();
             normOfFullGauss[i]  = matrix.getNormInf(resultOfFullGauss, matrix.getSavedVector());

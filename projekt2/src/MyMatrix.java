@@ -69,6 +69,7 @@ public class MyMatrix<T extends ANumber<T>> {
                 e.printStackTrace();
             }
         }
+        savedVector = this.vector.clone();
     }
 
     public  void printMatrix() {
