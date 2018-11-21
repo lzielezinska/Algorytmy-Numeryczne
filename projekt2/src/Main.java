@@ -10,8 +10,8 @@ public class Main {
         Tests.testPartGauss();
         System.out.println("****************************");
         Tests.testFullGauss();*/
-       // Hypothesis.E1();
-        Hypothesis.Q1();
-
+        Hypothesis.E1();
+        //Hypothesis.Q1();
+        //Hypothesis.H3();
     }
 }

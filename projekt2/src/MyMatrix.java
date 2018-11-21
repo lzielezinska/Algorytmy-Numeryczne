@@ -176,18 +176,15 @@ public class MyMatrix<T extends ANumber<T>> {
         T[] resultVector = (T[]) Array.newInstance(type, vector.length);
         T sum;
         T product;
-        //System.out.println("A*********");
         for (int i = 0; i < rows; i++) {
             sum = (T)staticObject.returnZero();
             product = (T)staticObject.returnZero();
             for (int j = 0; j < rows; j++) {
                 product =(T) savedMatrix[i][j].mul((T)vector[j]);
-                //System.out.println(savedMatrix[i][j] + " " + vector[j] + " " + product);
                 sum = (T) sum.add(product);
             }
             resultVector[i] = sum;
         }
-        //System.out.println("B*********");
         return resultVector;
     }
 
