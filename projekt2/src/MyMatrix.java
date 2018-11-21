@@ -20,7 +20,8 @@ public class MyMatrix<T extends ANumber<T>> {
     private int columns;
     private Class type;
     private T[][] matrix;
-    private T[] vector;
+    public T[][] savedMatrix;
+    public T[] vector;
     private T staticObject;
     private T[] savedVector;
 
@@ -28,9 +29,10 @@ public class MyMatrix<T extends ANumber<T>> {
         this.rows = rows;
         this.columns = columns;
         this.matrix = (T[][]) Array.newInstance(type,rows,columns);
+        this.savedMatrix = (T[][]) Array.newInstance(type,rows,columns);;
         this.type = type;
         this.vector = (T[]) Array.newInstance(type, rows);
-        this.savedVector = vector.clone();
+        this.savedVector =  (T[]) Array.newInstance(type, rows);
         try{
             this.staticObject = (T) TypeFabric.CreateNumber(type);
         } catch (Exception e){
@@ -40,7 +42,13 @@ public class MyMatrix<T extends ANumber<T>> {
         this(rows,columns,type);
         this.matrix = mat;
         this.vector = vec;
-        this.savedVector = vec;
+
+        for(int i = 0;i < rows; i++){
+            this.savedVector[i] = this.vector[i];
+            for(int j = 0;j < rows; j++){
+                this.savedMatrix[i][j] = this.matrix[i][j];
+            }
+        }
     }
 
     public void setDebugVaules(){
@@ -56,10 +64,13 @@ public class MyMatrix<T extends ANumber<T>> {
 
     /***************************************************WYPEŁNANIE MACIERZY *********************************************************/
     public void fillMatrixAndVector() {
+        T createdNumber;
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
                 try{
-                    this.matrix[i][j] = (T)TypeFabric.CreateNumber(this.type);
+                    createdNumber = (T)TypeFabric.CreateNumber(this.type);
+                    this.matrix[i][j] = createdNumber;
+                    this.savedMatrix[i][j] = createdNumber;
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -67,12 +78,13 @@ public class MyMatrix<T extends ANumber<T>> {
         }
         for(int i = 0;i < this.vector.length; i++){
             try{
-                this.vector[i] = (T)TypeFabric.CreateNumber(this.type);
+                createdNumber = (T)TypeFabric.CreateNumber(this.type);
+                this.vector[i] = createdNumber;
+                this.savedVector[i] = createdNumber;
             } catch (Exception e){
                 e.printStackTrace();
             }
         }
-        savedVector = this.vector.clone();
     }
 
     public  void printMatrix() {
@@ -162,20 +174,20 @@ public class MyMatrix<T extends ANumber<T>> {
 
     public T[] mulMatrixVector(){
         T[] resultVector = (T[]) Array.newInstance(type, vector.length);
-
+        T sum;
+        T product;
+        //System.out.println("A*********");
         for (int i = 0; i < rows; i++) {
-            T sum = (T)staticObject.returnZero();
-            T product = (T)staticObject.returnZero();
+            sum = (T)staticObject.returnZero();
+            product = (T)staticObject.returnZero();
             for (int j = 0; j < rows; j++) {
-                product =(T) matrix[i][j].mul((T)vector[j]);
+                product =(T) savedMatrix[i][j].mul((T)vector[j]);
+                //System.out.println(savedMatrix[i][j] + " " + vector[j] + " " + product);
                 sum = (T) sum.add(product);
             }
             resultVector[i] = sum;
         }
-        //sprawdzenie
-        for(int i=0; i< resultVector.length; i++){
-            System.out.print("| "+resultVector[i]+" |");
-        }
+        //System.out.println("B*********");
         return resultVector;
     }
 
@@ -269,11 +281,11 @@ public class MyMatrix<T extends ANumber<T>> {
     /********************************************METODY DO HIPOTEZ**************************************/
 
     public  double getNormInf(T[] res, T[] vec){
-        T result = (T) res[0].sub(vec[0]).abs();
+        T result = (T) res[0].abs().sub(vec[0].abs()).abs();
         T diff;
         for(int i = 0; i < vec.length; i++){
-            diff = (T) res[i].sub(vec[i]).abs();
-            System.out.println(res[i] +" "+ vec[i]+" "+ diff);
+            diff = (T) res[i].abs().sub(vec[i].abs()).abs();
+            //System.out.println(res[i] +" "+ vec[i]+" "+ diff);
             if(result.abs().compareTo(diff.abs()) == -1){
                 result = diff.abs();
             }

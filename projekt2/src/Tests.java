@@ -116,7 +116,10 @@ public class Tests {
         matrix1.printMatrix();
         System.out.println("******");
         matrix1.gauss();
+        WrappedDouble resultOfGauss[] = matrix1.mulMatrixVector();
+        double normOfGauss = matrix1.getNormInf(resultOfGauss, (WrappedDouble[]) matrix1.getSavedVector());
         matrix1.printMatrix();
+        System.out.println("Norma: " + normOfGauss);
     }
     public static void testPartGauss(){
         WrappedDouble ma[][] = new WrappedDouble[4][4];

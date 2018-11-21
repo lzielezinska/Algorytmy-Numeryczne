@@ -1,5 +1,7 @@
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.omg.CORBA.MARSHAL;
+
 import java.time.*;
 import java.util.Date;
 
@@ -163,7 +165,7 @@ public class Hypothesis {
      * podwójnej precyzji (TD)?
      */
     public static void Q1(){
-        int sizes[] = {20, 40, 60, 80, 100};
+        int size = 1000;
         ANumber resultOfGauss[];
         ANumber resultOfPartGauss[];
         double normOfGauss;
@@ -172,21 +174,24 @@ public class Hypothesis {
         XYSeries partGauss = new XYSeries("Part Gauss");
 
 
-        for(int i : sizes){
+        for(int i = 100; i<= size; i += 50){
             Randomizer.resetRandomizer();
-            MyMatrix matrix = new MyMatrix<WrappedFloat>(i,i,WrappedDouble.class);
+            MyMatrix matrix = new MyMatrix<WrappedDouble>(i,i,WrappedDouble.class);
             matrix.fillMatrixAndVector();
-            resultOfGauss = matrix.gauss();
+            matrix.gauss();
+            resultOfGauss = matrix.mulMatrixVector();
             normOfGauss = matrix.getNormInf(resultOfGauss, matrix.getSavedVector());
 
-            Randomizer.resetRandomizer();
-            matrix = new MyMatrix<WrappedFloat>(i,i,WrappedDouble.class);
-            matrix.fillMatrixAndVector();
-            resultOfPartGauss = matrix.partChoiceGauss();
-            normOfPartGauss = matrix.getNormInf(resultOfPartGauss, matrix.getSavedVector());
 
-            gauss.add(i,normOfGauss);
-            partGauss.add(i,normOfPartGauss);
+            Randomizer.resetRandomizer();
+            MyMatrix matrix2 = new MyMatrix<WrappedDouble>(i,i,WrappedDouble.class);
+            matrix2.fillMatrixAndVector();
+            matrix2.partChoiceGauss();
+            resultOfPartGauss = matrix2.mulMatrixVector();
+            normOfPartGauss = matrix2.getNormInf(resultOfPartGauss, matrix2.getSavedVector());
+
+            gauss.add(i,Math.abs(Math.log10(normOfGauss)));
+            partGauss.add(i,Math.abs(Math.log10(normOfPartGauss)));
         }
         XYSeriesCollection xySeriesCollection = new XYSeriesCollection(gauss);
         xySeriesCollection.addSeries(partGauss);
@@ -195,7 +200,7 @@ public class Hypothesis {
                 "Q1",
                 "Q1: Blad od rozmiatu macierzy (TD)",
                 "Rozmiar Macierzy",
-                "Blad (Norma nieskonczonosc)"
+                "Blad (Norma nieskonczonosc) skala logarytmiczna"
         );
     }
 
@@ -324,7 +329,7 @@ public class Hypothesis {
 
         //gauss
         Randomizer.resetRandomizer();
-        MyMatrix matrix = new MyMatrix<WrappedFloat>(150,150,type);
+        MyMatrix matrix = new MyMatrix<WrappedFloat>(100,100,type);
         matrix.fillMatrixAndVector();
         timestampBefore = System.currentTimeMillis();
         matrix.gauss();
@@ -336,7 +341,7 @@ public class Hypothesis {
 
         //Part gauss
         Randomizer.resetRandomizer();
-        matrix = new MyMatrix<WrappedFloat>(150,150,type);
+        matrix = new MyMatrix<WrappedFloat>(100,100,type);
         matrix.fillMatrixAndVector();
         timestampBefore = System.currentTimeMillis();
         matrix.partChoiceGauss();
@@ -347,7 +352,7 @@ public class Hypothesis {
         E1FloatP = deltaSeconds;
         //Full gaus
         Randomizer.resetRandomizer();
-        matrix = new MyMatrix<WrappedFloat>(150,150,type);
+        matrix = new MyMatrix<WrappedFloat>(100,100,type);
         matrix.fillMatrixAndVector();
         timestampBefore = System.currentTimeMillis();
         matrix.fulChoiceGauss();
@@ -366,7 +371,7 @@ public class Hypothesis {
 
         //gauss
         Randomizer.resetRandomizer();
-        MyMatrix matrix = new MyMatrix<WrappedDouble>(150,150,type);
+        MyMatrix matrix = new MyMatrix<WrappedDouble>(100,100,type);
         matrix.fillMatrixAndVector();
         timestampBefore = System.currentTimeMillis();
         matrix.gauss();
@@ -378,7 +383,7 @@ public class Hypothesis {
 
         //Part gauss
         Randomizer.resetRandomizer();
-        matrix = new MyMatrix<WrappedDouble>(150,150,type);
+        matrix = new MyMatrix<WrappedDouble>(100,100,type);
         matrix.fillMatrixAndVector();
         timestampBefore = System.currentTimeMillis();
         matrix.partChoiceGauss();
@@ -390,7 +395,7 @@ public class Hypothesis {
 
         //Full gaus
         Randomizer.resetRandomizer();
-        matrix = new MyMatrix<WrappedDouble>(150,150,type);
+        matrix = new MyMatrix<WrappedDouble>(100,100,type);
         matrix.fillMatrixAndVector();
         timestampBefore = System.currentTimeMillis();
         matrix.fulChoiceGauss();
@@ -409,7 +414,7 @@ public class Hypothesis {
 
         //gauss
         Randomizer.resetRandomizer();
-        MyMatrix matrix = new MyMatrix<MyType>(150,150,type);
+        MyMatrix matrix = new MyMatrix<MyType>(100,100,type);
         matrix.fillMatrixAndVector();
         timestampBefore = System.currentTimeMillis();
         matrix.gauss();
@@ -420,7 +425,7 @@ public class Hypothesis {
         E1MyTypeG = deltaSeconds;
         //Part gauss
         Randomizer.resetRandomizer();
-        matrix = new MyMatrix<MyType>(150,150,type);
+        matrix = new MyMatrix<MyType>(100,100,type);
         matrix.fillMatrixAndVector();
         timestampBefore = System.currentTimeMillis();
         matrix.partChoiceGauss();
@@ -432,7 +437,7 @@ public class Hypothesis {
 
         //Full gaus
         Randomizer.resetRandomizer();
-        matrix = new MyMatrix<MyType>(150,150,type);
+        matrix = new MyMatrix<MyType>(100,100,type);
         matrix.fillMatrixAndVector();
         timestampBefore = System.currentTimeMillis();
         matrix.fulChoiceGauss();

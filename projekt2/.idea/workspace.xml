@@ -16,29 +16,43 @@
     <session id="529250293">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.5" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="134" />
+          <entry key="java" value="1041" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="134" />
+          <entry key="JAVA" value="1041" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="java" value="2" />
+          <entry key="jpg" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Image" value="2" />
+          <entry key="JAVA" value="2" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Hypothesis.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1665">
-              <caret line="114" column="43" selection-start-line="114" selection-start-column="43" selection-end-line="114" selection-end-column="43" />
+            <state relative-caret-position="359">
+              <caret line="191" lean-forward="true" selection-start-line="191" selection-end-line="191" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -47,24 +61,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/H1.jpg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Tests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2085">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ChartUtilis.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+            <state relative-caret-position="330">
+              <caret line="118" column="24" lean-forward="true" selection-start-line="118" selection-start-column="24" selection-end-line="118" selection-end-column="24" />
+              <folding>
+                <element signature="e#4458#4473#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -72,10 +75,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+            <state relative-caret-position="30">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Q1.jpg">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Randomizer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/E1.jpg">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -92,15 +114,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MyMatrix.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="115" column="9" lean-forward="true" selection-start-line="115" selection-start-column="9" selection-end-line="115" selection-end-column="9" />
+            <state relative-caret-position="332">
+              <caret line="187" column="34" lean-forward="true" selection-start-line="187" selection-start-column="34" selection-end-line="187" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1336#1337#0" expanded="true" />
-                <element signature="e#1375#1376#0" expanded="true" />
+                <element signature="e#1671#1672#0" expanded="true" />
+                <element signature="e#1710#1711#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -120,6 +142,11 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>findBiggestElementInSubmatrix</find>
+      <find>reduceMatrix</find>
+      <find>saved</find>
+      <find>returnZero</find>
+      <find>savedMa</find>
+      <find>out</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -128,17 +155,19 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Hypothesis.java" />
+        <option value="$PROJECT_DIR$/src/Randomizer.java" />
+        <option value="$PROJECT_DIR$/src/Tests.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/MyMatrix.java" />
+        <option value="$PROJECT_DIR$/src/Hypothesis.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="148" />
-    <option name="y" value="58" />
-    <option name="width" value="1376" />
-    <option name="height" value="985" />
+    <option name="x" value="260" />
+    <option name="y" value="52" />
+    <option name="width" value="1400" />
+    <option name="height" value="1000" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -146,7 +175,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -169,10 +197,12 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542748911854" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542824503835" />
+    <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects/test1" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -314,7 +344,7 @@
     <frame x="-1" y="25" width="1922" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18516542" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18729989" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Nl-Palette" order="3" />
@@ -378,16 +408,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Hypothesis.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1665">
-          <caret line="114" column="43" selection-start-line="114" selection-start-column="43" selection-end-line="114" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/H1.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -401,13 +421,6 @@
     <entry file="file://$PROJECT_DIR$/H2.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/WrappedDouble.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/MyType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -415,28 +428,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Tests.java">
+    <entry file="file://$PROJECT_DIR$/E1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Randomizer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2085">
+        <state relative-caret-position="30">
           <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/WrappedDouble.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+        <state relative-caret-position="255">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Tests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="118" column="24" lean-forward="true" selection-start-line="118" selection-start-column="24" selection-end-line="118" selection-end-column="24" />
+          <folding>
+            <element signature="e#4458#4473#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MyMatrix.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="115" column="9" lean-forward="true" selection-start-line="115" selection-start-column="9" selection-end-line="115" selection-end-column="9" />
+        <state relative-caret-position="332">
+          <caret line="187" column="34" lean-forward="true" selection-start-line="187" selection-start-column="34" selection-end-line="187" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1336#1337#0" expanded="true" />
-            <element signature="e#1375#1376#0" expanded="true" />
+            <element signature="e#1671#1672#0" expanded="true" />
+            <element signature="e#1710#1711#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Q1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Hypothesis.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="191" lean-forward="true" selection-start-line="191" selection-end-line="191" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
