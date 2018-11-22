@@ -10,7 +10,7 @@ public class Main {
 //        System.out.println("****************************");
 //        Tests.testFullGauss();
 
-        Hypothesis.H2();
+        Hypothesis.H10();
 
 
 

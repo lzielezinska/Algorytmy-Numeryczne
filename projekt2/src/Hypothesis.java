@@ -26,81 +26,27 @@ public class Hypothesis {
      * lejnych wersjach (1, 2, 3) rosnie.
      */
 
-    private static void ZapisDoPliku(String nazwa, long array[], int size){
-        PrintWriter zapis1;
-
-        try {
-            zapis1 = new PrintWriter(nazwa);
-
-            for(int i=0; i<size; i++)
-                zapis1.println(array[i]);
-            zapis1.close();
-
-        }
-        catch(FileNotFoundException e){
-            System.out.print("Plik nie został utworzony\nBład: "+e);
-        }
-
-    }
-    private static void ZapisDoPliku(String nazwa, double array[], int size){
-        PrintWriter zapis1;
-
-        try {
-            zapis1 = new PrintWriter(nazwa);
-
-            for(int i=0; i<size; i++)
-                zapis1.println(array[i]);
-            zapis1.close();
-
-        }
-        catch(FileNotFoundException e){
-            System.out.print("Plik nie został utworzony\nBład: "+e);
-        }
-
-    }
-
-
-
-
-
-    private static void ZapisDoPliku(String nazwa, int array[], int size){
-        PrintWriter zapis1;
-
-        try {
-            zapis1 = new PrintWriter(nazwa);
-
-            for(int i=0; i<size; i++)
-                zapis1.println(array[i]);
-            zapis1.close();
-
-        }
-        catch(FileNotFoundException e){
-            System.out.print("Plik nie został utworzony\nBład: "+e);
-        }
-
-    }
-
-
-
     public static void H1(){
 
         ANumber resultOfGauss[];
         ANumber resultOfPartGauss[];
         ANumber resultOfFullGauss[];
 
+        int sizeOfArray = 20;
+        int sizeOfMatrix = 20;
 
         long timestampBefore;
         long timestampAfter;
 
-        long timesGauss[] = new long[50];
-        long timesPartGauss[] = new long[50];
-        long timesFullGauss[] = new long[50];
-        int sizes[] = new int[50];
-        int size = 20;
+        long timesGauss[] = new long[sizeOfArray];
+        long timesPartGauss[] = new long[sizeOfArray];
+        long timesFullGauss[] = new long[sizeOfArray];
+        int sizes[] = new int[sizeOfArray];
 
-        for(int i = 0; i<50; i++){
+
+        for(int i = 0; i<sizeOfArray; i++){
             Randomizer.resetRandomizer();
-            MyMatrix matrix = new MyMatrix<WrappedDouble>(size,size,WrappedDouble.class);
+            MyMatrix matrix = new MyMatrix<WrappedDouble>(sizeOfMatrix,sizeOfMatrix,WrappedDouble.class);
             matrix.fillMatrixAndVector();
             timestampBefore = System.currentTimeMillis();
             resultOfGauss = matrix.gauss();
@@ -121,21 +67,11 @@ public class Hypothesis {
             timestampAfter = System.currentTimeMillis();
             timesFullGauss[i] = timestampAfter - timestampBefore;
 
-            sizes[i] = size;
-            size+=5;
+            sizes[i] = sizeOfMatrix;
+            sizeOfMatrix+=50;
 
 
         }
-
-        File plik1 = new File("timesGauss.csv");
-        File plik2 = new File("timesPartGauss.csv");
-        File plik3 = new File("timesFullGauss.csv");
-        File plik4 = new File("sizeOfMatrix.csv");
-
-        ZapisDoPliku("timesGauss.csv",timesGauss, 50);
-        ZapisDoPliku("timesPartGauss.csv",timesPartGauss, 50);
-        ZapisDoPliku("timesFullGauss.csv",timesFullGauss, 50);
-        ZapisDoPliku("sizeOfMatrix.csv",sizes, 50);
 
     }
 
@@ -145,53 +81,46 @@ public class Hypothesis {
      * Gaussa w kolejnych wersjach (1, 2, 3) maleje.
      */
     public static void H2(){
-        int size = 50;
         ANumber resultOfGauss[];
         ANumber resultOfPartGauss[];
         ANumber resultOfFullGauss[];
 
-        double normOfGauss[] = new double[size];
-        double normOfPartGauss[] = new double[size];
-        double normOfFullGauss[] = new double[size];
-        int sizes[] = new int[size];
+        int sizeOfArray = 20;
+        int sizeOfMatrix = 20;
 
-        size = 10;
+        double normOfGauss[] = new double[sizeOfArray];
+        double normOfPartGauss[] = new double[sizeOfArray];
+        double normOfFullGauss[] = new double[sizeOfArray];
+        int sizes[] = new int[sizeOfArray];
 
-        for(int i = 0; i<50; i++){
+
+        for(int i = 0; i<sizeOfArray; i++){
             Randomizer.resetRandomizer();
-            MyMatrix matrix = new MyMatrix<WrappedDouble>(size,size,WrappedDouble.class);
+            MyMatrix matrix = new MyMatrix<WrappedDouble>(sizeOfMatrix,sizeOfMatrix,WrappedDouble.class);
             matrix.fillMatrixAndVector();
-            resultOfGauss = matrix.gauss();
+            matrix.gauss();
+            resultOfGauss = matrix.mulMatrixVector();
             normOfGauss[i] =matrix.getNormInf(resultOfGauss, matrix.getSavedVector());
 
             Randomizer.resetRandomizer();
-            matrix = new MyMatrix<WrappedDouble>(size,size,WrappedDouble.class);
+            matrix = new MyMatrix<WrappedDouble>(sizeOfMatrix,sizeOfMatrix,WrappedDouble.class);
             matrix.fillMatrixAndVector();
-            resultOfPartGauss = matrix.partChoiceGauss();
+            matrix.partChoiceGauss();
+            resultOfPartGauss = matrix.mulMatrixVector();
             normOfPartGauss[i] = matrix.getNormInf(resultOfPartGauss, matrix.getSavedVector());
 
 
             Randomizer.resetRandomizer();
-            matrix = new MyMatrix<WrappedDouble>(size,size,WrappedDouble.class);
+            matrix = new MyMatrix<WrappedDouble>(sizeOfMatrix,sizeOfMatrix,WrappedDouble.class);
             matrix.fillMatrixAndVector();
-            resultOfFullGauss = matrix.fulChoiceGauss();
+            matrix.fulChoiceGauss();
+            resultOfFullGauss = matrix.mulMatrixVector();
             normOfFullGauss[i]  = matrix.getNormInf(resultOfFullGauss, matrix.getSavedVector());
-            size+=5;
-            sizes[i] = size;
+            sizeOfMatrix+=50;
+            sizes[i] = sizeOfMatrix;
 
         }
 
-        File plik5 = new File("errorGauss.csv");
-        File plik6 = new File("errorPartGauss.csv");
-        File plik7 = new File("errorFullGauss.csv");
-        File plik8 = new File("sizeOfMatrix.csv");
-
-        size = 50;
-
-        ZapisDoPliku("errorGauss.csv",normOfGauss, size);
-        ZapisDoPliku("errorPartGauss.csv",normOfPartGauss, size);
-        ZapisDoPliku("errorFullGauss.csv",normOfFullGauss, size);
-        ZapisDoPliku("sizeOfMatrix.csv",sizes, size);
 
 
     }
@@ -254,20 +183,23 @@ public class Hypothesis {
 
         ANumber resultOfGauss[];
 
-        int size = 50;
+        int sizeOfArray = 5;
+        int sizeOfMatrix = 300;
+
+
 
         long timestampBefore;
         long timestampAfter;
-        long timesGaussDouble[] = new long[size];
-        long timesGaussFloat[] = new long[size];
-        long timesGaussMyType[] = new long[size];
-        int sizes[] = new int[size];
+        long timesGaussDouble[] = new long[sizeOfArray];
+        long timesGaussFloat[] = new long[sizeOfArray];
+        long timesGaussMyType[] = new long[sizeOfArray];
+        int sizes[] = new int[sizeOfArray];
 
-        size = 10;
 
-        for(int i = 0; i<50; i++){
+
+        for(int i = 0; i<5; i++){
             Randomizer.resetRandomizer();
-            MyMatrix matrixDouble = new MyMatrix<WrappedDouble>(size,size,WrappedDouble.class);
+            MyMatrix matrixDouble = new MyMatrix<WrappedDouble>(sizeOfMatrix,sizeOfMatrix,WrappedDouble.class);
             matrixDouble.fillMatrixAndVector();
             timestampBefore = System.currentTimeMillis();
             resultOfGauss = matrixDouble.gauss();
@@ -275,7 +207,7 @@ public class Hypothesis {
             timesGaussDouble[i] =timestampAfter - timestampBefore;
 
             Randomizer.resetRandomizer();
-            MyMatrix matrixFloat = new MyMatrix<WrappedFloat>(size,size,WrappedFloat.class);
+            MyMatrix matrixFloat = new MyMatrix<WrappedFloat>(sizeOfMatrix,sizeOfMatrix,WrappedFloat.class);
             matrixFloat.fillMatrixAndVector();
             timestampBefore = System.currentTimeMillis();
             resultOfGauss = matrixFloat.gauss();
@@ -283,31 +215,22 @@ public class Hypothesis {
             timesGaussFloat[i] = timestampAfter - timestampBefore;
 
             Randomizer.resetRandomizer();
-            MyMatrix matrixMyType = new MyMatrix<MyType>(size,size,MyType.class);
+            MyMatrix matrixMyType = new MyMatrix<MyType>(sizeOfMatrix,sizeOfMatrix,MyType.class);
             matrixMyType.fillMatrixAndVector();
             timestampBefore = System.currentTimeMillis();
             resultOfGauss = matrixMyType.gauss();
             timestampAfter = System.currentTimeMillis();
             timesGaussMyType[i] = timestampAfter - timestampBefore;
 
-            sizes[i] = size;
+            sizes[i] = sizeOfMatrix;
 
-            size+=1;
+            sizeOfMatrix+=300;
 
         }
-        File plik5 = new File("doubleGauss.csv");
-        File plik6 = new File("floatPartGauss.csv");
-        File plik7 = new File("myTypeFullGauss.csv");
-        File plik8 = new File("sizeOfMatrix.csv");
-
-        size = 50;
-
-        ZapisDoPliku("doubleGauss.csv",timesGaussDouble, size);
-        ZapisDoPliku("floatPartGauss.csv",timesGaussFloat, size);
-        ZapisDoPliku("myTypeFullGauss.csv",timesGaussMyType, size);
-        ZapisDoPliku("sizeOfMatrix.csv",sizes, size);
 
     }
+
+
 
     /**
      * Podaj czasy rozwiazania ukladu równan uzyskane dla macierzy o rozmiarze 500
