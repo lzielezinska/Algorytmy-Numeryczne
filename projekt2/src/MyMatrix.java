@@ -1,4 +1,7 @@
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Lucyna on 02.11.18.
@@ -69,6 +72,7 @@ public class MyMatrix<T extends ANumber<T>> {
                 e.printStackTrace();
             }
         }
+        savedVector = this.vector.clone();
     }
 
     public  void printMatrix() {
@@ -101,11 +105,17 @@ public class MyMatrix<T extends ANumber<T>> {
         return this.vector;
     }
     public ANumber[] fulChoiceGauss(){
+        ArrayList<Integer> sequence = new ArrayList<>();
+
+        for(int i = 0; i < this.columns; i++) {
+            sequence.add(i);
+        }
         for (int i = 0; i < rows; i++) {
-            findBiggestElementInSubmatrix(i);
+            findBiggestElementInSubmatrix(i, sequence);
             get0(i,i);
         }
         this.reduceMatrix();
+        this.vector = readCorrectValueOfComputedVector(this.vector,sequence);
         return this.vector;
     }
     /************************************************DOPROWADZANIE MACIERZY DO POSTACI JEDNOSTKOWEJ**************************************/
@@ -232,7 +242,7 @@ public class MyMatrix<T extends ANumber<T>> {
         swapRows(xPos, maxRow);
     }
 
-    public void findBiggestElementInSubmatrix(int xPos){
+    public void findBiggestElementInSubmatrix(int xPos, ArrayList<Integer> sequence){
 
         int maxRow = xPos;
         int maxColumn = xPos;
@@ -246,14 +256,26 @@ public class MyMatrix<T extends ANumber<T>> {
         }
         swapRows(xPos, maxRow);
         swapColumns(xPos,maxColumn);
-    }/********************************************METODY DO HIPOTEZ**************************************/
+        Collections.swap(sequence, xPos, maxColumn);
+    }
+
+    private T[] readCorrectValueOfComputedVector(T[] resultVector, List<Integer> seq) {
+        T[] newResultVector = (T[]) Array.newInstance(type, resultVector.length);
+
+        for (int i = 0; i < seq.size(); i++) newResultVector[seq.get(i)] = resultVector[i];
+
+        return newResultVector;
+    }
+    /********************************************METODY DO HIPOTEZ**************************************/
+
+
 
     public  double getNormInf(T[] res, T[] vec){
-        T result = (T) res[0].sub(vec[0]).abs();
+        T result = (T) res[0].abs().sub(vec[0].abs()).abs();
         T diff;
         for(int i = 0; i < vec.length; i++){
-            diff = (T) res[i].sub(vec[i]).abs();
-            System.out.println(res[i] +" "+ vec[i]+" "+ diff);
+            diff = (T) res[i].abs().sub(vec[i].abs()).abs();
+            //System.out.println(res[i] +" "+ vec[i]+" "+ diff);
             if(result.abs().compareTo(diff.abs()) == -1){
                 result = diff.abs();
             }
@@ -262,5 +284,7 @@ public class MyMatrix<T extends ANumber<T>> {
     }
 
 
+
 }
+
 
