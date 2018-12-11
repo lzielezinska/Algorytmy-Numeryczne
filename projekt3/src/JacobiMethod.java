@@ -6,8 +6,8 @@ public class JacobiMethod {
     Vector vector;
     boolean precision = false;
 
-    private static final double expectedPrecision = 0.0001;
-    private static final int maxIteration = 10;
+    private static final double expectedPrecision = 0.0000001;
+    private static final int maxIteration = 100;
 
     public JacobiMethod(MyMatrix matrix, Vector vector) {
     this.matrix = matrix;
@@ -16,28 +16,30 @@ public class JacobiMethod {
 
 
     public void jacobiMethod() {
-        double nextVector[] = new double[this.vector.getLength()];
-        double previousVector[] = new double[this.vector.getLength()];
+        double nextVector[] = new double[vector.vector.length];
+        double previousVector[] = new double[vector.vector.length];
         nextVector = setResoultVector(nextVector);
 
         int iterator = 0;
         while ((precision!=true) && (iterator < maxIteration)){
             previousVector = saveValuesOfCurrentVector(nextVector,previousVector);
-            for(int i = 0; i<matrix.columns; i++){
-                solve(matrix.matrix[i],nextVector, i );
+            for(int i = 0; i < nextVector.length; i++){
+                nextVector[i] = solve(matrix.matrix[i], i );
             }
             if(getError(previousVector, nextVector) < expectedPrecision) precision = true;
             iterator++;
         }
 
-        for(int i = 0; i< previousVector.length; i++) this.vector.vector[i]= nextVector[i];
+        for(int i = 0; i< previousVector.length; i++) {
+            vector.vector[i]= nextVector[i];
+        }
 
     }
 
-    private double solve(double CurrentRow[], double resoultVector[], int leadingElementPos){
+    private double solve(double CurrentRow[], int leadingElementPos){
         double sum = sumElements(CurrentRow,leadingElementPos);
         double valueOfLeadingElement = CurrentRow[leadingElementPos];
-        double solution = (1/valueOfLeadingElement)*(resoultVector[leadingElementPos]-sum);
+        double solution = (1/valueOfLeadingElement)*((vector.vector[leadingElementPos]-sum));
 
         return solution;
 
@@ -67,7 +69,7 @@ public class JacobiMethod {
     }
 
     private double getError(double previousVector[], double nextVector[]) {
-        double maximumValue = nextVector[0];
+        double maximumValue = 0;
         double temporaryValue = 0;
 
         for (int i = 0; i < previousVector.length; i++) {

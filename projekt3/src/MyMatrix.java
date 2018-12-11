@@ -14,12 +14,22 @@ public class MyMatrix {
     public int columns;
     public double[][] matrix;
     public double[][] savedMatrix;
+    public Vector vector;
 
     public MyMatrix(int rows, int columns){
         this.rows = rows;
         this.columns = columns;
         this.matrix = new double[rows][columns];
         this.savedMatrix = new double[rows][columns];
+        this.vector = new Vector(rows);
+    }
+
+    public MyMatrix(int rows, int columns, Vector vec){
+        this.rows = rows;
+        this.columns = columns;
+        this.matrix = new double[rows][columns];
+        this.savedMatrix = new double[rows][columns];
+        this.vector = vec;
     }
 
     public void fillMatrix() {
@@ -42,7 +52,7 @@ public class MyMatrix {
             for (int j = 0; j < this.columns; j++) {
                 System.out.format("| % .4f ",this.matrix[i][j]);
             }
-            System.out.format("|| % .6f", Vector.vector[i]);
+            System.out.format("|| % .6f", vector.vector[i]);
             System.out.println("");
         }
     }
@@ -54,7 +64,7 @@ public class MyMatrix {
             get0(i,i);
         }
         this.reduceMatrix();
-        return Vector.vector;
+        return vector.vector;
     }
 
     public double[] partChoiceGauss(){
@@ -63,7 +73,7 @@ public class MyMatrix {
             get0(i,i);
         }
         this.reduceMatrix();
-        return Vector.vector;
+        return vector.vector;
     }
     public double[] fulChoiceGauss(){
         ArrayList<Integer> sequence = new ArrayList<>();
@@ -76,8 +86,8 @@ public class MyMatrix {
             get0(i,i);
         }
         this.reduceMatrix();
-        Vector.vector = readCorrectValueOfComputedVector(Vector.vector,sequence);
-        return Vector.vector;
+        vector.vector = readCorrectValueOfComputedVector(vector.vector,sequence);
+        return vector.vector;
     }
     /************************************************DOPROWADZANIE MACIERZY DO POSTACI JEDNOSTKOWEJ**************************************/
 
@@ -96,8 +106,8 @@ public class MyMatrix {
             matrix[xPos][i] =  matrix[xPos][i]/(savedValueOfCurrentOperation);
             temp[i] = matrix[xPos][i];
         }
-        Vector.vector[xPos] = Vector.vector[xPos]/(savedValueOfCurrentOperation);
-        help =  Vector.vector[xPos];
+        vector.vector[xPos] = vector.vector[xPos]/(savedValueOfCurrentOperation);
+        help =  vector.vector[xPos];
 
         for(int y = xPos; y < this.rows -1; y++){
             mulTemp =  multiplayRowByValue(temp, matrix[y + 1][yPos]);
@@ -105,7 +115,7 @@ public class MyMatrix {
             mulHelp = mulHelp*(-1);
             changeSingOfVector(mulTemp);
             matrix[y + 1] = addTwoRows(mulTemp, matrix[y + 1]);
-            Vector.vector[y+1] = Vector.vector[y+1]+mulHelp;
+            vector.vector[y+1] = vector.vector[y+1]+mulHelp;
         }
 
     }
@@ -113,7 +123,7 @@ public class MyMatrix {
     private void reduceMatrix(){
         for (int i = this.rows - 2; i >= 0; i--){
             for (int y = i; y >= 0; y--){
-                Vector.vector[y] =Vector.vector[y]-(Vector.vector[i+1]*matrix[y][i + 1]);
+                vector.vector[y] =vector.vector[y]-(vector.vector[i+1]*matrix[y][i + 1]);
                 matrix[y][i + 1] = matrix[y][i + 1]-(matrix[i + 1][i + 1]*matrix[y][i + 1]);
             }
         }
@@ -122,14 +132,14 @@ public class MyMatrix {
     /*********************************************************DZIAŁANIA NA MACIERZACH**************************************************/
 
     public double[] mulMatrixVector(){
-        double[] resultVector = new double[Vector.vector.length];
+        double[] resultVector = new double[vector.vector.length];
         double sum;
         double product;
         for (int i = 0; i < rows; i++) {
             sum = 0;
             product = 0;
             for (int j = 0; j < rows; j++) {
-                product =(this.savedMatrix[i][j]*(Vector.vector[j]));
+                product =(this.savedMatrix[i][j]*(vector.vector[j]));
                 sum = sum+product;
             }
             resultVector[i] = sum;
@@ -175,9 +185,9 @@ public class MyMatrix {
         matrix[firstRow] = matrix[secondRow];
         matrix[secondRow] = tempRow;
 
-        double tempElement = Vector.vector[firstRow];
-        Vector.vector[firstRow] = Vector.vector[secondRow];
-        Vector.vector[secondRow] = tempElement;
+        double tempElement = vector.vector[firstRow];
+        vector.vector[firstRow] = vector.vector[secondRow];
+        vector.vector[secondRow] = tempElement;
     }
 
     public void swapColumns(int firstColumn, int secondColumn) {

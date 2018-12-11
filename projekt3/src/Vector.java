@@ -3,8 +3,8 @@
  */
 public class Vector {
     private int length;
-    public static double vector[];
-    public static double savedVector[];
+    public  double vector[];
+    public  double savedVector[];
 
     public Vector(int length){
         this.vector = new double[length];
