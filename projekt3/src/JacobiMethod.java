@@ -7,7 +7,7 @@ public class JacobiMethod {
     boolean precision = false;
 
     private static final double expectedPrecision = 0.0000001;
-    private static final int maxIteration = 100;
+    private static final int maxIteration = 2;
 
     public JacobiMethod(MyMatrix matrix, Vector vector) {
     this.matrix = matrix;
@@ -21,12 +21,12 @@ public class JacobiMethod {
         nextVector = setResoultVector(nextVector);
 
         int iterator = 0;
-        while ((precision!=true) && (iterator < maxIteration)){
+        while ((iterator < maxIteration)){
             previousVector = saveValuesOfCurrentVector(nextVector,previousVector);
             for(int i = 0; i < nextVector.length; i++){
-                nextVector[i] = solve(matrix.matrix[i], i );
+                nextVector[i] = solve(matrix.matrix[i], previousVector, i );
             }
-            if(getError(previousVector, nextVector) < expectedPrecision) precision = true;
+//            if(getError(previousVector, nextVector) < expectedPrecision) precision = true;
             iterator++;
         }
 
@@ -36,8 +36,8 @@ public class JacobiMethod {
 
     }
 
-    private double solve(double CurrentRow[], int leadingElementPos){
-        double sum = sumElements(CurrentRow,leadingElementPos);
+    private double solve(double CurrentRow[], double nextVector[], int leadingElementPos){
+        double sum = sumElements(CurrentRow,nextVector, leadingElementPos);
         double valueOfLeadingElement = CurrentRow[leadingElementPos];
         double solution = (1/valueOfLeadingElement)*((vector.vector[leadingElementPos]-sum));
 
@@ -45,14 +45,18 @@ public class JacobiMethod {
 
     }
 
-    private double sumElements(double CurrentRow[], int leadingElementPos){
+    private double sumElements(double CurrentRow[], double nextVector[], int leadingElementPos){
         double solution = 0;
+        for(int i=0; i<nextVector.length;i++)
+            System.out.print(nextVector[i]+"   ");
+        System.out.println(" ");
         for(int i = 0; i < CurrentRow.length; i++ ){
-            if(i==leadingElementPos){
-                i++;
-            }else{
-                solution += CurrentRow[i];
+            if(i!=leadingElementPos){
+                System.out.println(i);
+                System.out.println("wartość macierzy: "+ CurrentRow[i]+ " wartość wektora: "+ nextVector[i]);
+                solution += (CurrentRow[i]*nextVector[i]);
             }
+
 
         }
 
