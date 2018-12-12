@@ -1,21 +1,23 @@
+
+
 /**
  * Created by Lucyna Zielezińska & Kacper Dondziak on 06.12.18.
  */
-public class JacobiMethod {
+public class GaussSeidelMethod {
     MyMatrix matrix;
     Vector vector;
     boolean precision = false;
 
     private static final double expectedPrecision = 0.000000001;
-    private static final int maxIteration = 1;
+    private static final int maxIteration = 5;
 
-    public JacobiMethod(MyMatrix matrix, Vector vector) {
-    this.matrix = matrix;
-    this.vector = vector;
+    public GaussSeidelMethod(MyMatrix matrix, Vector vector) {
+        this.matrix = matrix;
+        this.vector = vector;
     }
 
 
-    public void jacobiMethod() {
+    public void gaussSeidelMethod() {
         double nextVector[] = new double[vector.vector.length];
         double previousVector[] = new double[vector.vector.length];
         nextVector = setResoultVector(nextVector);
@@ -24,7 +26,7 @@ public class JacobiMethod {
         while ((iterator < maxIteration) && (precision!=true)){
             previousVector = saveValuesOfCurrentVector(nextVector,previousVector);
             for(int i = 0; i < nextVector.length; i++){
-                nextVector[i] = solve(matrix.matrix[i], previousVector, i );
+                nextVector[i] = solve(matrix.matrix[i], nextVector, i );
             }
             if(getError(previousVector, nextVector) < expectedPrecision) precision = true;
             iterator++;

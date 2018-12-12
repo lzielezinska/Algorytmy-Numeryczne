@@ -7,7 +7,7 @@ public class Main {
 
 //        Tests.testGauss();
 //        Tests.testPart();
-        Tests.testJacobi();
+        Tests.testGaussSeidel();
 
     }
 
