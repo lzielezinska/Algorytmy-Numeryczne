@@ -14,8 +14,8 @@ public class IteratedMethod {
     this.vector = vector;
     }
 
-
     public void jacobiMethod() {
+        cleanMatrix();
         double nextVector[] = new double[vector.vector.length];
         double previousVector[] = new double[vector.vector.length];
         nextVector = setResoultVector(nextVector);
@@ -36,6 +36,7 @@ public class IteratedMethod {
     }
 
     public void gaussSeidelMethod() {
+        cleanMatrix();
         double nextVector[] = new double[vector.vector.length];
         double previousVector[] = new double[vector.vector.length];
         nextVector = setResoultVector(nextVector);
@@ -80,6 +81,12 @@ public class IteratedMethod {
     private double[] saveValuesOfCurrentVector(double nextVector[], double previousVector[]){
         for(int i = 0; i< previousVector.length; i++) previousVector[i] = nextVector[i];
         return previousVector;
+    }
+
+    private void cleanMatrix(){
+        for (int i = 0; i < matrix.rows; i++) {
+            matrix.findBiggestValueInRow(i);
+        }
     }
 
     private double getError(double previousVector[], double nextVector[]) {

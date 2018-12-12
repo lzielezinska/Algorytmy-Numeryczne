@@ -154,25 +154,25 @@ public class Tests {
         vec.vector[3] = 15;
 
         MyMatrix m = new MyMatrix(4,4,vec);
-        m.matrix[0][0] = 10;
+        m.matrix[0][0] = 0;
         m.matrix[0][1] = -1;
         m.matrix[0][2] = 2;
         m.matrix[0][3] = 0;
 
         m.matrix[1][0] = -1;
-        m.matrix[1][1] = 11;
+        m.matrix[1][1] = 0;
         m.matrix[1][2] = -1;
         m.matrix[1][3] = 3;
 
         m.matrix[2][0] = 2;
         m.matrix[2][1] = -1;
-        m.matrix[2][2] = 10;
+        m.matrix[2][2] = 0;
         m.matrix[2][3] = -1;
 
         m.matrix[3][0] = 0;
         m.matrix[3][1] = 3;
         m.matrix[3][2] = -1;
-        m.matrix[3][3] = 8;
+        m.matrix[3][3] = 0;
 
         m.printExtendedMatrix();
         IteratedMethod test = new IteratedMethod(m, vec);
