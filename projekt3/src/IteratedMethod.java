@@ -1,7 +1,7 @@
 /**
  * Created by Lucyna Zielezińska & Kacper Dondziak on 06.12.18.
  */
-public class JacobiMethod {
+public class IteratedMethod {
     MyMatrix matrix;
     Vector vector;
     boolean precision = false;
@@ -9,7 +9,7 @@ public class JacobiMethod {
     private static final double expectedPrecision = 0.000000001;
     private static final int maxIteration = 1;
 
-    public JacobiMethod(MyMatrix matrix, Vector vector) {
+    public IteratedMethod(MyMatrix matrix, Vector vector) {
     this.matrix = matrix;
     this.vector = vector;
     }
@@ -25,6 +25,26 @@ public class JacobiMethod {
             previousVector = saveValuesOfCurrentVector(nextVector,previousVector);
             for(int i = 0; i < nextVector.length; i++){
                 nextVector[i] = solve(matrix.matrix[i], previousVector, i );
+            }
+            if(getError(previousVector, nextVector) < expectedPrecision) precision = true;
+            iterator++;
+        }
+        for(int i = 0; i< previousVector.length; i++) {
+            vector.vector[i]= nextVector[i];
+        }
+
+    }
+
+    public void gaussSeidelMethod() {
+        double nextVector[] = new double[vector.vector.length];
+        double previousVector[] = new double[vector.vector.length];
+        nextVector = setResoultVector(nextVector);
+
+        int iterator = 0;
+        while ((iterator < maxIteration) && (precision!=true)){
+            previousVector = saveValuesOfCurrentVector(nextVector,previousVector);
+            for(int i = 0; i < nextVector.length; i++){
+                nextVector[i] = solve(matrix.matrix[i], nextVector, i );
             }
             if(getError(previousVector, nextVector) < expectedPrecision) precision = true;
             iterator++;

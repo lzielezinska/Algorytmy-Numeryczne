@@ -52,7 +52,7 @@ public class MyMatrix {
             for (int j = 0; j < this.columns; j++) {
                 System.out.format("| % .4f ",this.matrix[i][j]);
             }
-            System.out.format("|| % .6f", vector.vector[i]);
+            System.out.format("|| % .4f", vector.vector[i]);
             System.out.println("");
         }
     }
@@ -75,6 +75,16 @@ public class MyMatrix {
         this.reduceMatrix();
         return vector.vector;
     }
+    public double[] partChoiceGaussForSparseMatrix(){
+        for (int i = 0; i < rows; i++) {
+            findBiggestValueInRow(i);
+            get0(i,i);
+        }
+        this.reduceMatrix();
+        return vector.vector;
+    }
+
+
     public double[] fulChoiceGauss(){
         ArrayList<Integer> sequence = new ArrayList<>();
 

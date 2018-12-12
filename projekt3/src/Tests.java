@@ -135,7 +135,7 @@ public class Tests {
     m.matrix[3][3] = 8;
 
     m.printExtendedMatrix();
-    JacobiMethod test = new JacobiMethod(m, vec);
+    IteratedMethod test = new IteratedMethod(m, vec);
     System.out.println("**************************");
     test.jacobiMethod();
     m.printExtendedMatrix();
@@ -175,7 +175,7 @@ public class Tests {
         m.matrix[3][3] = 8;
 
         m.printExtendedMatrix();
-        GaussSeidelMethod test = new GaussSeidelMethod(m, vec);
+        IteratedMethod test = new IteratedMethod(m, vec);
         System.out.println("**************************");
         test.gaussSeidelMethod();
         m.printExtendedMatrix();
