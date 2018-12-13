@@ -115,6 +115,7 @@ public class Tests {
         MyMatrix<WrappedDouble> matrix1 = new MyMatrix<WrappedDouble>(ma,vec, 4,4,WrappedDouble.class);
         matrix1.printMatrix();
         System.out.println("******");
+        System.out.println("GAUSS");
         matrix1.gauss();
         matrix1.printMatrix();
     }
@@ -143,8 +144,8 @@ public class Tests {
         vec[3] = new WrappedDouble(-46.51);
 
         MyMatrix<WrappedDouble> matrix1 = new MyMatrix<WrappedDouble>(ma,vec, 4,4,WrappedDouble.class);
-        matrix1.printMatrix();
-        System.out.println("******");
+        System.out.println("********");
+        System.out.println("PART GAUSS");
         matrix1.partChoiceGauss();
         matrix1.printMatrix();
     }
@@ -173,8 +174,8 @@ public class Tests {
         vec[3] = new WrappedDouble(-46.51);
 
         MyMatrix<WrappedDouble> matrix1 = new MyMatrix<WrappedDouble>(ma,vec, 4,4,WrappedDouble.class);
-        matrix1.printMatrix();
-        System.out.println("******");
+        System.out.println("********");
+        System.out.println("FULL GAUSS");
         matrix1.fulChoiceGauss();
         matrix1.printMatrix();
     }
