@@ -115,9 +115,11 @@ public class Tests {
         MyMatrix<WrappedDouble> matrix1 = new MyMatrix<WrappedDouble>(ma,vec, 4,4,WrappedDouble.class);
         matrix1.printMatrix();
         System.out.println("******");
-        System.out.println("GAUSS");
         matrix1.gauss();
+        WrappedDouble resultOfGauss[] = matrix1.mulMatrixVector();
+        double normOfGauss = matrix1.getNormInf(resultOfGauss, (WrappedDouble[]) matrix1.getSavedVector());
         matrix1.printMatrix();
+        System.out.println("Norma: " + normOfGauss);
     }
     public static void testPartGauss(){
         WrappedDouble ma[][] = new WrappedDouble[4][4];
@@ -144,8 +146,8 @@ public class Tests {
         vec[3] = new WrappedDouble(-46.51);
 
         MyMatrix<WrappedDouble> matrix1 = new MyMatrix<WrappedDouble>(ma,vec, 4,4,WrappedDouble.class);
-        System.out.println("********");
-        System.out.println("PART GAUSS");
+        matrix1.printMatrix();
+        System.out.println("******");
         matrix1.partChoiceGauss();
         matrix1.printMatrix();
     }
@@ -174,8 +176,8 @@ public class Tests {
         vec[3] = new WrappedDouble(-46.51);
 
         MyMatrix<WrappedDouble> matrix1 = new MyMatrix<WrappedDouble>(ma,vec, 4,4,WrappedDouble.class);
-        System.out.println("********");
-        System.out.println("FULL GAUSS");
+        matrix1.printMatrix();
+        System.out.println("******");
         matrix1.fulChoiceGauss();
         matrix1.printMatrix();
     }

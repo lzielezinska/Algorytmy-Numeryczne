@@ -31,6 +31,21 @@ public class MyMatrix {
         this.savedMatrix = new double[rows][columns];
         this.vector = vec;
     }
+    public MyMatrix(double[][] m, Vector v){
+        this.matrix = m;
+        this.rows = v.getLength();
+        this.columns = v.getLength();
+        this.savedMatrix = new double[rows][columns];
+        this.vector = v;
+    }
+
+    public void copyMatrix(){
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.columns; j++) {
+                this.savedMatrix[i][j] = this.matrix[i][j];
+            }
+        }
+    }
 
     public void fillMatrix() {
         double createdNumber = 0;
@@ -78,7 +93,7 @@ public class MyMatrix {
     public double[] partChoiceGaussForSparseMatrix(){
         for (int i = 0; i < rows; i++) {
             findBiggestValueInRow(i);
-            get0(i,i);
+            get0ForSparseMatrix(i,i);
         }
         this.reduceMatrix();
         return vector.vector;
@@ -102,12 +117,9 @@ public class MyMatrix {
     /************************************************DOPROWADZANIE MACIERZY DO POSTACI JEDNOSTKOWEJ**************************************/
 
     public void get0(int xPos, int yPos){
-        double[] result = null;
         double temp[] = new double[this.columns]; //Pomocnicza tablica
-        double mulTemp[] =  new double[this.columns];  //Pomocnicza tablica
         double savedValueOfCurrentOperation = matrix[xPos][yPos];
         double help;
-        double mulHelp;
 
         for(int i = 0; i < xPos; i++) {
             temp[i] = 0;
@@ -120,14 +132,43 @@ public class MyMatrix {
         help =  vector.vector[xPos];
 
         for(int y = xPos; y < this.rows -1; y++){
-            mulTemp =  multiplayRowByValue(temp, matrix[y + 1][yPos]);
-            mulHelp = help*(matrix[y+1][yPos]);
-            mulHelp = mulHelp*(-1);
-            changeSingOfVector(mulTemp);
-            matrix[y + 1] = addTwoRows(mulTemp, matrix[y + 1]);
-            vector.vector[y+1] = vector.vector[y+1]+mulHelp;
+            reduceColumn(yPos, temp, help, y);
         }
 
+    }
+
+    public void get0ForSparseMatrix(int xPos, int yPos){
+        double temp[] = new double[this.columns]; //Pomocnicza tablica
+        double savedValueOfCurrentOperation = matrix[xPos][yPos];
+        double help;
+
+        for(int i = 0; i < xPos; i++) {
+            temp[i] = 0;
+        }
+        for(int i = xPos; i < (this.columns); i++){    //Dzielę w celu uzyskania jednyki, przypisują podzieloną wartość do pomocniczej tablicy
+            matrix[xPos][i] =  matrix[xPos][i]/(savedValueOfCurrentOperation);
+            temp[i] = matrix[xPos][i];
+        }
+        vector.vector[xPos] = vector.vector[xPos]/(savedValueOfCurrentOperation);
+        help =  vector.vector[xPos];
+
+        for(int y = xPos; y < this.rows -1; y++){
+            if(matrix[y+1][yPos]!=0) {
+                reduceColumn(yPos, temp, help, y);
+            }
+        }
+
+    }
+
+    private void reduceColumn(int yPos, double[] temp, double help, int y) {
+        double[] mulTemp;
+        double mulHelp;
+        mulTemp =  multiplayRowByValue(temp, matrix[y + 1][yPos]);
+        mulHelp = help*(matrix[y+1][yPos]);
+        mulHelp = mulHelp*(-1);
+        changeSingOfVector(mulTemp);
+        matrix[y + 1] = addTwoRows(mulTemp, matrix[y + 1]);
+        vector.vector[y+1] = vector.vector[y+1]+mulHelp;
     }
 
     private void reduceMatrix(){
@@ -215,7 +256,9 @@ public class MyMatrix {
 
         int maxRow = xPos;
         for(int i = xPos; i< rows; i++){
-            if(matrix[maxRow][xPos] < matrix[i][xPos]) maxRow = i;
+            if(Math.abs(matrix[maxRow][xPos]) < Math.abs(matrix[i][xPos])){
+                maxRow = i;
+            }
         }
         swapRows(xPos, maxRow);
     }
@@ -244,22 +287,6 @@ public class MyMatrix {
 
         return newResultVector;
     }
-    /********************************************METODY DO HIPOTEZ**************************************/
-
-//    public  double getNormInf(T[] res, T[] vec){
-//        T result = (T) res[0].abs().sub(vec[0].abs()).abs();
-//        T diff;
-//        for(int i = 0; i < vec.length; i++){
-//            diff = (T) res[i].abs().sub(vec[i].abs()).abs();
-//            //System.out.println(res[i] +" "+ vec[i]+" "+ diff);
-//            if(result.abs().compareTo(diff.abs()) == -1){
-//                result = diff.abs();
-//            }
-//        }
-//        return result.doubleValue();
-//    }
-
-
 
 }
 

@@ -91,7 +91,6 @@ public class MyMatrix<T extends ANumber<T>> {
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
                 System.out.format("| % .4f ",this.matrix[i][j].doubleValue());
-                //System.out.print("| " + this.matrix[i][j].toString());
             }
             System.out.format("|| % .6f", this.vector[i].doubleValue());
             System.out.println("");
@@ -282,7 +281,6 @@ public class MyMatrix<T extends ANumber<T>> {
         T diff;
         for(int i = 0; i < vec.length; i++){
             diff = (T) res[i].abs().sub(vec[i].abs()).abs();
-            //System.out.println(res[i] +" "+ vec[i]+" "+ diff);
             if(result.abs().compareTo(diff.abs()) == -1){
                 result = diff.abs();
             }
@@ -292,3 +290,4 @@ public class MyMatrix<T extends ANumber<T>> {
 
 
 }
+

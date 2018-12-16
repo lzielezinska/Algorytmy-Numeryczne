@@ -7,11 +7,11 @@ public class IteratedMethod {
     boolean precision = false;
 
     private static final double expectedPrecision = 0.000000001;
-    private static final int maxIteration = 1;
+    private static final int maxIteration = 10;
 
     public IteratedMethod(MyMatrix matrix, Vector vector) {
-    this.matrix = matrix;
-    this.vector = vector;
+        this.matrix = matrix;
+        this.vector = vector;
     }
 
     public void jacobiMethod() {
@@ -36,7 +36,7 @@ public class IteratedMethod {
     }
 
     public void gaussSeidelMethod() {
-        cleanMatrix();
+       // cleanMatrix();
         double nextVector[] = new double[vector.vector.length];
         double previousVector[] = new double[vector.vector.length];
         nextVector = setResoultVector(nextVector);
@@ -89,7 +89,7 @@ public class IteratedMethod {
         }
     }
 
-    private double getError(double previousVector[], double nextVector[]) {
+    public static double getError(double previousVector[], double nextVector[]) {
         double maximumValue = 0;
         double temporaryValue = 0;
 

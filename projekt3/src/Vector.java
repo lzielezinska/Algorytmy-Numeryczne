@@ -10,6 +10,18 @@ public class Vector {
         this.vector = new double[length];
         this.savedVector = new double[length];
     }
+    public Vector(double[] v){
+        this.vector = v;
+        this.length = v.length;
+        this.savedVector = new double[length];
+        this.copyVector();
+    }
+
+    public void copyVector(){
+        for(int i = 0;i < this.vector.length; i++){
+            this.savedVector[i] = this.vector[i];
+        }
+    }
 
     public int getLength() {
         return length;
