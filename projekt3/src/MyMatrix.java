@@ -3,7 +3,6 @@
  */
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,29 +13,28 @@ public class MyMatrix {
     public int columns;
     public double[][] matrix;
     public double[][] savedMatrix;
-    public Vector vector;
+    public double vector[];
+    public double savedVector[];
+
+
 
     public MyMatrix(int rows, int columns){
         this.rows = rows;
         this.columns = columns;
         this.matrix = new double[rows][columns];
         this.savedMatrix = new double[rows][columns];
-        this.vector = new Vector(rows);
+        this.vector = new double[rows];
+        this.savedVector = new double[rows];
+
     }
 
-    public MyMatrix(int rows, int columns, Vector vec){
-        this.rows = rows;
-        this.columns = columns;
-        this.matrix = new double[rows][columns];
-        this.savedMatrix = new double[rows][columns];
-        this.vector = vec;
-    }
-    public MyMatrix(double[][] m, Vector v){
+    public MyMatrix(double[][] m){
         this.matrix = m;
-        this.rows = v.getLength();
-        this.columns = v.getLength();
+        this.rows = m.length;
+        this.columns = m[0].length;
         this.savedMatrix = new double[rows][columns];
-        this.vector = v;
+        this.vector = new double[m.length];
+        this.savedVector = new double[m.length];
     }
 
     public void copyMatrix(){
@@ -47,7 +45,7 @@ public class MyMatrix {
         }
     }
 
-    public void fillMatrix() {
+    public void fillMatrixAndVector() {
         double createdNumber = 0;
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
@@ -60,6 +58,15 @@ public class MyMatrix {
                 }
             }
         }
+        for(int i = 0;i < this.vector.length; i++){
+            try{
+                createdNumber =  (Randomizer.generateRandomShort()/65536d);
+                this.vector[i] = createdNumber;
+                this.savedVector[i] = createdNumber;
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     public  void printExtendedMatrix() {
@@ -67,7 +74,7 @@ public class MyMatrix {
             for (int j = 0; j < this.columns; j++) {
                 System.out.format("| % .4f ",this.matrix[i][j]);
             }
-            System.out.format("|| % .4f", vector.vector[i]);
+            System.out.format("|| % .4f", vector[i]);
             System.out.println("");
         }
     }
@@ -76,29 +83,29 @@ public class MyMatrix {
 
     public double[] gauss(){
         for (int i = 0; i < rows; i++) {
-            get0(i,i);
+            getEchelonForm(i,i);
         }
         this.reduceMatrix();
-        return vector.vector;
+        return vector;
     }
 
     public double[] partChoiceGauss(){
         for (int i = 0; i < rows; i++) {
             findBiggestValueInRow(i);
-            get0(i,i);
+            getEchelonForm(i,i);
         }
         this.reduceMatrix();
-        return vector.vector;
+        return vector;
     }
     public double[] partChoiceGaussForSparseMatrix(){
         for (int i = 0; i < rows; i++) {
             findBiggestValueInRow(i);
-            get0(i,i);
+            getEchelonFormForSparseMatrix(i,i);
         }
         this.reduceMatrix();
-        return vector.vector;
-    }
+        return vector;
 
+    }
 
     public double[] fulChoiceGauss(){
         ArrayList<Integer> sequence = new ArrayList<>();
@@ -108,21 +115,42 @@ public class MyMatrix {
         }
         for (int i = 0; i < rows; i++) {
             findBiggestElementInSubmatrix(i, sequence);
-            get0(i,i);
+            getEchelonForm(i,i);
         }
         this.reduceMatrix();
-        vector.vector = readCorrectValueOfComputedVector(vector.vector,sequence);
-        return vector.vector;
+        vector = readCorrectValueOfComputedVector(vector,sequence);
+        return vector;
     }
     /************************************************DOPROWADZANIE MACIERZY DO POSTACI JEDNOSTKOWEJ**************************************/
-
-    public void get0(int xPos, int yPos){
+    private void getEchelonForm(int xPos, int yPos){
         double temp[] = new double[this.columns]; //Pomocnicza tablica
-        double mulTemp[] =  new double[this.columns];  //Pomocnicza tablica
         double savedValueOfCurrentOperation = matrix[xPos][yPos];
         double help;
-        double mulHelp;
 
+        help = getLeading1(xPos, temp, savedValueOfCurrentOperation);
+
+        for(int y = xPos; y < this.rows -1; y++){
+                reduceColumn(yPos, temp, help, y);
+        }
+
+    }
+
+    private void getEchelonFormForSparseMatrix(int xPos, int yPos){
+        double temp[] = new double[this.columns]; //Pomocnicza tablica
+        double savedValueOfCurrentOperation = matrix[xPos][yPos];
+        double help;
+
+        help = getLeading1(xPos, temp, savedValueOfCurrentOperation);
+
+        for(int y = xPos; y < this.rows -1; y++){
+            if(matrix[y][yPos]!=0)
+            reduceColumn(yPos, temp, help, y);
+        }
+
+    }
+
+    private double getLeading1(int xPos, double[] temp, double savedValueOfCurrentOperation) {
+        double help;
         for(int i = 0; i < xPos; i++) {
             temp[i] = 0;
         }
@@ -130,24 +158,26 @@ public class MyMatrix {
             matrix[xPos][i] =  matrix[xPos][i]/(savedValueOfCurrentOperation);
             temp[i] = matrix[xPos][i];
         }
-        vector.vector[xPos] = vector.vector[xPos]/(savedValueOfCurrentOperation);
-        help =  vector.vector[xPos];
+        vector[xPos] = vector[xPos]/(savedValueOfCurrentOperation);
+        help =  vector[xPos];
+        return help;
+    }
 
-        for(int y = xPos; y < this.rows -1; y++){
-            mulTemp =  multiplayRowByValue(temp, matrix[y + 1][yPos]);
-            mulHelp = help*(matrix[y+1][yPos]);
-            mulHelp = mulHelp*(-1);
-            changeSingOfVector(mulTemp);
-            matrix[y + 1] = addTwoRows(mulTemp, matrix[y + 1]);
-            vector.vector[y+1] = vector.vector[y+1]+mulHelp;
-        }
-
+    private void reduceColumn(int yPos, double[] temp, double vectorValue, int y) {
+        double[] mulTemp;
+        double mulHelp;
+        mulTemp =  multiplayRowByValue(temp, matrix[y + 1][yPos]);
+        mulHelp = vectorValue*(matrix[y+1][yPos]);
+        mulHelp = mulHelp*(-1);
+        changeSingOfVector(mulTemp);
+        matrix[y + 1] = addTwoRows(mulTemp, matrix[y + 1]);
+        vector[y+1] = vector[y+1]+mulHelp;
     }
 
     private void reduceMatrix(){
         for (int i = this.rows - 2; i >= 0; i--){
             for (int y = i; y >= 0; y--){
-                vector.vector[y] =vector.vector[y]-(vector.vector[i+1]*matrix[y][i + 1]);
+                vector[y] =vector[y]-(vector[i+1]*matrix[y][i + 1]);
                 matrix[y][i + 1] = matrix[y][i + 1]-(matrix[i + 1][i + 1]*matrix[y][i + 1]);
             }
         }
@@ -155,24 +185,7 @@ public class MyMatrix {
 
     /*********************************************************DZIAŁANIA NA MACIERZACH**************************************************/
 
-    public double[] mulMatrixVector(){
-        double[] resultVector = new double[vector.vector.length];
-        double sum;
-        double product;
-        for (int i = 0; i < rows; i++) {
-            sum = 0;
-            product = 0;
-            for (int j = 0; j < rows; j++) {
-                product =(this.savedMatrix[i][j]*(vector.vector[j]));
-                sum = sum+product;
-            }
-            resultVector[i] = sum;
-        }
-        return resultVector;
-    }
-
-
-    public double[] addTwoRows(double m1[], double m2[]) {
+    private double[] addTwoRows(double m1[], double m2[]) {
         double sum[] = new double[m1.length];
         for (int i = 0; i < m1.length; i++) {
             sum[i] =  m1[i]+m2[i];
@@ -180,7 +193,7 @@ public class MyMatrix {
         return sum;
     }
 
-    public double[] multiplayRowByValue(double[] row, double value) {
+    private double[] multiplayRowByValue(double[] row, double value) {
         double factor[] = new double[row.length];
         for (int i = 0; i < row.length; i++) {
             factor[i] = row[i]*value;
@@ -188,13 +201,6 @@ public class MyMatrix {
         return factor;
     }
 
-    public double[] devideRowByValue(double[] row, double value) {
-        double quotion[] = new double[row.length];
-        for (int i = 0; i < row.length; i++) {
-            quotion[i] =  row[i]/value;
-        }
-        return quotion;
-    }
 
     private void changeSingOfVector(double vec[]){
         for (int i = 0; i < (this.rows); i++){
@@ -209,9 +215,9 @@ public class MyMatrix {
         matrix[firstRow] = matrix[secondRow];
         matrix[secondRow] = tempRow;
 
-        double tempElement = vector.vector[firstRow];
-        vector.vector[firstRow] = vector.vector[secondRow];
-        vector.vector[secondRow] = tempElement;
+        double tempElement = vector[firstRow];
+        vector[firstRow] = vector[secondRow];
+        vector[secondRow] = tempElement;
     }
 
     public void swapColumns(int firstColumn, int secondColumn) {
@@ -236,7 +242,7 @@ public class MyMatrix {
         swapRows(xPos, maxRow);
     }
 
-    public void findBiggestElementInSubmatrix(int xPos, ArrayList<Integer> sequence){
+    private void findBiggestElementInSubmatrix(int xPos, ArrayList<Integer> sequence){
 
         int maxRow = xPos;
         int maxColumn = xPos;
@@ -260,22 +266,6 @@ public class MyMatrix {
 
         return newResultVector;
     }
-    /********************************************METODY DO HIPOTEZ**************************************/
-
-//    public  double getNormInf(T[] res, T[] vec){
-//        T result = (T) res[0].abs().sub(vec[0].abs()).abs();
-//        T diff;
-//        for(int i = 0; i < vec.length; i++){
-//            diff = (T) res[i].abs().sub(vec[i].abs()).abs();
-//            //System.out.println(res[i] +" "+ vec[i]+" "+ diff);
-//            if(result.abs().compareTo(diff.abs()) == -1){
-//                result = diff.abs();
-//            }
-//        }
-//        return result.doubleValue();
-//    }
-
-
 
 }
 

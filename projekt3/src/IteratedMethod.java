@@ -2,22 +2,20 @@
  * Created by Lucyna Zielezińska & Kacper Dondziak on 06.12.18.
  */
 public class IteratedMethod {
-    MyMatrix matrix;
-    Vector vector;
+    public MyMatrix matrix;
     boolean precision = false;
 
     private static final double expectedPrecision = 0.000000001;
-    private static final int maxIteration = 10;
+    private static final int maxIteration = 10000;
 
-    public IteratedMethod(MyMatrix matrix, Vector vector) {
+    public IteratedMethod(MyMatrix matrix) {
         this.matrix = matrix;
-        this.vector = vector;
     }
 
-    public void jacobiMethod() {
+    public int jacobiMethod() {
         cleanMatrix();
-        double nextVector[] = new double[vector.vector.length];
-        double previousVector[] = new double[vector.vector.length];
+        double nextVector[] = new double[matrix.vector.length];
+        double previousVector[] = new double[matrix.vector.length];
         nextVector = setResoultVector(nextVector);
 
         int iterator = 0;
@@ -30,15 +28,17 @@ public class IteratedMethod {
             iterator++;
         }
         for(int i = 0; i< previousVector.length; i++) {
-            vector.vector[i]= nextVector[i];
+            matrix.vector[i]= nextVector[i];
         }
+
+        return  iterator;
 
     }
 
-    public void gaussSeidelMethod() {
+    public int gaussSeidelMethod() {
        // cleanMatrix();
-        double nextVector[] = new double[vector.vector.length];
-        double previousVector[] = new double[vector.vector.length];
+        double nextVector[] = new double[matrix.vector.length];
+        double previousVector[] = new double[matrix.vector.length];
         nextVector = setResoultVector(nextVector);
 
         int iterator = 0;
@@ -51,15 +51,17 @@ public class IteratedMethod {
             iterator++;
         }
         for(int i = 0; i< previousVector.length; i++) {
-            vector.vector[i]= nextVector[i];
+            matrix.vector[i]= nextVector[i];
         }
+
+        return iterator;
 
     }
 
     private double solve(double CurrentRow[], double nextVector[], int leadingElementPos){
         double sum = sumElements(CurrentRow,nextVector, leadingElementPos);
         double valueOfLeadingElement = CurrentRow[leadingElementPos];
-        double solution = (1/valueOfLeadingElement)*((vector.vector[leadingElementPos]-sum));
+        double solution = (1/valueOfLeadingElement)*((matrix.vector[leadingElementPos]-sum));
 
         return solution;
 

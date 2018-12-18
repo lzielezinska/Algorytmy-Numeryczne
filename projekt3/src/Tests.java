@@ -2,15 +2,23 @@
  * Created by lucyna on 09.12.18.
  */
 public class Tests {
-    public static void testGauss() {
-        System.out.println("Test of Gauss method");
-        Vector vec = new Vector(4);
-        vec.vector[0] = 13.15;
-        vec.vector[1] = 49.84;
-        vec.vector[2] = -14.08;
-        vec.vector[3] = -46.51;
+    public static void testGenaration() {
+        MyMatrix mac = new MyMatrix(100,100);
+        mac.fillMatrixAndVector();
+        mac.printExtendedMatrix();
 
-        MyMatrix m = new MyMatrix(4,4, vec);
+    }
+
+        public static void testGauss() {
+        System.out.println("Test of Gauss method");
+
+
+        MyMatrix m = new MyMatrix(4,4);
+        m.vector[0] = 13.15;
+        m.vector[1] = 49.84;
+        m.vector[2] = -14.08;
+        m.vector[3] = -46.51;
+
         m.matrix[0][0] = 1.2;
         m.matrix[0][1] = 2.6;
         m.matrix[0][2] = -0.1;
@@ -37,13 +45,13 @@ public class Tests {
     }
     public static void testPart() {
         System.out.println("Test of Gauss method");
-        Vector vec = new Vector(4);
-        vec.vector[0] = 13.15;
-        vec.vector[1] = 49.84;
-        vec.vector[2] = -14.08;
-        vec.vector[3] = -46.51;
+        MyMatrix m = new MyMatrix(4,4);
 
-        MyMatrix m = new MyMatrix(4,4, vec);
+        m.vector[0] = 13.15;
+        m.vector[1] = 49.84;
+        m.vector[2] = -14.08;
+        m.vector[3] = -46.51;
+
         m.matrix[0][0] = 1.2;
         m.matrix[0][1] = 2.6;
         m.matrix[0][2] = -0.1;
@@ -71,13 +79,14 @@ public class Tests {
     }
     public static void testFull() {
         System.out.println("Test of Gauss method");
-        Vector vec = new Vector(4);
-        vec.vector[0] = 13.15;
-        vec.vector[1] = 49.84;
-        vec.vector[2] = -14.08;
-        vec.vector[3] = -46.51;
 
-        MyMatrix m = new MyMatrix(4,4, vec);
+        MyMatrix m = new MyMatrix(4,4);
+
+        m.vector[0] = 13.15;
+        m.vector[1] = 49.84;
+        m.vector[2] = -14.08;
+        m.vector[3] = -46.51;
+
         m.matrix[0][0] = 1.2;
         m.matrix[0][1] = 2.6;
         m.matrix[0][2] = -0.1;
@@ -106,14 +115,14 @@ public class Tests {
     public static void testJacobi(){
         System.out.println("Test of Jacobi method");
         System.out.println("Example from lecture");
-        Vector vec = new Vector(4);
 
-        vec.vector[0] = 6;
-        vec.vector[1] = 25;
-        vec.vector[2] = -11;
-        vec.vector[3] = 15;
+        MyMatrix m = new MyMatrix(4,4);
 
-        MyMatrix m = new MyMatrix(4,4,vec);
+        m.vector[0] = 6;
+        m.vector[1] = 25;
+        m.vector[2] = -11;
+        m.vector[3] = 15;
+
         m.matrix[0][0] = 10;
         m.matrix[0][1] = -1;
         m.matrix[0][2] = 2;
@@ -135,7 +144,7 @@ public class Tests {
         m.matrix[3][3] = 8;
 
         m.printExtendedMatrix();
-        IteratedMethod test = new IteratedMethod(m, vec);
+        IteratedMethod test = new IteratedMethod(m);
         System.out.println("**************************");
         test.jacobiMethod();
         m.printExtendedMatrix();
@@ -146,14 +155,14 @@ public class Tests {
     public static void testGaussSeidel(){
         System.out.println("Test of Gauss-Seidel method");
         System.out.println("Example from lecture");
-        Vector vec = new Vector(4);
 
-        vec.vector[0] = 6;
-        vec.vector[1] = 25;
-        vec.vector[2] = -11;
-        vec.vector[3] = 15;
+        MyMatrix m = new MyMatrix(4,4);
 
-        MyMatrix m = new MyMatrix(4,4,vec);
+        m.vector[0] = 6;
+        m.vector[1] = 25;
+        m.vector[2] = -11;
+        m.vector[3] = 15;
+
         m.matrix[0][0] = 10;
         m.matrix[0][1] = -1;
         m.matrix[0][2] = 2;
@@ -175,7 +184,7 @@ public class Tests {
         m.matrix[3][3] = 8;
 
         m.printExtendedMatrix();
-        IteratedMethod test = new IteratedMethod(m, vec);
+        IteratedMethod test = new IteratedMethod(m);
         System.out.println("**************************");
         test.gaussSeidelMethod();
         m.printExtendedMatrix();
