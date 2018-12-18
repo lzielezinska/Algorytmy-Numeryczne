@@ -162,15 +162,15 @@ public class Hypothesis2 {
             matrix = MatrixGenerator.prepareMatrix(sizeOfMatrix);
             IteratedMethod jacobiMethod = new IteratedMethod(matrix);
             jacobiMethod.jacobiMethod();
-            resultArray = matrix.mulMatrixVector();
-            errorGaussSeidel[i] = matrix.getNormInf(resultArray, matrix.savedVector);
+            resultArray = jacobiMethod.matrix.mulMatrixVector();
+            errorGaussSeidel[i] = jacobiMethod.getError(resultArray, matrix.savedVector);
 
             Randomizer.resetRandomizer();
             matrix = MatrixGenerator.prepareMatrix(sizeOfMatrix);
             IteratedMethod gaussSeidelMethod = new IteratedMethod(matrix);
             gaussSeidelMethod.gaussSeidelMethod();
-            resultArray = matrix.mulMatrixVector();
-            errorJacobi[i] = matrix.getNormInf(resultArray, matrix.savedVector);
+            resultArray = gaussSeidelMethod.matrix.mulMatrixVector();
+            errorJacobi[i] = gaussSeidelMethod.getError(resultArray, matrix.savedVector);
 
 
             sizes[i] = sizeOfMatrix;

@@ -2,21 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e7382b2-ebfc-4eee-9e25-04b4a2468248" name="Default Changelist" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/Q1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/iterationGaussSeidel.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/iterationJacobi.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/timesGaussSeidel.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/timesJacobi.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/timesPartGauss.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/timesPartGaussForSparseMatrix.csv" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../projekt3/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/.~lock.xValues.csv#" afterPath="$PROJECT_DIR$/../projekt3/.~lock.xValues.csv#" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/errorGaussSeidel.csv" afterPath="$PROJECT_DIR$/../projekt3/errorGaussSeidel.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/errorJacobi.csv" afterPath="$PROJECT_DIR$/../projekt3/errorJacobi.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/src/Hypothesis2.java" afterPath="$PROJECT_DIR$/../projekt3/src/Hypothesis2.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/src/IteratedMethod.java" afterPath="$PROJECT_DIR$/../projekt3/src/IteratedMethod.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/src/Main.java" afterPath="$PROJECT_DIR$/../projekt3/src/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/src/MatrixGenerator.java" afterPath="$PROJECT_DIR$/../projekt3/src/MatrixGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/src/MyMatrix.java" afterPath="$PROJECT_DIR$/../projekt3/src/MyMatrix.java" />
     </list>
     <list id="f16d4c8e-957c-4810-9520-75eea95b6cca" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />

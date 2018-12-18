@@ -5,8 +5,8 @@ public class IteratedMethod {
     public MyMatrix matrix;
     boolean precision = false;
 
-    private static final double expectedPrecision = 0.000000001;
-    private static final int maxIteration = 1;
+    private static final double expectedPrecision = 0.00000000001;
+    private static final int maxIteration = 100000000;
 
     public IteratedMethod(MyMatrix matrix) {
         this.matrix = matrix;
