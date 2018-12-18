@@ -1,18 +1,18 @@
 public class MatrixGenerator {
-    public static Vector prepareVector(int size){
+    public static double[] prepareVector(int size){
         int rowSize = ((size + 1) * (size + 2)) / 2;
         double[] resultVector = new double[rowSize];
         for(int i = 0; i < resultVector.length; i++){
             resultVector[i] = 0.0;
         }
         resultVector[resultVector.length - 1] = 1.0;
-        Vector vector = new Vector(resultVector);
+        double[] vector = resultVector;
         return vector;
     }
     public static MyMatrix prepareMatrix(int size){
         int rowSize = ((size + 1) * (size + 2)) / 2;
 
-        Vector vector = prepareVector(size);
+        double[] vector = prepareVector(size);
         double[][] generatedMatrix = MatrixGenerator.generateMatrix(size);
         for(int i = 0; i < rowSize; i++){
             for(int t = 0; t < rowSize; t++){
@@ -29,7 +29,7 @@ public class MatrixGenerator {
             }
         }
         generatedMatrix[rowSize - 1][rowSize - 1] += 1.0;
-        MyMatrix matrix = new MyMatrix(rowSize, rowSize, vector);
+        MyMatrix matrix = new MyMatrix(rowSize, rowSize);
         for(int i = 0; i < rowSize; i++){
             for(int t = 0; t < rowSize; t++){
                 matrix.matrix[i][t] = generatedMatrix[i][t];

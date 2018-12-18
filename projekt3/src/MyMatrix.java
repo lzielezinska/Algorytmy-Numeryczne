@@ -208,6 +208,23 @@ public class MyMatrix {
         }
     }
 
+    public double[] mulMatrixVector(){
+        double[] resultVector = new double[vector.length];
+        double sum;
+        double product;
+        for (int i = 0; i < rows; i++) {
+            sum = 0;
+            product = 0;
+            for (int j = 0; j < rows; j++) {
+                product =savedMatrix[i][j]*vector[j];
+                sum =sum + product;
+            }
+            resultVector[i] = sum;
+        }
+        return resultVector;
+    }
+
+
     /*************************************************FUNKCJE SWAP**************************************************************/
 
     public void swapRows(int firstRow, int secondRow) {
@@ -266,6 +283,21 @@ public class MyMatrix {
 
         return newResultVector;
     }
+
+
+    public  double getNormInf(double[] res, double[] vec){
+        double result =  Math.abs(Math.abs(res[0])-Math.abs(vec[0]));
+        double diff;
+        for(int i = 0; i < vec.length; i++){
+            diff = Math.abs(Math.abs(res[i])-Math.abs(vec[i]));
+            if(Math.abs(result) < Math.abs(diff)){
+                result = Math.abs(diff);
+            }
+        }
+        return result;
+    }
+
+
 
 }
 

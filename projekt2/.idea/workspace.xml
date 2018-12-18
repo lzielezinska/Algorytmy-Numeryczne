@@ -2,18 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e7382b2-ebfc-4eee-9e25-04b4a2468248" name="Default Changelist" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/src/ANumber.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/src/Hypothesis.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/src/MyType.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/src/Vector.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/Q1.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/iterationGaussSeidel.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/iterationJacobi.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/timesGaussSeidel.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/timesJacobi.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/timesPartGauss.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../projekt3/timesPartGaussForSparseMatrix.csv" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../projekt3/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/projekt3.iml" afterPath="$PROJECT_DIR$/../projekt3/projekt3.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/.~lock.xValues.csv#" afterPath="$PROJECT_DIR$/../projekt3/.~lock.xValues.csv#" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/src/Hypothesis2.java" afterPath="$PROJECT_DIR$/../projekt3/src/Hypothesis2.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/src/IteratedMethod.java" afterPath="$PROJECT_DIR$/../projekt3/src/IteratedMethod.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/src/Main.java" afterPath="$PROJECT_DIR$/../projekt3/src/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/src/MatrixGenerator.java" afterPath="$PROJECT_DIR$/../projekt3/src/MatrixGenerator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/src/MyMatrix.java" afterPath="$PROJECT_DIR$/../projekt3/src/MyMatrix.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../projekt3/src/Tests.java" afterPath="$PROJECT_DIR$/../projekt3/src/Tests.java" />
     </list>
     <list id="f16d4c8e-957c-4810-9520-75eea95b6cca" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -435,6 +438,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="999" y="24" width="921" height="1056" extended-state="4" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
