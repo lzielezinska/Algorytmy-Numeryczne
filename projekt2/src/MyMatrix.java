@@ -1,5 +1,7 @@
-import java.lang.reflect.AnnotatedArrayType;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Lucyna on 02.11.18.
@@ -8,21 +10,29 @@ import java.lang.reflect.Array;
  * Algorytmy Numeryczne
  * Projekt 2
  */
+
+
+
+/****************************************************DEFINICJA KLASY***********************************************/
+
 public class MyMatrix<T extends ANumber<T>> {
     private int rows;
     private int columns;
     private Class type;
     private T[][] matrix;
-    private T[] vector;
+    public T[][] savedMatrix;
+    public T[] vector;
     private T staticObject;
     private T[] savedVector;
+
     public MyMatrix(int rows, int columns, Class type) {
         this.rows = rows;
         this.columns = columns;
         this.matrix = (T[][]) Array.newInstance(type,rows,columns);
+        this.savedMatrix = (T[][]) Array.newInstance(type,rows,columns);;
         this.type = type;
         this.vector = (T[]) Array.newInstance(type, rows);
-        this.savedVector = vector.clone();
+        this.savedVector =  (T[]) Array.newInstance(type, rows);
         try{
             this.staticObject = (T) TypeFabric.CreateNumber(type);
         } catch (Exception e){
@@ -32,7 +42,13 @@ public class MyMatrix<T extends ANumber<T>> {
         this(rows,columns,type);
         this.matrix = mat;
         this.vector = vec;
-        this.savedVector = vec;
+
+        for(int i = 0;i < rows; i++){
+            this.savedVector[i] = this.vector[i];
+            for(int j = 0;j < rows; j++){
+                this.savedMatrix[i][j] = this.matrix[i][j];
+            }
+        }
     }
 
     public void setDebugVaules(){
@@ -40,49 +56,21 @@ public class MyMatrix<T extends ANumber<T>> {
         this.columns = 4;
         this.matrix = (T[][]) Array.newInstance(type,rows,columns);
     }
+
     public ANumber[] getSavedVector(){
         return this.savedVector;
     }
 
 
-    public ANumber[] partChoiceGauss(){
-        for (int i = 0; i < rows; i++) {
-            findBiggestValueInRow(i);
-            get0Debug(i,i);
-        }
-        this.reduceMatrix();
-        return this.vector;
-    }
-    public ANumber[] fulChoiceGauss(){
-        for (int i = 0; i < rows; i++) {
-            findBiggestElementInSubmatrix(i);
-            get0Debug(i,i);
-        }
-        this.reduceMatrix();
-        return this.vector;
-    }
-
-    public ANumber[] mulMatrixVector(ANumber[] vector){
-        ANumber[] resultVector = (T[]) Array.newInstance(type, vector.length);
-        //TODO Here add multiplying Matrix * Vector method body.
-
-        for (int i = 0; i < rows; i++) {
-            ANumber sum = (T)staticObject.returnZero();
-            ANumber product = (T)staticObject.returnZero();
-            for (int j = 0; j < rows; j++) {
-                product =(ANumber)matrix[i][j].mul((T)vector[j]);
-                sum = (ANumber) sum.add(product);
-            }
-            resultVector[i] = sum;
-        }
-        return resultVector;
-    }
-
+    /***************************************************WYPEŁNANIE MACIERZY *********************************************************/
     public void fillMatrixAndVector() {
+        T createdNumber;
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
                 try{
-                    this.matrix[i][j] = (T)TypeFabric.CreateNumber(this.type);
+                    createdNumber = (T)TypeFabric.CreateNumber(this.type);
+                    this.matrix[i][j] = createdNumber;
+                    this.savedMatrix[i][j] = createdNumber;
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -90,7 +78,9 @@ public class MyMatrix<T extends ANumber<T>> {
         }
         for(int i = 0;i < this.vector.length; i++){
             try{
-                this.vector[i] = (T)TypeFabric.CreateNumber(this.type);
+                createdNumber = (T)TypeFabric.CreateNumber(this.type);
+                this.vector[i] = createdNumber;
+                this.savedVector[i] = createdNumber;
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -101,78 +91,47 @@ public class MyMatrix<T extends ANumber<T>> {
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
                 System.out.format("| % .4f ",this.matrix[i][j].doubleValue());
-                //System.out.print("| " + this.matrix[i][j].toString());
             }
             System.out.format("|| % .6f", this.vector[i].doubleValue());
             System.out.println("");
         }
     }
 
-    public T[] addTwoRows(ANumber m1[], ANumber m2[]) {
-        T sum[] = (T[]) Array.newInstance(this.type, m1.length);
-        for (int i = 0; i < m1.length; i++) {
-            sum[i] = (T) m1[i].add(m2[i]);
-        }
-        return sum;
-    }
-
-    public T[] multiplayRowByValue(ANumber[] row, ANumber value) {
-        T factor[] = (T[]) Array.newInstance(this.type, row.length);
-        for (int i = 0; i < row.length; i++) {
-            factor[i] = (T) row[i].mul(value);
-        }
-        return factor;
-    }
-
-    public ANumber[] devideRowByValue(ANumber[] row, ANumber value) {
-        ANumber quotion[] = new ANumber[row.length];
-        for (int i = 0; i < row.length; i++) {
-            quotion[i] = (ANumber) row[i].div(value);
-        }
-        return quotion;
-    }
-
-    public ANumber[] swap(int firstRow, int secondRow, ANumber resultVector[]) {
-        ANumber temp = resultVector[firstRow];
-        resultVector[firstRow] = resultVector[secondRow];
-        resultVector[secondRow] = temp;
-        return resultVector;
-    }
-
-    public void swapRows(int firstRow, int secondRow) {
-        T tempRow[] = matrix[firstRow];
-        matrix[firstRow] = matrix[secondRow];
-        matrix[secondRow] = tempRow;
-
-        T tempElement = vector[firstRow];
-        vector[firstRow] = vector[secondRow];
-        vector[secondRow] = tempElement;
-    }
-
-    public void swapColumns(int firstColumn, int secondColumn) {
-        for (int i = 0; i < rows; i++) {
-            T tmp = matrix[i][firstColumn];
-            matrix[i][firstColumn] = matrix[i][secondColumn];
-            matrix[i][secondColumn] = tmp;
-        }
-    }
+    /********************************************REDUKCJA MACIERZY ZA POMOCĄ METODY GAUSSA-JORDANA***************************************/
 
     public ANumber[] gauss(){
-        double percents = 0.1;
-        double progress = 0.0;
-
         for (int i = 0; i < rows; i++) {
-            progress = (double)i/rows;
-            if(progress > percents){
-                System.out.print("*");
-                percents += 0.1;
-            }
-            get0Debug(i,i);
+            get0(i,i);
         }
         this.reduceMatrix();
         return this.vector;
     }
-    public void get0Debug(int xPos, int yPos){
+
+    public ANumber[] partChoiceGauss(){
+        for (int i = 0; i < rows; i++) {
+            findBiggestValueInRow(i);
+            get0(i,i);
+        }
+        this.reduceMatrix();
+        return this.vector;
+    }
+    public ANumber[] fulChoiceGauss(){
+        ArrayList<Integer> sequence = new ArrayList<>();
+
+        for(int i = 0; i < this.columns; i++) {
+            sequence.add(i);
+        }
+        for (int i = 0; i < rows; i++) {
+            findBiggestElementInSubmatrix(i, sequence);
+            get0(i,i);
+        }
+        this.reduceMatrix();
+        this.vector = readCorrectValueOfComputedVector(this.vector,sequence);
+        return this.vector;
+    }
+    /************************************************DOPROWADZANIE MACIERZY DO POSTACI JEDNOSTKOWEJ**************************************/
+
+    public void get0(int xPos, int yPos){
         ANumber[] result = null;
         T temp[] = (T[]) Array.newInstance(type, this.columns); //Pomocnicza tablica
         T mulTemp[] = (T[]) Array.newInstance(type, this.columns); //Pomocnicza tablica
@@ -199,7 +158,6 @@ public class MyMatrix<T extends ANumber<T>> {
             this.vector[y+1] = this.vector[y+1].add(mulHelp);
         }
 
-        //Dodaje pomocnicza macierz do macierzy redukawanej
     }
 
     private void reduceMatrix(){
@@ -211,11 +169,77 @@ public class MyMatrix<T extends ANumber<T>> {
         }
     }
 
+    /*********************************************************DZIAŁANIA NA MACIERZACH**************************************************/
+
+    public T[] mulMatrixVector(){
+        T[] resultVector = (T[]) Array.newInstance(type, vector.length);
+        T sum;
+        T product;
+        for (int i = 0; i < rows; i++) {
+            sum = (T)staticObject.returnZero();
+            product = (T)staticObject.returnZero();
+            for (int j = 0; j < rows; j++) {
+                product =(T) savedMatrix[i][j].mul((T)vector[j]);
+                sum = (T) sum.add(product);
+            }
+            resultVector[i] = sum;
+        }
+        return resultVector;
+    }
+
+
+    public T[] addTwoRows(ANumber m1[], ANumber m2[]) {
+        T sum[] = (T[]) Array.newInstance(this.type, m1.length);
+        for (int i = 0; i < m1.length; i++) {
+            sum[i] = (T) m1[i].add(m2[i]);
+        }
+        return sum;
+    }
+
+    public T[] multiplayRowByValue(ANumber[] row, ANumber value) {
+        T factor[] = (T[]) Array.newInstance(this.type, row.length);
+        for (int i = 0; i < row.length; i++) {
+            factor[i] = (T) row[i].mul(value);
+        }
+        return factor;
+    }
+
+    public ANumber[] devideRowByValue(ANumber[] row, ANumber value) {
+        ANumber quotion[] = new ANumber[row.length];
+        for (int i = 0; i < row.length; i++) {
+            quotion[i] = (ANumber) row[i].div(value);
+        }
+        return quotion;
+    }
+
     private void changeSingOfVector(T[] vec){
         for (int i = 0; i < (this.rows); i++){
             vec[i] = (T) (vec[i].changeSign());
         }
     }
+
+    /*************************************************FUNKCJE SWAP**************************************************************/
+
+    public void swapRows(int firstRow, int secondRow) {
+        T tempRow[] = matrix[firstRow];
+        matrix[firstRow] = matrix[secondRow];
+        matrix[secondRow] = tempRow;
+
+        T tempElement = vector[firstRow];
+        vector[firstRow] = vector[secondRow];
+        vector[secondRow] = tempElement;
+    }
+
+    public void swapColumns(int firstColumn, int secondColumn) {
+        for (int i = 0; i < rows; i++) {
+            T tmp = matrix[i][firstColumn];
+            matrix[i][firstColumn] = matrix[i][secondColumn];
+            matrix[i][secondColumn] = tmp;
+        }
+    }
+
+
+    /*****************************************POMOCNICZE METODY DO CZĘŚCIOWEGO I PEŁNEGO WYBORU*************************************************/
 
     public void findBiggestValueInRow(int xPos){
 
@@ -226,7 +250,7 @@ public class MyMatrix<T extends ANumber<T>> {
         swapRows(xPos, maxRow);
     }
 
-    public void findBiggestElementInSubmatrix(int xPos){
+    public void findBiggestElementInSubmatrix(int xPos, ArrayList<Integer> sequence){
 
         int maxRow = xPos;
         int maxColumn = xPos;
@@ -240,17 +264,30 @@ public class MyMatrix<T extends ANumber<T>> {
         }
         swapRows(xPos, maxRow);
         swapColumns(xPos,maxColumn);
+        Collections.swap(sequence, xPos, maxColumn);
     }
+
+    private T[] readCorrectValueOfComputedVector(T[] resultVector, List<Integer> seq) {
+        T[] newResultVector = (T[]) Array.newInstance(type, resultVector.length);
+
+        for (int i = 0; i < seq.size(); i++) newResultVector[seq.get(i)] = resultVector[i];
+
+        return newResultVector;
+    }
+    /********************************************METODY DO HIPOTEZ**************************************/
+
     public  double getNormInf(T[] res, T[] vec){
-        T result = (T) res[0].sub(vec[0]).abs();
+        T result = (T) res[0].abs().sub(vec[0].abs()).abs();
         T diff;
         for(int i = 0; i < vec.length; i++){
-            diff = (T) res[i].sub(vec[i]).abs();
-            System.out.println(res[i] +" "+ vec[i]+" "+ diff);
+            diff = (T) res[i].abs().sub(vec[i].abs()).abs();
             if(result.abs().compareTo(diff.abs()) == -1){
                 result = diff.abs();
             }
         }
         return result.doubleValue();
     }
+
+
 }
+
