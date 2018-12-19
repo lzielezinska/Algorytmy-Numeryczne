@@ -14,7 +14,13 @@ public class MyMatrix {
     public double[][] matrix;
     public double[][] savedMatrix;
     public double vector[];
-    public double savedVector[];
+    private double savedVector[];
+
+
+    public double[] getSavedVector() {
+        return savedVector;
+    }
+
 
 
 
@@ -216,7 +222,7 @@ public class MyMatrix {
             sum = 0;
             product = 0;
             for (int j = 0; j < rows; j++) {
-                product =savedMatrix[i][j]*vector[j];
+                product =this.savedMatrix[i][j]*vector[j];
                 sum =sum + product;
             }
             resultVector[i] = sum;
@@ -285,7 +291,7 @@ public class MyMatrix {
     }
 
 
-    public  double getNormInf(double[] res, double[] vec){
+    public  static double getNormInf(double[] res, double[] vec){
         double result =  Math.abs(Math.abs(res[0])-Math.abs(vec[0]));
         double diff;
         for(int i = 0; i < vec.length; i++){

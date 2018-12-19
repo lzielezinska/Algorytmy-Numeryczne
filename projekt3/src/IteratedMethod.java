@@ -4,21 +4,27 @@
 public class IteratedMethod {
     public MyMatrix matrix;
     boolean precision = false;
+    private int iterator = 0;
 
-    private static final double expectedPrecision = 0.00000000001;
-    private static final int maxIteration = 100000000;
+    private static final double expectedPrecision = 0.000000000000000000000000000000001;
+    private static final int maxIteration = 1000000000;
+
+    public int getIterator() {
+        return iterator;
+    }
+
 
     public IteratedMethod(MyMatrix matrix) {
         this.matrix = matrix;
     }
 
-    public int jacobiMethod() {
+    public void jacobiMethod() {
         cleanMatrix();
         double nextVector[] = new double[matrix.vector.length];
         double previousVector[] = new double[matrix.vector.length];
         nextVector = setResoultVector(nextVector);
 
-        int iterator = 0;
+        iterator = 0;
         while ((iterator < maxIteration) && (precision!=true)){
             previousVector = saveValuesOfCurrentVector(nextVector,previousVector);
             for(int i = 0; i < nextVector.length; i++){
@@ -31,17 +37,16 @@ public class IteratedMethod {
             matrix.vector[i]= nextVector[i];
         }
 
-        return  iterator;
 
     }
 
-    public int gaussSeidelMethod() {
+    public void gaussSeidelMethod() {
        // cleanMatrix();
         double nextVector[] = new double[matrix.vector.length];
         double previousVector[] = new double[matrix.vector.length];
         nextVector = setResoultVector(nextVector);
 
-        int iterator = 0;
+        iterator = 0;
         while ((iterator < maxIteration) && (precision!=true)){
             previousVector = saveValuesOfCurrentVector(nextVector,previousVector);
             for(int i = 0; i < nextVector.length; i++){
@@ -54,7 +59,6 @@ public class IteratedMethod {
             matrix.vector[i]= nextVector[i];
         }
 
-        return iterator;
 
     }
 

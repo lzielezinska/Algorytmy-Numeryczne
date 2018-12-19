@@ -2,10 +2,8 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 
-public class Hypothesis2 {
+public class Hypothesis {
 
     //Metoda Gaussa-Seidela szybciej zbiega do poprawnego wyniku niż metoda Jacobiego.(LZ)
     public static void A1(){
@@ -24,12 +22,14 @@ public class Hypothesis2 {
             Randomizer.resetRandomizer();
             matrix = MatrixGenerator.prepareMatrix(sizeOfMatrix);
             IteratedMethod JacobiMethod = new IteratedMethod(matrix);
-            iterationJacobi[i] = JacobiMethod.jacobiMethod();
+            JacobiMethod.jacobiMethod();
+            iterationJacobi[i] = JacobiMethod.getIterator();
 
             Randomizer.resetRandomizer();
             matrix = MatrixGenerator.prepareMatrix(sizeOfMatrix);
             IteratedMethod gaussSeidelMethod = new IteratedMethod(matrix);
-            iterationGaussSeidel[i] = gaussSeidelMethod.gaussSeidelMethod();
+            gaussSeidelMethod.gaussSeidelMethod();
+            iterationGaussSeidel[i] = gaussSeidelMethod.getIterator();
 
 
 
@@ -44,9 +44,9 @@ public class Hypothesis2 {
         File plik3 = new File("xValues.csv");
 
 
-        WriteFile("iterationJacobi.csv", iterationJacobi);
-        WriteFile("iterationGaussSeidel.csv", iterationGaussSeidel);
-        WriteFile("xValues.csv", sizes);
+        Save.writeFile("iterationJacobi.csv", iterationJacobi);
+        Save.writeFile("iterationGaussSeidel.csv", iterationGaussSeidel);
+        Save.writeFile("xValues.csv", sizes);
 
 
 
@@ -94,9 +94,9 @@ public class Hypothesis2 {
         File plik2 = new File("timesPartGaussForSparseMatrix.csv");
         File plik3 = new File("xValues.csv");
 
-        WriteFile("timesPartGauss.csv", timesPartGauss);
-        WriteFile("timesPartGaussForSparseMatrix.csv", timesPartGaussForSparseMatrix);
-        WriteFile("xValues.csv", sizes);
+        Save.writeFile("timesPartGauss.csv", timesPartGauss);
+        Save.writeFile("timesPartGaussForSparseMatrix.csv", timesPartGaussForSparseMatrix);
+        Save.writeFile("xValues.csv", sizes);
 
     }
 
@@ -139,42 +139,39 @@ public class Hypothesis2 {
     //Q2.Jak zależy błąd od rozmiaru planszy dla różnych metod
     public static void Q2(){
 
-        int sizeOfArray = 10;
-        int sizeOfMatrix = 2;
-
-        MyMatrix matrix = new MyMatrix(sizeOfMatrix, sizeOfMatrix);
-
-        double errorJacobi[] = new double[sizeOfArray];
-        double errorGaussSeidel[] = new double[sizeOfArray];
-        double errorPartChoiceGaussForSparseMatrix[] = new double[sizeOfArray];
-        double resultArray[] = new double[matrix.vector.length];
-        int sizes[] = new int[sizeOfArray];
+        int sizes[] = {20, 50, 100};
 
 
-        for(int i = 0; i<sizeOfArray; i++){
+        MyMatrix matrix = new MyMatrix(sizes.length, sizes.length);
+
+        double errorJacobi[] = new double[sizes.length];
+        double errorGaussSeidel[] = new double[sizes.length];
+        double errorPartChoiceGaussForSparseMatrix[] = new double[sizes.length];
+        double resultArray[];
+
+
+
+        for(int i = 0; i<sizes.length; i++){
             Randomizer.resetRandomizer();
-            matrix = MatrixGenerator.prepareMatrix(sizeOfMatrix);
+            matrix = MatrixGenerator.prepareMatrix(sizes[i]);
             matrix.partChoiceGaussForSparseMatrix();
             resultArray = matrix.mulMatrixVector();
-            errorPartChoiceGaussForSparseMatrix[i] = matrix.getNormInf(resultArray, matrix.savedVector);
+            errorPartChoiceGaussForSparseMatrix[i] = MyMatrix.getNormInf(resultArray, matrix.getSavedVector());
 
             Randomizer.resetRandomizer();
-            matrix = MatrixGenerator.prepareMatrix(sizeOfMatrix);
+            matrix = MatrixGenerator.prepareMatrix(sizes[i]);
             IteratedMethod jacobiMethod = new IteratedMethod(matrix);
             jacobiMethod.jacobiMethod();
             resultArray = jacobiMethod.matrix.mulMatrixVector();
-            errorGaussSeidel[i] = jacobiMethod.getError(resultArray, matrix.savedVector);
+            errorGaussSeidel[i] = IteratedMethod.getError(resultArray, matrix.getSavedVector());
 
             Randomizer.resetRandomizer();
-            matrix = MatrixGenerator.prepareMatrix(sizeOfMatrix);
+            matrix = MatrixGenerator.prepareMatrix(sizes[i]);
             IteratedMethod gaussSeidelMethod = new IteratedMethod(matrix);
             gaussSeidelMethod.gaussSeidelMethod();
             resultArray = gaussSeidelMethod.matrix.mulMatrixVector();
-            errorJacobi[i] = gaussSeidelMethod.getError(resultArray, matrix.savedVector);
+            errorJacobi[i] = IteratedMethod.getError(resultArray, matrix.getSavedVector());
 
-
-            sizes[i] = sizeOfMatrix;
-            sizeOfMatrix+=10;
 
 
         }
@@ -185,10 +182,10 @@ public class Hypothesis2 {
         File plik4 = new File("xValues.csv");
 
 
-        WriteFile("errorJacobi.csv", errorJacobi);
-        WriteFile("errorGaussSeidel.csv", errorGaussSeidel);
-        WriteFile("errorPartChoiceGaussForSparseMatrix.csv", errorPartChoiceGaussForSparseMatrix);
-        WriteFile("xValues.csv", sizes);
+        Save.writeFile("errorJacobi.csv", errorJacobi);
+        Save.writeFile("errorGaussSeidel.csv", errorGaussSeidel);
+        Save.writeFile("errorPartChoiceGaussForSparseMatrix.csv", errorPartChoiceGaussForSparseMatrix);
+        Save.writeFile("xValues.csv", sizes);
 
 
     }
@@ -236,51 +233,13 @@ public class Hypothesis2 {
         File plik3 = new File("xValues.csv");
 
 
-        WriteFile("timesJacobi.csv", timesJacobi);
-        WriteFile("timesGaussSeidel.csv", timesGaussSeidel);
-        WriteFile("xValues.csv", sizes);
+        Save.writeFile("timesJacobi.csv", timesJacobi);
+        Save.writeFile("timesGaussSeidel.csv", timesGaussSeidel);
+        Save.writeFile("xValues.csv", sizes);
 
     }
 
-    private static void WriteFile(String name, long resultArray[]){
 
-        try {
-            PrintWriter zapis1;
-            zapis1 = new PrintWriter(name);
-            for(int i = 0; i<resultArray.length;i++) zapis1.println(resultArray[i]);
-            zapis1.close();
-        }
-        catch(FileNotFoundException e){
-            System.out.print("Plik nie został utworzony\nBład: "+e);
-        }
-
-    }
-    private static void WriteFile(String name, int resoultArray[]){
-
-        try {
-            PrintWriter zapis1;
-            zapis1 = new PrintWriter(name);
-            for(int i = 0; i<resoultArray.length;i++) zapis1.println(resoultArray[i]);
-            zapis1.close();
-        }
-        catch(FileNotFoundException e){
-            System.out.print("Plik nie został utworzony\nBład: "+e);
-        }
-
-    }
-    private static void WriteFile(String name, double resoultArray[]){
-
-        try {
-            PrintWriter zapis1;
-            zapis1 = new PrintWriter(name);
-            for(int i = 0; i<resoultArray.length;i++) zapis1.println(resoultArray[i]);
-            zapis1.close();
-        }
-        catch(FileNotFoundException e){
-            System.out.print("Plik nie został utworzony\nBład: "+e);
-        }
-
-    }
 
 
 }
