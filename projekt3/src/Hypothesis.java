@@ -139,38 +139,42 @@ public class Hypothesis {
     //Q2.Jak zależy błąd od rozmiaru planszy dla różnych metod
     public static void Q2(){
 
-        int sizes[] = {20, 50, 100};
+        int sizeOfArray = 100;
+        int sizeOfMatrix = 10;
+        int sizes[] = new int[sizeOfArray];
 
+        MyMatrix matrix;
 
-        MyMatrix matrix = new MyMatrix(sizes.length, sizes.length);
-
-        double errorJacobi[] = new double[sizes.length];
-        double errorGaussSeidel[] = new double[sizes.length];
-        double errorPartChoiceGaussForSparseMatrix[] = new double[sizes.length];
+        double errorJacobi[] = new double[sizeOfArray];
+        double errorGaussSeidel[] = new double[sizeOfArray];
+        double errorPartChoiceGaussForSparseMatrix[] = new double[sizeOfArray];
         double resultArray[];
 
 
 
-        for(int i = 0; i<sizes.length; i++){
+        for(int i = 0; i<sizeOfArray; i++){
             Randomizer.resetRandomizer();
-            matrix = MatrixGenerator.prepareMatrix(sizes[i]);
+            matrix = MatrixGenerator.prepareMatrix(sizeOfMatrix);
             matrix.partChoiceGaussForSparseMatrix();
             resultArray = matrix.mulMatrixVector();
             errorPartChoiceGaussForSparseMatrix[i] = MyMatrix.getNormInf(resultArray, matrix.getSavedVector());
 
             Randomizer.resetRandomizer();
-            matrix = MatrixGenerator.prepareMatrix(sizes[i]);
+            matrix = MatrixGenerator.prepareMatrix(sizeOfMatrix);
             IteratedMethod jacobiMethod = new IteratedMethod(matrix);
             jacobiMethod.jacobiMethod();
             resultArray = jacobiMethod.matrix.mulMatrixVector();
             errorGaussSeidel[i] = IteratedMethod.getError(resultArray, matrix.getSavedVector());
 
             Randomizer.resetRandomizer();
-            matrix = MatrixGenerator.prepareMatrix(sizes[i]);
+            matrix = MatrixGenerator.prepareMatrix(sizeOfMatrix);
             IteratedMethod gaussSeidelMethod = new IteratedMethod(matrix);
             gaussSeidelMethod.gaussSeidelMethod();
             resultArray = gaussSeidelMethod.matrix.mulMatrixVector();
             errorJacobi[i] = IteratedMethod.getError(resultArray, matrix.getSavedVector());
+
+            sizes[i] = sizeOfMatrix;
+            sizeOfMatrix+=1;
 
 
 

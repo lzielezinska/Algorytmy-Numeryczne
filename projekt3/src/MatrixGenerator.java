@@ -33,6 +33,7 @@ public class MatrixGenerator {
         for(int i = 0; i < rowSize; i++){
             for(int t = 0; t < rowSize; t++){
                 matrix.matrix[i][t] = generatedMatrix[i][t];
+                matrix.savedMatrix[i][t] =  generatedMatrix[i][t];
             }
         }
 

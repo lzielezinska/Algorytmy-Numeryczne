@@ -85,6 +85,16 @@ public class MyMatrix {
         }
     }
 
+    public  static void printExtendedMatrix(double matrix[][]) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                System.out.format("| % .4f ",matrix[i][j]);
+            }
+      //      System.out.format("|| % .4f", MyMatrix.vector[i]);
+            System.out.println("");
+        }
+    }
+
     /********************************************REDUKCJA MACIERZY ZA POMOCĄ METODY GAUSSA-JORDANA***************************************/
 
     public double[] gauss(){
