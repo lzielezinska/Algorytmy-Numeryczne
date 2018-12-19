@@ -26,7 +26,7 @@ public class ChartUtilis {
         );
         // Zapisywanie wykresu do pliku JPG:
         try {
-            ChartUtilities.saveChartAsJPEG(new File(fileName + ".jpg"), lineGraph, 1600, 900);
+            ChartUtilities.saveChartAsJPEG(new File(fileName + ".jpg"), lineGraph, 800, 450);
         } catch (Exception e) {
             System.out.println("Problem z zapisem wykresu do pliku");
         }
