@@ -77,7 +77,7 @@ public class Hypothesis {
             timesPartGauss[i] = timestampAfter - timestampBefore;
 
             Randomizer.resetRandomizer();
-            matrix = MatrixGenerator.prepareMatrix(sizeOfArray);
+            matrix = MatrixGenerator.prepareMatrix(sizeOfMatrix);
             timestampBefore = System.currentTimeMillis();
             matrix.partChoiceGaussForSparseMatrix();
             timestampAfter = System.currentTimeMillis();
@@ -194,10 +194,9 @@ public class Hypothesis {
 
     }
     //Q3. Metoda Gaussa-Seidela daje wyniki o podanej dokładności szybciej(LZ)
-    public static void Q3(){
+    public static void Q3(double precision){
         int sizeOfArray = 10;
         int sizeOfMatrix = 2;
-
         long timestampBefore;
         long timestampAfter;
 
@@ -211,7 +210,7 @@ public class Hypothesis {
         for(int i = 0; i<sizeOfArray; i++){
             Randomizer.resetRandomizer();
             matrix = MatrixGenerator.prepareMatrix(sizeOfMatrix);
-            IteratedMethod JacobiMethod = new IteratedMethod(matrix);
+            IteratedMethod JacobiMethod = new IteratedMethod(matrix, precision);
             timestampBefore = System.currentTimeMillis();
             JacobiMethod.jacobiMethod();
             timestampAfter = System.currentTimeMillis();
@@ -219,7 +218,7 @@ public class Hypothesis {
 
             Randomizer.resetRandomizer();
             matrix = MatrixGenerator.prepareMatrix(sizeOfMatrix);
-            IteratedMethod gaussSeidelMethod = new IteratedMethod(matrix);
+            IteratedMethod gaussSeidelMethod = new IteratedMethod(matrix, precision);
             timestampBefore = System.currentTimeMillis();
             gaussSeidelMethod.gaussSeidelMethod();
             timestampAfter = System.currentTimeMillis();

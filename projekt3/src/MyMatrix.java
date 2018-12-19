@@ -159,7 +159,7 @@ public class MyMatrix {
         help = getLeading1(xPos, temp, savedValueOfCurrentOperation);
 
         for(int y = xPos; y < this.rows -1; y++){
-            if(matrix[y][yPos]!=0)
+            if(matrix[y+1][yPos]!=0)
             reduceColumn(yPos, temp, help, y);
         }
 

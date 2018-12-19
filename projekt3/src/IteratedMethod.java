@@ -6,8 +6,8 @@ public class IteratedMethod {
     boolean precision = false;
     private int iterator = 0;
 
-    private static final double expectedPrecision = 0001;
-    private static final int maxIteration = 100;
+    private double expectedPrecision = 0.0001;
+    private final int maxIteration = 1000;
 
     public int getIterator() {
         return iterator;
@@ -16,6 +16,10 @@ public class IteratedMethod {
 
     public IteratedMethod(MyMatrix matrix) {
         this.matrix = matrix;
+    }
+    public IteratedMethod(MyMatrix matrix, double expectedPrecision) {
+        this.matrix = matrix;
+        this.expectedPrecision = expectedPrecision;
     }
 
     public void jacobiMethod() {
