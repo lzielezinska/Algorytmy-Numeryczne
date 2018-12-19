@@ -14,7 +14,7 @@ public class MyMatrix {
     public double[][] matrix;
     public double[][] savedMatrix;
     public double vector[];
-    private double savedVector[];
+    public double savedVector[];
 
 
     public double[] getSavedVector() {
