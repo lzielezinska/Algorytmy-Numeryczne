@@ -7,7 +7,7 @@ public class IteratedMethod {
     private int iterator = 0;
 
     private double expectedPrecision = 0.0001;
-    private final int maxIteration = 1000;
+    private final int maxIteration = 1000000000;
 
     public int getIterator() {
         return iterator;

@@ -195,8 +195,8 @@ public class Hypothesis {
     }
     //Q3. Metoda Gaussa-Seidela daje wyniki o podanej dokładności szybciej(LZ)
     public static void Q3(double precision){
-        int sizeOfArray = 10;
-        int sizeOfMatrix = 2;
+        int sizeOfArray = 8;
+        int sizeOfMatrix = 10;
         long timestampBefore;
         long timestampAfter;
 
@@ -226,7 +226,7 @@ public class Hypothesis {
 
 
             sizes[i] = sizeOfMatrix;
-            sizeOfMatrix+=10;
+            sizeOfMatrix+=15;
 
 
         }

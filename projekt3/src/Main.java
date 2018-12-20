@@ -1,8 +1,9 @@
 public class Main {
     public static void main(String[] args) {
-    Tests.testPart();
-    Tests.testPart1();
+        Hypothesis.Q3(0.00000000000001);
     }
+
+
 
 
 }
