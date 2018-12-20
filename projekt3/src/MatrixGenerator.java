@@ -37,6 +37,11 @@ public class MatrixGenerator {
             }
         }
 
+        for(int i = 0; i < rowSize; i++){
+            matrix.vector[i] = vector[i];
+            matrix.savedVector[i] = vector[i];
+        }
+
         return matrix;
     }
     public static double[][] generateMatrix(int n){
