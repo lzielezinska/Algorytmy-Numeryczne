@@ -3,7 +3,6 @@
  */
 public class IteratedMethod {
     public MyMatrix matrix;
-    boolean precision = false;
     private int iterator = 0;
 
 
@@ -30,14 +29,14 @@ public class IteratedMethod {
         nextVector = setResoultVector(nextVector);
 
         iterator = 0;
-        while ((iterator < maxIteration) && (precision!=true)){
-            previousVector = saveValuesOfCurrentVector(nextVector,previousVector);
-            for(int i = 0; i < nextVector.length; i++){
-                nextVector[i] = solve(matrix.matrix[i], previousVector, i );
+       do{
+           previousVector = saveValuesOfCurrentVector(nextVector,previousVector);
+           for(int i = 0; i < nextVector.length; i++){
+               nextVector[i] = solve(matrix.matrix[i], previousVector, i );
             }
-            if(getError(previousVector, nextVector) < expectedPrecision) precision = true;
-            iterator++;
-        }
+           iterator++;
+       }while((getError(previousVector, nextVector) < expectedPrecision) && ((iterator < maxIteration)));
+
         for(int i = 0; i< previousVector.length; i++) {
             matrix.vector[i]= nextVector[i];
         }
@@ -52,18 +51,17 @@ public class IteratedMethod {
         nextVector = setResoultVector(nextVector);
 
         iterator = 0;
-        while ((iterator < maxIteration) && (precision!=true)){
+       do((iterator < maxIteration) && (precision!=true)){
             previousVector = saveValuesOfCurrentVector(nextVector,previousVector);
             for(int i = 0; i < nextVector.length; i++){
                 nextVector[i] = solve(matrix.matrix[i], nextVector, i );
             }
-            if(getError(previousVector, nextVector) < expectedPrecision) precision = true;
             iterator++;
-        }
+        }while(getError(previousVector, nextVector) < expectedPrecision) && (iterator < maxIteration))
+
         for(int i = 0; i< previousVector.length; i++) {
             matrix.vector[i]= nextVector[i];
         }
-
 
     }
 
