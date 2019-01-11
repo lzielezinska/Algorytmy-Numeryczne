@@ -51,13 +51,13 @@ public class IteratedMethod {
         nextVector = setResoultVector(nextVector);
 
         iterator = 0;
-       do((iterator < maxIteration) && (precision!=true)){
+       do{
             previousVector = saveValuesOfCurrentVector(nextVector,previousVector);
             for(int i = 0; i < nextVector.length; i++){
                 nextVector[i] = solve(matrix.matrix[i], nextVector, i );
             }
             iterator++;
-        }while(getError(previousVector, nextVector) < expectedPrecision) && (iterator < maxIteration))
+        }while((getError(previousVector, nextVector) < expectedPrecision) && (iterator < maxIteration));
 
         for(int i = 0; i< previousVector.length; i++) {
             matrix.vector[i]= nextVector[i];
