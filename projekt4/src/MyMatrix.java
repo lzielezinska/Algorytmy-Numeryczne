@@ -29,8 +29,8 @@ public class MyMatrix {
         this.columns = columns;
         this.matrix = new double[rows][columns];
         this.savedMatrix = new double[rows][columns];
-        this.vector = new double[rows];
-        this.savedVector = new double[rows];
+        this.vector = new double[columns];
+        this.savedVector = new double[columns];
 
     }
 
