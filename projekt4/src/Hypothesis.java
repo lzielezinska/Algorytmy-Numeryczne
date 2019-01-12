@@ -5,6 +5,7 @@ public class Hypothesis {
     //Oddzielny pomiar czasu dla budowanie układu i jego rozwiązania.
     public static void H1(){
 
+
     }
     //H2. - Stosując aproksymację średniokwadratową dyskretną znaleźć wielomian aproksymacyjny dla każdej z serii pomiarów.
     //Uzyskane współczynniki wielomianu podać w sprawozdaniu.
@@ -18,7 +19,7 @@ public class Hypothesis {
     }
 
     //H4. - Wyliczyć jak długo trwałyby obliczenia, gdyby rozmiar układu był rzędu
-    // 100 000 równań  ignorując ograniczenia pamięciowe.
+    //100 000 równań  ignorując ograniczenia pamięciowe.
     public static void H4(){
 
     }

@@ -3,22 +3,52 @@
  */
 public class Aproximation {
 
-    public static double solveAproximationEquasion(double xValue, double argumnets[], double values[], int degree){
+    public static double getResultOfEquasion(double PolynomialCoefficeints[], double xValue){
         double result = 0.0;
-        double resultVector[] = countAproximationPolynomial(argumnets,values,degree);
+        for (int i = 0; i < PolynomialCoefficeints.length; i++) result += PolynomialCoefficeints[i] * Math.pow(xValue, i);
 
-        for (int i = 0; i < resultVector.length; i++) result += resultVector[i] * Math.pow(xValue, i);
+        return  result;
 
-        return result;
+    }
+    public static void solveAproximationEquasionForGaussSeidelMethod(double argumnets[], double values[]){
+        int degree = 2;
+        double precision = 0.0000000001;
+        MyMatrix resultMatrix = countAproximationPolynomial(argumnets,values,degree);
+        resultMatrix.printExtendedMatrix();
+        IteratedMethod GaussSeidel = new IteratedMethod(resultMatrix, precision);
+        System.out.println("****************************");
+        GaussSeidel.gaussSeidelMethod();
+        GaussSeidel.matrix.printExtendedMatrix();
     }
 
-    private static double[] countAproximationPolynomial(double argumnets[], double values[], int degree){
+
+
+    public static void solveAproximationEquasionForGaussSparseMatrix(double argumnets[], double values[]){
+        int degree = 2;
+        MyMatrix resultMatrix = countAproximationPolynomial(argumnets,values,degree);
+        resultMatrix.printExtendedMatrix();
+        resultMatrix.partChoiceGaussForSparseMatrix();
+        System.out.println("****************************");
+        resultMatrix.printExtendedMatrix();
+    }
+
+
+    public static void solveAproximationEquasionForGauss(double argumnets[], double values[]){
+        int degree = 3;
+        MyMatrix resultMatrix = countAproximationPolynomial(argumnets,values,degree);
+        resultMatrix.printExtendedMatrix();
+        resultMatrix.partChoiceGauss();
+        System.out.println("****************************");
+        resultMatrix.printExtendedMatrix();
+
+    }
+
+    public static MyMatrix countAproximationPolynomial(double argumnets[], double values[], int degree){
         MyMatrix sMatrix = countSCoefficient(argumnets,degree);
         MyMatrix tMatrix = countTCoefficient(values,degree,sMatrix);
         MyMatrix resultMatrix = setResultMatrix(sMatrix.vector, tMatrix.vector);
-        resultMatrix.partChoiceGaussForSparseMatrix();
 
-        return resultMatrix.vector;
+        return resultMatrix;
 
     }
 

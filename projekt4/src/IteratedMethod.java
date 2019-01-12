@@ -4,10 +4,11 @@
 public class IteratedMethod {
     public MyMatrix matrix;
     private int iterator = 0;
+    boolean precision = false;
 
 
     private double expectedPrecision = 0.0000000001;
-    public static int maxIteration = 2000000000;
+    public static int maxIteration = 10000000;
 
     public int getIterator() {
         return iterator;
@@ -45,26 +46,25 @@ public class IteratedMethod {
     }
 
     public void gaussSeidelMethod() {
-       // cleanMatrix();
+        // cleanMatrix();
         double nextVector[] = new double[matrix.vector.length];
         double previousVector[] = new double[matrix.vector.length];
         nextVector = setResoultVector(nextVector);
 
-        iterator = 0;
-       do{
+        int iterator = 0;
+        while ((iterator < maxIteration) && (precision!=true)){
             previousVector = saveValuesOfCurrentVector(nextVector,previousVector);
             for(int i = 0; i < nextVector.length; i++){
                 nextVector[i] = solve(matrix.matrix[i], nextVector, i );
             }
+            if(getError(previousVector, nextVector) < expectedPrecision) precision = true;
             iterator++;
-        }while((getError(previousVector, nextVector) < expectedPrecision) && (iterator < maxIteration));
-
+        }
         for(int i = 0; i< previousVector.length; i++) {
             matrix.vector[i]= nextVector[i];
         }
 
     }
-
     private double solve(double CurrentRow[], double nextVector[], int leadingElementPos){
         double sum = sumElements(CurrentRow,nextVector, leadingElementPos);
         double valueOfLeadingElement = CurrentRow[leadingElementPos];

@@ -226,12 +226,28 @@ public class Tests {
 
     }
 
-    public static void testAproximation(){
+    public static void testAproximationForGaussSeidel(){
         double argumnets[] = {0.0, 0.5, 1.0, 1.5, 2.0, 3.0, 3.5};
         double values[] = {1.02, 0.62, 0.50, 0.60, 0.98, 3.12, 5.08};
-        int degree = 2;
-        double xValue = 2.5;
-        System.out.println(Aproximation.solveAproximationEquasion(xValue,argumnets,values, degree));
+
+        Aproximation.solveAproximationEquasionForGaussSeidelMethod(argumnets, values);
+
+    }
+
+    public static void testAproximationForGaussSparseMatrix(){
+        double argumnets[] = {0.0, 0.5, 1.0, 1.5, 2.0, 3.0, 3.5};
+        double values[] = {1.02, 0.62, 0.50, 0.60, 0.98, 3.12, 5.08};
+
+        Aproximation.solveAproximationEquasionForGaussSparseMatrix(argumnets, values);
+
+    }
+
+    public static void testAproximationForGauss(){
+        double argumnets[] = {0.0, 0.5, 1.0, 1.5, 2.0, 3.0, 3.5};
+        double values[] = {1.02, 0.62, 0.50, 0.60, 0.98, 3.12, 5.08};
+
+        Aproximation.solveAproximationEquasionForGauss(argumnets, values);
+
     }
 
 

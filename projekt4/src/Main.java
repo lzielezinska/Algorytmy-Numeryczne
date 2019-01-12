@@ -1,6 +1,10 @@
 public class Main {
     public static void main(String[] args) {
-        Tests.testAproximation();
+        Tests.testAproximationForGauss();
+        System.out.println("**************************");
+        Tests.testAproximationForGaussSparseMatrix();
+        System.out.println("***************************");
+        Tests.testAproximationForGaussSeidel();
     }
 
 
