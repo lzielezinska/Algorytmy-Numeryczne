@@ -3,14 +3,25 @@
  */
 public class Aproximation {
 
-    public static void countAproximation(double argumnets[], double values[], int degree){
+    public static double solveAproximationEquasion(double xValue, double argumnets[], double values[], int degree){
+        double result = 0.0;
+        double resultVector[] = countAproximationPolynomial(argumnets,values,degree);
+
+        for (int i = 0; i < resultVector.length; i++) result += resultVector[i] * Math.pow(xValue, i);
+
+        return result;
+    }
+
+    private static double[] countAproximationPolynomial(double argumnets[], double values[], int degree){
         MyMatrix sMatrix = countSCoefficient(argumnets,degree);
         MyMatrix tMatrix = countTCoefficient(values,degree,sMatrix);
         MyMatrix resultMatrix = setResultMatrix(sMatrix.vector, tMatrix.vector);
         resultMatrix.printExtendedMatrix();
         resultMatrix.partChoiceGauss();
-        System.out.println("**************************");
+        System.out.println("**************************************************");
         resultMatrix.printExtendedMatrix();
+
+        return resultMatrix.vector;
 
     }
 
