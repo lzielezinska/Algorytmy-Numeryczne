@@ -1,5 +1,5 @@
 /**
- * Created by Lucyna on 11.01.19.
+ * Created by Lucyna Zielezińska & Kacper Dondziak on 11.01.19.
  */
 public class Aproximation {
 
@@ -16,10 +16,7 @@ public class Aproximation {
         MyMatrix sMatrix = countSCoefficient(argumnets,degree);
         MyMatrix tMatrix = countTCoefficient(values,degree,sMatrix);
         MyMatrix resultMatrix = setResultMatrix(sMatrix.vector, tMatrix.vector);
-        resultMatrix.printExtendedMatrix();
-        resultMatrix.partChoiceGauss();
-        System.out.println("**************************************************");
-        resultMatrix.printExtendedMatrix();
+        resultMatrix.partChoiceGaussForSparseMatrix();
 
         return resultMatrix.vector;
 
