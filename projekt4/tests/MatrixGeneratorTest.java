@@ -121,6 +121,22 @@ public class MatrixGeneratorTest {
         int result = MatrixGenerator.findElement(3,0, 3);
         assertEquals(9, result);
     }
+    @Test
+    public void findElement31(){
+        int result = MatrixGenerator.findElement(3,1, 4);
+        assertEquals(13, result);
+    }
+    @Test
+    public void findElement304(){
+        int result = MatrixGenerator.findElement(3,0, 4);
+        assertEquals(12, result);
+    }
+    @Test
+    public void findElement004(){
+        int result = MatrixGenerator.findElement(0,0, 4);
+        assertEquals(0, result);
+    }
+
 
     // ************ Find Element * END ***************
     // ************ Find U Element ****************

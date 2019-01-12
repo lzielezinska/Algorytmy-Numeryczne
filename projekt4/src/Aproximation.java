@@ -1,5 +1,6 @@
 /**
  * Created by Lucyna Zielezińska & Kacper Dondziak on 11.01.19.
+ * source of truth: https://eti.pg.edu.pl/documents/176593/26763380/Wykl_AlgorOblicz_3.pdf?fbclid=IwAR0j0VlZl3hCzUWrsVMSRJH2pjIackIsInTwWYR7BUq3NX-QSmqO9Oysubs
  */
 public class Aproximation {
 

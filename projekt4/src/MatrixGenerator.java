@@ -11,7 +11,7 @@ public class MatrixGenerator {
     }
     public static MyMatrix prepareMatrix(int size){
         int rowSize = ((size + 1) * (size + 2)) / 2;
-
+        int tempElem;
         double[] vector = prepareVector(size);
         double[][] generatedMatrix = MatrixGenerator.generateMatrix(size);
         for(int i = 0; i < rowSize; i++){
@@ -24,7 +24,8 @@ public class MatrixGenerator {
         for(int i = 0; i <= size; i++){
             for(int y = 0; y <= (size - i); y++){
                 if(i == 0){
-                    generatedMatrix[MatrixGenerator.findElement(i, y, size)][MatrixGenerator.findElement(i, y, size)] += 1.0;
+                    tempElem = MatrixGenerator.findElement(i, y, size);
+                    generatedMatrix[tempElem][tempElem] += 1.0;
                 }
             }
         }
@@ -48,11 +49,6 @@ public class MatrixGenerator {
         int size = ((n + 1) * (n + 2)) / 2;
         int indexOfRow = 0;
         double[][] result = new double[size][size];
-        for(int i = 0; i < size; i++){
-            for(int t = 0; t < size; t++){
-                result[i][t] = 0.0;
-            }
-        }
         for(int i = 0; i <= n; i++){
             for(int y = 0; y <= (n - i); y++){
                 generateRow(result[indexOfRow], i, y, n);
@@ -106,16 +102,13 @@ public class MatrixGenerator {
         return result;
     }
     public static int findElement(int yes, int no, int n){
-        int index = 0;
-        for(int i = 0; i <= n; i++){
-            for(int t = 0; t <= (n - i); t++){
-                if(i == (yes) && t == no){
-                    return index;
-                }
-                index++;
-            }
+        if(yes == 0){
+            return no;
+        } else if(yes == 1){
+            return (n+1) + no;
+        } else{
+            return (int)(((((float)n+1f) + ((float)n - (yes - 2f)))/2f) * (float)yes) + no;
         }
-        return -1;
     }
     public static int getToUElement(int yes, int no, int n){
         if(yes == 0 || no == 0)

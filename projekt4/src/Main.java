@@ -1,6 +1,8 @@
 public class Main {
     public static void main(String[] args) {
-        Tests.testAproximation();
+        //Tests.testAproximation();
+        MyMatrix matrix = new MyMatrix(MatrixGenerator.generateMatrix(3));
+        matrix.printExtendedMatrix();
     }
 
 
