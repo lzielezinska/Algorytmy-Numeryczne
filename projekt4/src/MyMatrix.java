@@ -80,7 +80,7 @@ public class MyMatrix {
             for (int j = 0; j < this.columns; j++) {
                 System.out.format("| % .4f ",this.matrix[i][j]);
             }
-            System.out.format("|| % .4f", vector[i]);
+            System.out.format("|| % .21f", vector[i]);
             System.out.println("");
         }
     }

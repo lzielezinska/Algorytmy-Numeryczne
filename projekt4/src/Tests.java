@@ -3,17 +3,17 @@
  */
 public class Tests {
     public static void testGenaration() {
-        MyMatrix mac = new MyMatrix(100,100);
+        MyMatrix mac = new MyMatrix(100, 100);
         mac.fillMatrixAndVector();
         mac.printExtendedMatrix();
 
     }
 
-        public static void testGauss() {
+    public static void testGauss() {
         System.out.println("Test of Gauss method");
 
 
-        MyMatrix m = new MyMatrix(4,4);
+        MyMatrix m = new MyMatrix(4, 4);
         m.vector[0] = 13.15;
         m.vector[1] = 49.84;
         m.vector[2] = -14.08;
@@ -41,11 +41,11 @@ public class Tests {
         m.printExtendedMatrix();
 
 
-
     }
+
     public static void testPart() {
         System.out.println("Test of Gauss method");
-        MyMatrix m = new MyMatrix(4,4);
+        MyMatrix m = new MyMatrix(4, 4);
 
         m.vector[0] = 13.15;
         m.vector[1] = 49.84;
@@ -75,11 +75,11 @@ public class Tests {
         m.printExtendedMatrix();
 
 
-
     }
+
     public static void testPart1() {
         System.out.println("Test of Gauss method");
-        MyMatrix m = new MyMatrix(4,4);
+        MyMatrix m = new MyMatrix(4, 4);
 
         m.vector[0] = 13.15;
         m.vector[1] = 49.84;
@@ -109,12 +109,12 @@ public class Tests {
         m.printExtendedMatrix();
 
 
-
     }
+
     public static void testFull() {
         System.out.println("Test of Gauss method");
 
-        MyMatrix m = new MyMatrix(4,4);
+        MyMatrix m = new MyMatrix(4, 4);
 
         m.vector[0] = 13.15;
         m.vector[1] = 49.84;
@@ -146,11 +146,11 @@ public class Tests {
 
     }
 
-    public static void testJacobi(){
+    public static void testJacobi() {
         System.out.println("Test of Jacobi method");
         System.out.println("Example from lecture");
 
-        MyMatrix m = new MyMatrix(4,4);
+        MyMatrix m = new MyMatrix(4, 4);
 
         m.vector[0] = 6;
         m.vector[1] = 25;
@@ -186,11 +186,11 @@ public class Tests {
 
     }
 
-    public static void testGaussSeidel(){
+    public static void testGaussSeidel() {
         System.out.println("Test of Gauss-Seidel method");
         System.out.println("Example from lecture");
 
-        MyMatrix m = new MyMatrix(4,4);
+        MyMatrix m = new MyMatrix(4, 4);
 
         m.vector[0] = 6;
         m.vector[1] = 25;
@@ -226,14 +226,39 @@ public class Tests {
 
     }
 
-    public static void testAproximation(){
-        double argumnets[] = {0.0, 0.25, 0.5, 0.75, 1.0};
-        double values[] = {1.00, 1.2840, 1.6487, 2.1170, 2.7183};
-        int degree = 2;
-        double xValue = 2.0;
-        System.out.println(Aproximation.solveAproximationEquasion(xValue,argumnets,values, degree));
+
+    public static void testAproximationForGaussSeidel() {
+        double argumnets[] = {0.0, 0.5, 1.0, 1.5, 2.0, 3.0, 3.5};
+        double values[] = {1.02, 0.62, 0.50, 0.60, 0.98, 3.12, 5.08};
+
+        Aproximation.solveAproximationEquasionForGaussSeidelMethod(argumnets, values);
+
     }
 
+    public static void testAproximationForGaussSparseMatrix() {
+        double argumnets[] = {0.0, 0.5, 1.0, 1.5, 2.0, 3.0, 3.5};
+        double values[] = {1.02, 0.62, 0.50, 0.60, 0.98, 3.12, 5.08};
+
+        Aproximation.solveAproximationEquasionForGaussSparseMatrix(argumnets, values);
+
+    }
+
+    public static void testAproximationForGauss() {
+        //2,5*(x^3) + (-3*(x^2)) + (2*(x)) +1,2
+        /*
+        4.0 121.2
+        5.0 248.7
+        6.0 445.2
+        7.0 725.7
+        8.0 1105.2
+        9.0 1598.7
+        10.0 2221.2
+         */
+        double argumnets[] = {4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0};
+        double values[] = {121.2, 248.7, 445.2, 725.7, 1105.2, 1598.7, 2221.2};
 
 
+        Aproximation.solveAproximationEquasionForGauss(argumnets, values);
+
+    }
 }
